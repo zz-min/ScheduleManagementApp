@@ -37,9 +37,12 @@ public class MainControl extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String pathInfo = request.getRequestURI();
-		System.out.println(pathInfo);
-		RequestDispatcher view = request.getRequestDispatcher("/views/main.jsp");
-		view.forward(request, response);
+		System.out.println("MainControl-path : "+pathInfo);
+		if (pathInfo.equals("/")) { // 가장처음 진입페이지
+			/* RequestDispatcher view = request.getRequestDispatcher("/views/main.jsp"); */
+			RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/view/main.jsp");
+			view.forward(request, response);
+		}
 	}
 
 	/**

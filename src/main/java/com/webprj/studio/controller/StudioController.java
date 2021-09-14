@@ -1,6 +1,8 @@
 package com.webprj.studio.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -16,7 +18,7 @@ import com.webprj.studio.dao.rsvDao;
 /**
  * Servlet implementation class StudioController
  */
-@WebServlet("/studio")
+@WebServlet("/studio/*")
 public class StudioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -49,25 +51,32 @@ public class StudioController extends HttpServlet {
 		// step #1. get request parameters
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		/*
-		 * rsvDao dao = (rsvDao) session.getAttribute("dao"); if (dao == null) {
-		 * ServletContext context = getServletContext(); dao = new
-		 * rsvDao(context.getInitParameter("jdbc_driver"),
-		 * context.getInitParameter("db_url"), context.getInitParameter("db_userid"),
-		 * context.getInitParameter("db_passwd")); session.setAttribute("dao", dao); }
-		 */
 
 		// step #2. data processing
 		String pathInfo = request.getRequestURI();
 		String action = request.getParameter("action");
 		String viewName = null;
-		System.out.println(pathInfo);
+		System.out.println("StudioController-path :" + pathInfo);
 
-		if (pathInfo != null && pathInfo.length() > 1) {
+		if (pathInfo != null && action == null) {
 			if (pathInfo.equals("/studio")) { // 가장처음 진입페이지
-				viewName = "/views/login.jsp";
+				viewName = "/WEB-INF/view/login.jsp";
 			} else if (pathInfo.equals("/studio/login")) {
-				viewName = "/view/admin.jsp";
+				String inputID = request.getParameter("userId");
+				String inputPWD = request.getParameter("password");
+
+				session.setAttribute("id",inputID);	
+				/*
+				 * session.removeAttribute("loginCheckSTR"); session.setAttribute("id",inputID);
+				 * session.setAttribute("member",m);
+				 * session.setAttribute("memberList",memberList);
+				 * session.setAttribute("type","admin"); session.setAttribute("loginCheckSTR",
+				 * "아이디"); session.setAttribute("loginCheckSTR", "비밀번호");
+				 * session.setAttribute("loginCheckSTR", "memberList");
+				 */
+
+				viewName = "/WEB-INF/view/calendar.jsp";
+
 			}
 		} else if (action != null) {
 

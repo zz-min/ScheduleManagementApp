@@ -20,7 +20,7 @@
 </script>
 </head>
 <body>
-	<form name="loginForm" action="/studio/login?action=loging" method="post">
+	<form name="loginForm" action="/studio/login" method="post">
 		계정 : <input type="text" name="userId"><br> 
 		비밀번호 : <input type="password" name="password"><br> 
 		<!-- <input type="hidden" name="loginType" value="admin"> --> 
