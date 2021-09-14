@@ -2,9 +2,37 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
-	id="WebApp_ID" version="4.0">
+	id="WebApp_ID" version="4.0" 
+	metadata-complete="false">
+	<!--metadata-complete="false" : annotation으로 ServletMapping  -->
 	
   <display-name>Archetype Created Web Application</display-name>
+  	<welcome-file-list>
+		<welcome-file>index</welcome-file>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+
+	<context-param>
+		<param-name>jdbc_driver</param-name>
+		<param-value>oracle.jdbc.driver.OracleDriver</param-value>
+	</context-param>
+	<context-param>
+		<param-name>db_url</param-name>
+		<param-value>jdbc:oracle:thin:@3.34.144.202:1521/xe</param-value>
+	</context-param>
+	<context-param>
+		<param-name>db_userid</param-name>
+		<param-value>web</param-value>
+	</context-param>
+	<context-param>
+		<param-name>db_passwd</param-name>
+		<param-value>oradb</param-value>
+	</context-param>
   
   
 </web-app>
