@@ -34,7 +34,7 @@
 </style>
 </head>
 <body>
-	<form name="loginForm" action="/studio/login"
+	<form name="loginForm" action="studio/login"
 		method="post">
 		<fieldset class="login_fieldset">
 			<legend>로그인</legend>

@@ -42,6 +42,14 @@ public class MainControl extends HttpServlet {
 			/* RequestDispatcher view = request.getRequestDispatcher("/views/main.jsp"); */
 			RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/view/main.jsp");
 			view.forward(request, response);
+		}else if (pathInfo.equals("/studio")) { // 가장처음 진입페이지
+			/* RequestDispatcher view = request.getRequestDispatcher("/views/main.jsp"); */
+			/*
+			 * RequestDispatcher view =
+			 * request.getRequestDispatcher("/WEB-INF/view/main.jsp"); view.forward(request,
+			 * response);
+			 */
+			System.out.println("ss");
 		}
 	}
 

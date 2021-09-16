@@ -22,7 +22,7 @@ import com.webprj.studio.dao.rsvDao;
 /**
  * Servlet implementation class StudioController
  */
-@WebServlet("/studio/*")
+@WebServlet("/studio")
 public class StudioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private LoginJDBCDao ljdbc = null;
