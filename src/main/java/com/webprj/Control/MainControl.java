@@ -36,17 +36,8 @@ public class MainControl extends HttpServlet {
 		System.out.println("MainControl-doGet Path : " + pathInfo);
 		
 		if (pathInfo.equals("/index")) { // 가장처음 진입페이지
-			/* RequestDispatcher view = request.getRequestDispatcher("/views/main.jsp"); */
-			RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/view/main.jsp");
+			RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/view/calendar.jsp");
 			view.forward(request, response);
-		} else if (pathInfo.contains("studio")) { // 가장처음 진입페이지
-			System.out.println("ss");
-			RequestDispatcher view = request.getRequestDispatcher(pathInfo);
-			/*
-			 * RequestDispatcher view =
-			 * request.getRequestDispatcher("/WEB-INF/view/main.jsp"); view.forward(request,
-			 * response);
-			 */
 		}
 	}
 
