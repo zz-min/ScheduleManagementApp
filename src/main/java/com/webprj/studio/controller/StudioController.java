@@ -2,8 +2,6 @@ package com.webprj.studio.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -17,7 +15,9 @@ import javax.servlet.http.HttpSession;
 import com.webprj.di.entity.Professor;
 import com.webprj.di.entity.Student;
 import com.webprj.studio.dao.LoginJDBCDao;
-import com.webprj.studio.dao.rsvDao;
+
+
+
 
 /**
  * Servlet implementation class StudioController
@@ -32,8 +32,7 @@ public class StudioController extends HttpServlet {
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public StudioController() {
-		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
 	@Override
@@ -81,7 +80,7 @@ public class StudioController extends HttpServlet {
 				
 				if (selectlogin.equals("admin")) {
 					System.out.println("관리자");
-					
+					viewName = "/WEB-INF/view/admin.jsp";
 					
 				} else if (selectlogin.equals("rofessor")) {
 					System.out.println("교직원");

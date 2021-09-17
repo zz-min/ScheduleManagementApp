@@ -13,43 +13,40 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class MainControl
  */
-@WebServlet("/")
+@WebServlet("/index")
 public class MainControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
+	
+	String pathInfo = null;
+	
 	public MainControl() {
-		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	@Override
 	public void init() throws ServletException {
 		System.out.println("MainControl - init함수진행즁");
 	}
+	
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String pathInfo = request.getRequestURI();
-		System.out.println("MainControl-path : "+pathInfo);
-		if (pathInfo.equals("/")) { // 가장처음 진입페이지
+		pathInfo = request.getRequestURI();
+		
+		System.out.println("MainControl-doGet Path : " + pathInfo);
+		
+		if (pathInfo.equals("/index")) { // 가장처음 진입페이지
 			/* RequestDispatcher view = request.getRequestDispatcher("/views/main.jsp"); */
 			RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/view/main.jsp");
 			view.forward(request, response);
-		}else if (pathInfo.equals("/studio")) { // 가장처음 진입페이지
-			/* RequestDispatcher view = request.getRequestDispatcher("/views/main.jsp"); */
+		} else if (pathInfo.contains("studio")) { // 가장처음 진입페이지
+			System.out.println("ss");
+			RequestDispatcher view = request.getRequestDispatcher(pathInfo);
 			/*
 			 * RequestDispatcher view =
 			 * request.getRequestDispatcher("/WEB-INF/view/main.jsp"); view.forward(request,
 			 * response);
 			 */
-			System.out.println("ss");
 		}
 	}
 
