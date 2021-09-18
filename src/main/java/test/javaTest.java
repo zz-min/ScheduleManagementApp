@@ -81,7 +81,7 @@ public class javaTest {
         int dayOfWeek = nowCal.get(Calendar.DAY_OF_WEEK);//요일 1~7
         int lastDay = nowCal.getActualMaximum(Calendar.DATE); // 해당 월의 마지막 일(date)를 반환
         System.out.println("nowCal : "+year+"년"+month+"월"+day+"일"+dayOfWeek+"요일");
-        
+        System.out.println("마지막날 "+lastDay);
         Calendar firstCal = new GregorianCalendar();//현재 달의 첫번째 날j
         firstCal=nowCal;
         firstCal.set(Calendar.DATE, 1);     

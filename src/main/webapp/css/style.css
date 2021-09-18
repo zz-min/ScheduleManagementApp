@@ -1,14 +1,49 @@
 @charset "UTF-8";
-html {
+
+header {
+	height: 50px;
+}
+#a {
+	min-width: 1485px;
+	display: block;
+	position: relative;
+	}
+/* LEFT */
+.leftSection {
+	width: 15%;
+	min-width:215px;
 	height: 100%;
+	float: left;
+	position: relative;
+	background-color: gray;
+	box-sizing: border-box;
+}
+/* RIGHT */
+.rightSection {
+	width: 85%;
+	min-width:1260px;
+	height: 100%;
+	position: relative;
+	background-color: cadetblue;
+	float: right;
+	box-sizing: border-box;
+}
+
+.calendar_title {
 	
 }
 
-body {
+.dayHeaderContainer {
+	width: 100%;
 	height: 100%;
-	margin: 0;
-	position: relative;
-	background-color: aqua;
+	display: block;
+}
+
+.dayHeader {
+	height: 100%;
+	width: calc(100%/ 7.2);
+	display: inline-block;
+	text-align: center;
 }
 
 #calendar {
@@ -17,7 +52,20 @@ body {
 	padding: 0.5%;
 }
 
-.calendar__day {
+#calendar>div {
+	box-sizing: border-box;
+	text-align: center;
+	width: calc(100%/ 7.2);
+	height: 130px;
+	display: inline-block;
+	border-bottom: 1px solid #e4e4e4;
+	vertical-align: top;
+	padding: 1%;
+	/* color: rgb(255, 0, 166); */
+	overflow-y: auto;
+}
+
+/* .calendar__day {
 	display: inline-block;
 	vertical-align: bottom;
 	width: calc(97%/ 7);
@@ -30,4 +78,4 @@ body {
 .verticalGutter {
 	margin-top: 0.2%;
 	margin-right: 0.2%;
-}
+} */
