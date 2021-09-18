@@ -37,6 +37,10 @@ public class MainControl extends HttpServlet {
 		
 		if (pathInfo.equals("/index")) { // 가장처음 진입페이지
 			RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/view/main.jsp");
+			/*
+			 * RequestDispatcher view =
+			 * request.getRequestDispatcher("/WEB-INF/view/calendarTEST.jsp");
+			 */
 			view.forward(request, response);
 		}
 	}

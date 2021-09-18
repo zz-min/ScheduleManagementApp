@@ -10,7 +10,7 @@
 	<button class="mainBtn" value="studio" onclick="location.href='/studio'">studio</button>
 	<button class="mainBtn" value="rental"	onclick="location.href='/rental'">rental</button>
 	<button class="mainBtn" value="btn3" onclick="location.href='/btn3'">btn3</button>
-	<button class="mainBtn" value="btn4" onclick="location.href='/btn4'">btn4</button>
+	<button class="mainBtn" value="adminBtn" onclick="location.href='/btn4'">adminBtn</button>
 	<br>
 	<br>
 	<br>	

@@ -11,18 +11,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>캘린더</title>
+<title>캘린더</title><!-- JSP-->
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.12.1/css/all.css"
 	integrity="sha384-v8BU367qNbs/aIZIxuivaU55N5GPF89WBerHoGA4QTcbUjYiLQtKdrfXnqAcXyTv"
 	crossorigin="anonymous">
 <link href="/css/style.css" rel="stylesheet" type="text/css">
 <link href="/css/reset.css" rel="stylesheet" type="text/css">
-<!-- <script src="/js/calendar.js"></script>
-<script src="/js/calTest.js"></script> -->
 </head>
 <body>
-	<%
+<%
 	Calendar nowCal = Calendar.getInstance();//현재날짜 2021-09-18-토(7)
 	int year = nowCal.get(Calendar.YEAR); // Calendar 인스턴스에 있는 저장된 필드 값을 가져옴 
 	int month = nowCal.get(Calendar.MONTH);//월 0~11 (1월~12월)
@@ -52,7 +50,7 @@
 	String calHtml = new String();
 	int startDayCount = 1;
 	int lastDayCount = 1;
-	%>
+%>
 	<c:set var="year" value="<%=year%>" />
 	<c:set var="month" value="<%=month%>" />
 	<c:set var="lastDay" value="<%=lastDay%>" />

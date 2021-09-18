@@ -100,7 +100,7 @@ public class StudioController extends HttpServlet {
 						session.setAttribute("name", pro.getName());
 						session.setAttribute("deptno", pro.getDeptno());
 
-						viewName = "/WEB-INF/view/calendar.jsp";
+						viewName = "/WEB-INF/view/calendar(jsp+js).jsp";
 
 						System.out.println("session : " + session);
 					}
@@ -125,12 +125,12 @@ public class StudioController extends HttpServlet {
 						session.setAttribute("deptno", std.getDeptno());
 						session.setAttribute("professor", std.getProfessor());
 
-						viewName = "/WEB-INF/view/calendar.jsp";
+						viewName = "/WEB-INF/view/calendar(jsp+js).jsp";
 					}
 				}
 			}
 		} else {
-			viewName = "/WEB-INF/view/calendar.jsp";
+			viewName = "/WEB-INF/view/calendar(jsp+js).jsp";
 		}
 
 		// step #3. output processing results
