@@ -1,0 +1,28 @@
+#title {
+	text-align: center;
+	font-family: 'Righteous', cursive;
+	font-size: 50px;
+	margin: 80px;
+	min-width: 900px;
+}
+
+input {
+	width: 250px;
+	height: 100px;
+	margin: 10px;
+	font-family: 'Roboto', sans-serif;
+	font-weight:500;
+	font-size: 35px;
+}
+
+.btnContainer {
+	width: 1100px;
+	margin: 0 auto;
+}
+
+#icon {
+	color: gray;
+	margin-left: 93%;
+	margin-top:15px;
+	vertical-align: middle;
+}
