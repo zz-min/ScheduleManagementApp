@@ -2,6 +2,7 @@ package com.webprj.studio.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -14,7 +15,9 @@ import javax.servlet.http.HttpSession;
 
 import com.webprj.di.entity.Professor;
 import com.webprj.di.entity.Student;
-import com.webprj.studio.dao.LoginJDBCDao;
+import com.webprj.di.entity.Studio;
+import com.webprj.studio.dao.LoginJdbcDao;
+import com.webprj.studio.dao.StudioJdbcDao;
 
 /**
  * Servlet implementation class StudioController
@@ -23,7 +26,8 @@ import com.webprj.studio.dao.LoginJDBCDao;
 public class StudioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private LoginJDBCDao ljdbc = null;
+	private LoginJdbcDao loginJdbc = null;
+	private StudioJdbcDao studioJdbc=null;
 	private HttpSession session = null;
 
 	/**
@@ -44,7 +48,8 @@ public class StudioController extends HttpServlet {
 		String userName = context.getInitParameter("db_userid");
 		String password = context.getInitParameter("db_passwd");
 
-		ljdbc = new LoginJDBCDao(driver, url, userName, password);
+		loginJdbc = new LoginJdbcDao(driver, url, userName, password);
+		studioJdbc= new StudioJdbcDao(driver, url, userName, password);
 	}
 
 	/**
@@ -86,7 +91,7 @@ public class StudioController extends HttpServlet {
 					System.out.println("교직원");
 
 					Professor pro = new Professor();
-					pro = ljdbc.selectProfessor(inputID, inputPWD);
+					pro = loginJdbc.selectProfessor(inputID, inputPWD);
 
 					if (pro == null) {
 						session = null;
@@ -99,6 +104,37 @@ public class StudioController extends HttpServlet {
 						session.setAttribute("id", inputID);
 						session.setAttribute("name", pro.getName());
 						session.setAttribute("deptno", pro.getDeptno());
+						List<Studio> studios = null;
+						List<String> studioLoc= null;
+						studios=studioJdbc.getStudios(null);
+						studioLoc=studioJdbc.getStudiosLoc();
+						
+						session.setAttribute("studios", studios);
+						
+						for(int i=0;i<studioLoc.size();i++) {
+							System.out.println(studioLoc.get(i));
+						}
+						/* studios출력
+						  	Studio [stdno=405, loc=공대, dep=2]
+							Studio [stdno=202, loc=국제관, dep=1]
+							Studio [stdno=203, loc=국제관, dep=1]
+							Studio [stdno=305, loc=국제관, dep=1]
+							Studio [stdno=601, loc=국제관, dep=2]
+							Studio [stdno=202, loc=사범관, dep=1]
+							Studio [stdno=203, loc=사범관, dep=2]
+							Studio [stdno=305, loc=사범관, dep=3]
+							Studio [stdno=405, loc=사범관, dep=4]
+							Studio [stdno=202, loc=인문관, dep=4]
+							Studio [stdno=203, loc=인문관, dep=4]
+							Studio [stdno=305, loc=인문관, dep=4]
+							==============================================
+							studioLoc출력
+							공대
+							국제관
+							사범관
+							인문관
+						 *  */
+						
 
 						viewName = "/WEB-INF/view/calendar(jsp+js).jsp";
 
@@ -108,7 +144,7 @@ public class StudioController extends HttpServlet {
 					System.out.println("학생");
 
 					Student std = new Student();
-					std = ljdbc.selectStudent(inputID, inputPWD);
+					std = loginJdbc.selectStudent(inputID, inputPWD);
 
 					if (std == null) {
 						session = null;

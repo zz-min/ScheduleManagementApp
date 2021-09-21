@@ -11,7 +11,7 @@ import com.webprj.di.entity.Professor;
 import com.webprj.di.entity.Student;
 
 
-public class LoginJDBCDao implements Login {
+public class LoginJdbcDao implements LoginDao {
 	private String driver;
 	private String url;
 	private String userName;
@@ -21,7 +21,7 @@ public class LoginJDBCDao implements Login {
 	private PreparedStatement stmt = null;
 	private ResultSet rs = null;
 
-	public LoginJDBCDao(String driver, String url, String userName, String password) {
+	public LoginJdbcDao(String driver, String url, String userName, String password) {
 		this.driver = driver;
 		this.url = url;
 		this.userName = userName;
@@ -34,11 +34,11 @@ public class LoginJDBCDao implements Login {
 		Class.forName(driver);
 		conn = DriverManager.getConnection(url, userName, password);
 		
-		System.out.println("DB연결성공");
+		System.out.println("LoginJDBCDao  DB연결성공");
 	}
 
 	private void disconnect() throws SQLException {
-		System.out.println("DB연결해제");
+		System.out.println("LoginJDBCDao  DB연결해제");
 		
 		if (rs != null && !rs.isClosed()) {
 			rs.close();

@@ -35,11 +35,17 @@
 	</header>
 	<div id="a">
 		<section class="leftSection">
-
-			<h3>직번(학번) : ${id}</h3>
-			<h3>이름 : ${name}</h3>
-			<h3>학과코드 : ${deptno}</h3>
-
+		
+			<div class="userProfile">
+				<i class="far fa-user-circle fa-3x" id="apple"></i>
+				<h2 class="profileInline">${name}님</h3>
+				
+				<h5 class="profileInline">직번(학번) : ${id}</h3>
+				<button>내 예약현황</button>
+			</div>
+			<div class="studioContainer">
+			
+			</div>
 		</section>
 
 		<section class="rightSection">

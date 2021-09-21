@@ -7,19 +7,22 @@ body {
 	font-weight: 500;
 }
 
-li {
-	list-style: none;
+li,ul {
+	list-style: none;/* 땡땡이 점 없애기 */
+	margin: 0;
+	padding: 0;
 }
 
 a {
-	text-decoration: none;
+	text-decoration: none;/* 밑줄없애기 */
+	color: inherit;/* 파란글씨없애기 */
 }
 
 table {
 	border-collapse: collapse
 }
 
-h1, h2, h3, h4, h5, h6, div, p, dl, dt, dd, ul, ol, li, form, fieldset,
+h1, h2, h3, h4, h5, h6, div, p, dl, dt, dd, ol, form, fieldset,
 	blockquote, address, table, thead, tbody, tfoot, tr, td, caption {
 	margin: 0;
 	padding: 0;
