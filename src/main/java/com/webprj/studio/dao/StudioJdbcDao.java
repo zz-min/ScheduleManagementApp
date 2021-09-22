@@ -85,9 +85,9 @@ public class StudioJdbcDao implements StudioDao {
 	@Override
 	public List<Studio> getStudios(String query) {
 		List<Studio> studios = null;
-
+		
 		String sql = "SELECT * FROM Studio";
-		sql = sql + (query != null && !query.equals("") ? " WHERE " + query : " ORDER BY LOC, STDONO");
+		sql = sql + (query != null && !query.equals("") ? " WHERE " + query : " ORDER BY LOC, STUDIONO");
 		/*
 		 * String sql = "SELECT * FROM Studio ORDER BY LOC, STDONO";
 		 */
@@ -101,7 +101,7 @@ public class StudioJdbcDao implements StudioDao {
 				studios = new ArrayList<Studio>();
 				while (rs.next()) {
 					Studio studio = new Studio();
-					studio.setStudiono(rs.getInt("STDONO"));
+					studio.setStudiono(rs.getInt("STUDIONO"));
 					studio.setLoc(rs.getString("LOC"));
 					studio.setDep(rs.getString("DEP"));
 

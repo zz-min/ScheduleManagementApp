@@ -118,7 +118,7 @@ public class LoginJdbcDao implements LoginDao {
 			// process results
 			if (rs.next()) {
 				sd = new Student();
-				sd.setStudno(rs.getInt("studno"));
+				sd.setStudno(rs.getInt("studentno"));
 				sd.setName(rs.getString("name"));
 				sd.setGrade(rs.getInt("grade"));
 				sd.setDeptno(rs.getInt("deptno"));

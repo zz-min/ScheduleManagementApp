@@ -2,10 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ page
-	import="java.util.Calendar,
-	java.util.Date,
-	java.util.GregorianCalendar"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ page import="java.util.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,11 +22,13 @@
 
 </head>
 <body>
+
 	<!--------------- HEADER --------------->
 	<header>
-		<h1 class="calendar_title_logo">
-			<i class="far fa-calendar-check" id="icon_calendar"></i> <span>캘린더</span>
-		</h1>
+		<div class="calendar_title">
+			<i class="far fa-calendar-check" id="icon_calendar"></i> <span
+				class="calendar_title_logo">캘린더</span>
+		</div>
 		<div class="calendar_title_monthly">
 			<button id="prev">&#60;</button>
 			<span class="current-year-month"> </span>
@@ -41,17 +41,31 @@
 		<section class="leftSection">
 			<div class="userProfile">
 				<i class="far fa-user-circle fa-3x" id="icon_user"></i>
-				<h2 class="profileInline">${name}김지민님</h3>
+				<h2 class="profileName">${name}님</h3>
 
-					<h5 class="profileInline">
-						직번(학번) : ${id}
-						</h3>
-						<button>내 예약현황</button>
+					<button class="rsvBtn">내 예약현황</button>
 			</div>
-			<div class="studioContainer"></div>
+			
+			
+			<div class="studioContainer">			
+				<c:forEach var="i" begin="0" end="${fn:length(studioLoc)-1}">
+					<div class="studioLocContainer">
+					
+						<h1>${studioLoc[i]}</h1>
+						<c:forEach var="j" items="${studios}">
+							<c:if test="${j.getLoc() == studioLoc[i] }">
+								<input type="checkbox" name="selectStudio" value="admin"required>${j.getStudiono()}
+								
+							</c:if>
+						</c:forEach>
+					</div>
+				</c:forEach>
+
+
+			</div>
 		</section>
-		
-		
+
+
 		<!--------------- RIGHT  --------------->
 		<section class="rightSection">
 			<div id="calendar">

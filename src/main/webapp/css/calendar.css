@@ -10,26 +10,39 @@ header {
 	position: relative;
 }
 /* HEADER */
-.calendar_title_logo {
+.calendar_title {
 	display: inline-block;
-	width: 230px;
+	width: 260px;
 	text-align: center;
+	font-size: 30px;
+	font-weight: 600;
+	margin-top: 5px;
+}
+
+.calendar_title_logo {
+	vertical-align: middle;
+	font-size: 30px;	
 }
 
 .calendar_title_monthly {
 	display: inline-block;
 	width: 300px;
+	vertical-align: super;
 }
 
 .current-year-month {
-	font-size: 30px;
+	font-size: 26px;
 	font-weight: 550;
+	vertical-align: sub;
 }
 
 #icon_calendar {
 	color: gray;
-
 	vertical-align: middle;
+}
+
+#prev, #next {
+	font-size: 20px;
 }
 /* LEFT */
 .leftSection {
@@ -46,17 +59,38 @@ header {
 }
 
 #icon_user {
-	color: gray;
-
-	vertical-align: middle;
+	color: rgb(51, 51, 51);
+	margin: 5%;
 }
 
-.profileInline {
+.profileName {
 	display: inline-block;
+	vertical-align: super; /* inline 요소 수평정렬 */
+	margin-top: 20%;
+	font-size: 33px;
 }
 
-button {
-	font-size: 30px;
+.rsvBtn {
+	font-size: 15px;
+	font-weight: 600;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	padding-left: 40px;
+	padding-right: 40px;
+	margin: 20px auto;
+	display: block;
+}
+
+.studioContainer{
+	margin-top: 50px;
+}
+.studioLocContainer{
+	margin-left: 10px;
+	margin-bottom: 20px;
+	
+}
+.studioLocContainer >h1{
+	
 }
 /* RIGHT */
 .rightSection {

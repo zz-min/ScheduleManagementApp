@@ -2,6 +2,7 @@ package com.webprj.studio.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -110,10 +111,8 @@ public class StudioController extends HttpServlet {
 						studioLoc=studioJdbc.getStudiosLoc();
 						
 						session.setAttribute("studios", studios);
-						
-						for(int i=0;i<studioLoc.size();i++) {
-							System.out.println(studioLoc.get(i));
-						}
+						session.setAttribute("studioLoc", studioLoc);
+							 			
 						/* studios출력
 						  	Studio [stdno=405, loc=공대, dep=2]
 							Studio [stdno=202, loc=국제관, dep=1]
@@ -134,11 +133,7 @@ public class StudioController extends HttpServlet {
 							사범관
 							인문관
 						 *  */
-						
-
 						viewName = "/WEB-INF/view/calendar(jsp+js).jsp";
-
-						System.out.println("session : " + session);
 					}
 				} else {
 					System.out.println("학생");
