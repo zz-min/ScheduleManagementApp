@@ -2,7 +2,6 @@ package com.webprj.studio.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -18,6 +17,7 @@ import com.webprj.di.entity.Professor;
 import com.webprj.di.entity.Student;
 import com.webprj.di.entity.Studio;
 import com.webprj.studio.dao.LoginJdbcDao;
+import com.webprj.studio.dao.ProfessorJdbcDao;
 import com.webprj.studio.dao.StudioJdbcDao;
 
 /**
@@ -27,9 +27,11 @@ import com.webprj.studio.dao.StudioJdbcDao;
 public class StudioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
+	private HttpSession session = null;
+	
 	private LoginJdbcDao loginJdbc = null;
 	private StudioJdbcDao studioJdbc=null;
-	private HttpSession session = null;
+	private ProfessorJdbcDao professorJdbc=null;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -51,6 +53,7 @@ public class StudioController extends HttpServlet {
 
 		loginJdbc = new LoginJdbcDao(driver, url, userName, password);
 		studioJdbc= new StudioJdbcDao(driver, url, userName, password);
+		professorJdbc= new ProfessorJdbcDao(driver, url, userName, password);
 	}
 
 	/**
@@ -159,8 +162,27 @@ public class StudioController extends HttpServlet {
 						viewName = "/WEB-INF/view/calendar(jsp+js).jsp";
 					}
 				}
+			} else if (pathInfo.equals("/studio/professor")) {
+				session = request.getSession(true);//세션이 존재하면 세션반환, 없으면 새로운세션생성
+				
+				List<Professor> professors = null;
+				professors=professorJdbc.getProfessors(null);
+				System.out.println(professors.size());
+				System.out.println(professors.get(0).getName());
+				
+				session.setAttribute("professors", professors);
+				
+				viewName = "/WEB-INF/view/admin_professor.jsp";
+				
+			} else if (pathInfo.equals("/studio/student")) {
+				viewName = "/WEB-INF/view/admin_professor.jsp";
+			} else if (pathInfo.equals("/studio/manager")) {
+				viewName = "/WEB-INF/view/admin_professor.jsp";
+			} else if (pathInfo.equals("/studio/department")) {
+				viewName = "/WEB-INF/view/admin_professor.jsp";
 			}
-		} else {
+			
+		} else if (session != null){
 			viewName = "/WEB-INF/view/calendar(jsp+js).jsp";
 		}
 

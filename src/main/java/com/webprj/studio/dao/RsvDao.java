@@ -14,5 +14,5 @@ public interface RsvDao {
 
 	int updateReservation(Reservation rsv);
 
-	int deleteReservation(int rsvSeq);
+	int deleteReservation(int rsvno);
 }

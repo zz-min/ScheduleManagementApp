@@ -35,10 +35,10 @@
 	<br>
 	<br>
 	<div class="btnContainer">
-		<input type="button" value="studio" onclick="location.href='/studio'" />
-		<input type="button" value="rental" onclick="location.href='/rental'" />
-		<input type="button" value="btn3" onclick="location.href='/btn3'" />
-		<input type="button" value="btn4" onclick="location.href='/btn4'" />
+		<input type="button" value="professor" onclick="location.href='/studio/professor'" />
+		<input type="button" value="student" onclick="location.href='/studio/student'" />
+		<input type="button" value="manager" onclick="location.href='/studio/manager'" />
+		<input type="button" value="department" onclick="location.href='/studio/department'" />
 	</div>
 
 
