@@ -55,7 +55,7 @@
 						<c:forEach var="j" items="${studios}">
 							<c:if test="${j.getLoc() == studioLoc[i] }">
 								<input type="checkbox" name="selectStudio" value="admin"required>${j.getStudiono()}
-								
+								<br>
 							</c:if>
 						</c:forEach>
 					</div>
