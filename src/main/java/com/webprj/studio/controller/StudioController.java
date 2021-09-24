@@ -13,11 +13,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.webprj.di.entity.Manager;
 import com.webprj.di.entity.Professor;
 import com.webprj.di.entity.Student;
 import com.webprj.di.entity.Studio;
 import com.webprj.studio.dao.LoginJdbcDao;
+import com.webprj.studio.dao.ManagerJdbcDao;
 import com.webprj.studio.dao.ProfessorJdbcDao;
+import com.webprj.studio.dao.RsvJdbcDao;
 import com.webprj.studio.dao.StudioJdbcDao;
 
 /**
@@ -32,6 +35,8 @@ public class StudioController extends HttpServlet {
 	private LoginJdbcDao loginJdbc = null;
 	private StudioJdbcDao studioJdbc=null;
 	private ProfessorJdbcDao professorJdbc=null;
+	private ManagerJdbcDao manJdbc = null;
+	private RsvJdbcDao rsvJdbc=null;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -54,6 +59,8 @@ public class StudioController extends HttpServlet {
 		loginJdbc = new LoginJdbcDao(driver, url, userName, password);
 		studioJdbc= new StudioJdbcDao(driver, url, userName, password);
 		professorJdbc= new ProfessorJdbcDao(driver, url, userName, password);
+		manJdbc = new ManagerJdbcDao(driver, url, userName, password);
+		rsvJdbc= new RsvJdbcDao(driver, url, userName, password);
 	}
 
 	/**
@@ -91,6 +98,14 @@ public class StudioController extends HttpServlet {
 				if (selectLoginType.equals("admin")) {
 					System.out.println("관리자");
 
+					Manager manager = new Manager();
+					manager = manJdbc.getManager(inputID);
+					
+					session.setAttribute("manager", manager);
+					System.out.println(manager.getManname());
+					
+					viewName = "/WEB-INF/view/managerMain.jsp";
+					
 				} else if (selectLoginType.equals("professor")) {
 					System.out.println("교직원");
 
@@ -167,23 +182,41 @@ public class StudioController extends HttpServlet {
 				
 				List<Professor> professors = null;
 				professors=professorJdbc.getProfessors(null);
-				System.out.println(professors.size());
-				System.out.println(professors.get(0).getName());
 				
 				session.setAttribute("professors", professors);
 				
 				viewName = "/WEB-INF/view/admin_professor.jsp";
 				
-			} else if (pathInfo.equals("/studio/student")) {
-				viewName = "/WEB-INF/view/admin_professor.jsp";
-			} else if (pathInfo.equals("/studio/manager")) {
-				viewName = "/WEB-INF/view/admin_professor.jsp";
+			} else if (pathInfo.equals("/studio/week")) {
+				viewName = "/WEB-INF/view/calendar(week).jsp";
+				
+			} else if (pathInfo.equals("/studio/month")) {
+				viewName = "/WEB-INF/view/calendar(jsp+js).jsp";
+				
 			} else if (pathInfo.equals("/studio/department")) {
 				viewName = "/WEB-INF/view/admin_professor.jsp";
+				
+			} else if (pathInfo.equals("/studio/day")) {
+				session = request.getSession(true);// 세션이 존재하면 세션반환, 없으면 새로운세션생성
+
+				List<Professor> professors = null;
+				professors = professorJdbc.getProfessors(null);
+
+				session.setAttribute("professors", professors);
+
+				viewName = "/WEB-INF/view/dayRsv.jsp";
 			}
 			
 		} else if (session != null){
-			viewName = "/WEB-INF/view/calendar(jsp+js).jsp";
+			if (pathInfo.equals("/studio/week")) {
+				viewName = "/WEB-INF/view/calendar(week).jsp";
+				
+			} else if (pathInfo.equals("/studio/month")) {
+				viewName = "/WEB-INF/view/calendar(jsp+js).jsp";
+				
+			} else {
+				viewName = "/WEB-INF/view/calendar(jsp+js).jsp";
+			}
 		}
 
 		// step #3. output processing results

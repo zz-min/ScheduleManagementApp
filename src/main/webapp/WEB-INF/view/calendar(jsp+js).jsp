@@ -34,6 +34,9 @@
 			<span class="current-year-month"> </span>
 			<button id="next">&#62;</button>
 		</div>
+		<div class="calendar_title">
+			<input type="button" value="week" onclick="location.href='/studio/week'" />
+		</div>
 	</header>
 
 	<div id="sectionContainer">

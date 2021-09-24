@@ -2,14 +2,15 @@ package com.webprj.di.entity;
 
 public class Manager {
 	private int manno; // 관리자직번
+	private String manname; // 매니저 이름
 	private String pwd; // 패스워드
 	private String dep; // 부서
 
-	public Manager() {
-	}
+	public Manager() {}
 
-	public Manager(int manno, String pwd, String dep) {
+	public Manager(int manno, String manname, String pwd, String dep) {
 		this.manno = manno;
+		this.manname = manname;
 		this.pwd = pwd;
 		this.dep = dep;
 	}
@@ -36,6 +37,14 @@ public class Manager {
 
 	public void setDep(String dep) {
 		this.dep = dep;
+	}
+
+	public String getManname() {
+		return manname;
+	}
+
+	public void setManname(String manname) {
+		this.manname = manname;
 	}
 
 	@Override

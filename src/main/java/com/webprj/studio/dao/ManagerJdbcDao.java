@@ -5,13 +5,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
-import com.webprj.di.entity.Professor;
-import com.webprj.di.entity.Studio;
+import com.webprj.di.entity.Manager;
 
-public class ProfessorJdbcDao implements ProfessorDao {
+import ManagerDao.ManagerDao;
+
+public class ManagerJdbcDao implements ManagerDao {
 	private String driver;
 	private String url;
 	private String userName;
@@ -21,24 +20,24 @@ public class ProfessorJdbcDao implements ProfessorDao {
 	private PreparedStatement stmt = null;
 	private ResultSet rs = null;
 
-	public ProfessorJdbcDao(String driver, String url, String userName, String password) {
+	public ManagerJdbcDao(String driver, String url, String userName, String password) {
 		this.driver = driver;
 		this.url = url;
 		this.userName = userName;
 		this.password = password;
 		
-		System.out.println("ProfessorJdbcDao 생성자 실행됨");
+		System.out.println("ManagerJDBCDao 생성자 실행됨");
 	}
 
 	private void connect() throws ClassNotFoundException, SQLException {
 		Class.forName(driver);
 		conn = DriverManager.getConnection(url, userName, password);
 		
-		System.out.println("ProfessorJdbcDao  DB연결성공");
+		System.out.println("ManagerJDBCDao  DB연결성공");
 	}
 
 	private void disconnect() throws SQLException {
-		System.out.println("ProfessorJdbcDao  DB연결해제");
+		System.out.println("ManagerJDBCDao  DB연결해제");
 		
 		if (rs != null && !rs.isClosed()) {
 			rs.close();
@@ -53,36 +52,27 @@ public class ProfessorJdbcDao implements ProfessorDao {
 			conn = null;
 		}
 	}
-
+	
 	@Override
-	public Professor getProfessor(int profno) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Professor> getProfessors(String query) {
-		List<Professor> professors = null;
+	public Manager getManager(int manno) {
+		Manager manager = null;
 		
-		String sql = "SELECT profno,profname,deptno FROM Professor";
-		sql = sql + (query != null && !query.equals("") ? " WHERE " + query : " ORDER BY profno");
-
+		String sql = "SELECT * FROM MANAGER WHERE MANNO = ?";
+		
 		try {
 			connect();
-
+			
 			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, manno);
+			
 			rs = stmt.executeQuery();
-
-			if (rs.isBeforeFirst()) {
-				professors = new ArrayList<Professor>();
-				while (rs.next()) {
-					Professor professor = new Professor();
-					professor.setProfno(rs.getInt("profno"));
-					professor.setName(rs.getString("profname"));
-					professor.setDeptno(rs.getInt("deptno"));
-
-					professors.add(professor);
-				}
+			
+			if (rs.next()) {
+				manager = new Manager();
+				manager.setManno(rs.getInt("MANNO"));
+				manager.setManname(rs.getString("MANNAME"));
+				manager.setPwd(rs.getString("PWD"));
+				manager.setDep(rs.getString("DEP"));
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
@@ -95,24 +85,24 @@ public class ProfessorJdbcDao implements ProfessorDao {
 				e.printStackTrace();
 			}
 		}
-
-		return professors;
+		
+		return manager;
 	}
 
 	@Override
-	public int insertReservation(Professor prof) {
+	public int insertManager(Manager manager) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int updateReservation(Professor prof) {
+	public int updateManager(Manager manager) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int deleteReservation(int profno) {
+	public int deleteManager(int manno) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

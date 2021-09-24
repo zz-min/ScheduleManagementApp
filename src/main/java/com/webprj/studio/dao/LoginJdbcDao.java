@@ -75,7 +75,7 @@ public class LoginJdbcDao implements LoginDao {
 			if (rs.next()) {
 				pf = new Professor();
 				pf.setProfno(rs.getInt("profno"));
-				pf.setName(rs.getString("name"));
+				pf.setName(rs.getString("profname"));
 				pf.setDeptno(rs.getInt("deptno"));
 				pf.setPwd(rs.getString("pwd"));
 			}
@@ -119,7 +119,7 @@ public class LoginJdbcDao implements LoginDao {
 			if (rs.next()) {
 				sd = new Student();
 				sd.setStudno(rs.getInt("studentno"));
-				sd.setName(rs.getString("name"));
+				sd.setName(rs.getString("studname"));
 				sd.setGrade(rs.getInt("grade"));
 				sd.setDeptno(rs.getInt("deptno"));
 				sd.setPwd(rs.getString("pwd"));
