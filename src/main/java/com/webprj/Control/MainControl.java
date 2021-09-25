@@ -25,7 +25,7 @@ public class MainControl extends HttpServlet {
 	
 	@Override
 	public void init() throws ServletException {
-		System.out.println("MainControl - init함수진행즁");
+//		System.out.println("MainControl - init함수진행즁");
 	}
 	
 
@@ -33,19 +33,19 @@ public class MainControl extends HttpServlet {
 			throws ServletException, IOException {
 		pathInfo = request.getRequestURI();
 		
-		System.out.println("MainControl-doGet Path : " + pathInfo);
+//		System.out.println("MainControl-doGet Path : " + pathInfo);
 		
 		if (pathInfo.equals("/index")) { // 가장처음 진입페이지
 			
 			  RequestDispatcher view =
 			  request.getRequestDispatcher("/WEB-INF/view/main.jsp");
 			 
-			
-				/*
-				 * RequestDispatcher view =
-				 * request.getRequestDispatcher("/WEB-INF/view/calendar(jsp+js).jsp");
-				 */
-			view.forward(request, response);
+			/*
+			 * RequestDispatcher view =
+			 * request.getRequestDispatcher("/WEB-INF/view/calendar(jsp+js).jsp");
+			 */
+
+			  view.forward(request, response);
 		}
 	}
 

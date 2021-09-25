@@ -3,28 +3,40 @@ package com.webprj.di.entity;
 import java.util.Date;
 
 public class Reservation {
-	private int rsvno; // 예약번호
-	private int studno; // 학번
+	private int rsvno; // 예약번호 PRIMARY KEY
+	private int studentno; // 학번
 	private int profno; // 직번
-	private int stdono; // 스튜디오번호
-	private int manno; // 관리자직번
-	private Date rsvDate; // 예약날짜
-	private Date StartTime; // 시작시간
-	private Date EndTime; // 종료시간
-
+	private int studiono; // 스튜디오번호
+	private String studioloc; //스튜디오위치
+	private int manno; // 관리자직번  NOT NULL
+	private String dep; // 부서 
+	private Date rsvDate; // 예약날짜 NOT NULL
+	private Date startTime; // 시작시간 NOT NULL
+	private Date endTime; // 종료시간 NOT NULL
+	
+	//STUDENTNO : FOREIGN KEY REFERENCES STUDENT(STUDENTNO)
+	//PROFNO : FOREIGN KEY REFERENCES PROFESSOR(PROFNO)
+	
+	//STUDIONO ,STUDIOLOC : FOREIGN KEY REFERENCES STUDIO (STUDIONO , STUDIOLOC );
+	//예정)manno , dep: FOREIGN KEY REFERENCES  MANAGER
+	
 	public Reservation() {
+		
 	}
 
-	public Reservation(int rsvno, int studno, int profno, int stdono, int manno, Date rsvDate, Date startTime,
-			Date endTime) {
+	public Reservation(int rsvno, int studentno, int profno, int studiono, String studioloc, int manno, String dep,
+			Date rsvDate, Date startTime, Date endTime) {
+		super();
 		this.rsvno = rsvno;
-		this.studno = studno;
+		this.studentno = studentno;
 		this.profno = profno;
-		this.stdono = stdono;
+		this.studiono = studiono;
+		this.studioloc = studioloc;
 		this.manno = manno;
+		this.dep = dep;
 		this.rsvDate = rsvDate;
-		StartTime = startTime;
-		EndTime = endTime;
+		this.startTime = startTime;
+		this.endTime = endTime;
 	}
 
 	public int getRsvno() {
@@ -35,12 +47,12 @@ public class Reservation {
 		this.rsvno = rsvno;
 	}
 
-	public int getStudno() {
-		return studno;
+	public int getStudentno() {
+		return studentno;
 	}
 
-	public void setStudno(int studno) {
-		this.studno = studno;
+	public void setStudentno(int studentno) {
+		this.studentno = studentno;
 	}
 
 	public int getProfno() {
@@ -51,12 +63,20 @@ public class Reservation {
 		this.profno = profno;
 	}
 
-	public int getStdono() {
-		return stdono;
+	public int getStudiono() {
+		return studiono;
 	}
 
-	public void setStdono(int stdono) {
-		this.stdono = stdono;
+	public void setStudiono(int studiono) {
+		this.studiono = studiono;
+	}
+
+	public String getStudioloc() {
+		return studioloc;
+	}
+
+	public void setStudioloc(String studioloc) {
+		this.studioloc = studioloc;
 	}
 
 	public int getManno() {
@@ -65,6 +85,14 @@ public class Reservation {
 
 	public void setManno(int manno) {
 		this.manno = manno;
+	}
+
+	public String getDep() {
+		return dep;
+	}
+
+	public void setDep(String dep) {
+		this.dep = dep;
 	}
 
 	public Date getRsvDate() {
@@ -76,25 +104,29 @@ public class Reservation {
 	}
 
 	public Date getStartTime() {
-		return StartTime;
+		return startTime;
 	}
 
 	public void setStartTime(Date startTime) {
-		StartTime = startTime;
+		this.startTime = startTime;
 	}
 
 	public Date getEndTime() {
-		return EndTime;
+		return endTime;
 	}
 
 	public void setEndTime(Date endTime) {
-		EndTime = endTime;
+		this.endTime = endTime;
 	}
 
 	@Override
 	public String toString() {
-		return "Reservation [rsvno=" + rsvno + ", studno=" + studno + ", profno=" + profno + ", stdono=" + stdono
-				+ ", manno=" + manno + ", rsvDate=" + rsvDate + ", StartTime=" + StartTime + ", EndTime=" + EndTime
-				+ "]";
+		return "Reservation [rsvno=" + rsvno + ", studentno=" + studentno + ", profno=" + profno + ", studiono="
+				+ studiono + ", studioloc=" + studioloc + ", manno=" + manno + ", dep=" + dep + ", rsvDate=" + rsvDate
+				+ ", startTime=" + startTime + ", endTime=" + endTime + "]";
 	}
+	
+	
+	
+	
 }

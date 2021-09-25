@@ -52,10 +52,12 @@ public class StudioJdbcDao implements StudioDao {
 			conn = null;
 		}
 	}
+	
+	@Override
 	public List<String> getStudiosLoc(){
 		 List<String> studioLoc=null;
 		 
-		 String sql = "SELECT DISTINCT LOC FROM Studio ORDER BY LOC";
+		 String sql = "SELECT DISTINCT STUDIOLOC FROM Studio ORDER BY STUDIOLOC";
 		 try {
 				connect();
 
@@ -65,7 +67,7 @@ public class StudioJdbcDao implements StudioDao {
 				if (rs.isBeforeFirst()) {
 					studioLoc = new ArrayList<String>();
 					while (rs.next()) {
-						String str=	rs.getString("LOC");
+						String str=	rs.getString("STUDIOLOC");
 						studioLoc.add(str);
 					}
 				}
@@ -87,10 +89,8 @@ public class StudioJdbcDao implements StudioDao {
 		List<Studio> studios = null;
 		
 		String sql = "SELECT * FROM Studio";
-		sql = sql + (query != null && !query.equals("") ? " WHERE " + query : " ORDER BY LOC, STUDIONO");
-		/*
-		 * String sql = "SELECT * FROM Studio ORDER BY LOC, STDONO";
-		 */
+		sql = sql + (query != null && !query.equals("") ? " WHERE " + query : " ORDER BY STUDIOLOC, STUDIONO");
+
 		try {
 			connect();
 
@@ -102,7 +102,7 @@ public class StudioJdbcDao implements StudioDao {
 				while (rs.next()) {
 					Studio studio = new Studio();
 					studio.setStudiono(rs.getInt("STUDIONO"));
-					studio.setLoc(rs.getString("LOC"));
+					studio.setStudioloc(rs.getString("STUDIOLOC"));
 					studio.setDep(rs.getString("DEP"));
 
 					studios.add(studio);

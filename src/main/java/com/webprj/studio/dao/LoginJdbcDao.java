@@ -75,7 +75,7 @@ public class LoginJdbcDao implements LoginDao {
 			if (rs.next()) {
 				pf = new Professor();
 				pf.setProfno(rs.getInt("profno"));
-				pf.setName(rs.getString("profname"));
+				pf.setProfname(rs.getString("profname"));
 				pf.setDeptno(rs.getInt("deptno"));
 				pf.setPwd(rs.getString("pwd"));
 			}
@@ -118,12 +118,12 @@ public class LoginJdbcDao implements LoginDao {
 			// process results
 			if (rs.next()) {
 				sd = new Student();
-				sd.setStudno(rs.getInt("studentno"));
-				sd.setName(rs.getString("studname"));
+				sd.setStudentno(rs.getInt("studentno"));
+				sd.setStudentname(rs.getString("studentname"));
 				sd.setGrade(rs.getInt("grade"));
 				sd.setDeptno(rs.getInt("deptno"));
 				sd.setPwd(rs.getString("pwd"));
-				sd.setProfessor(rs.getInt("prof"));
+				sd.setProfno(rs.getInt("prof"));
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block

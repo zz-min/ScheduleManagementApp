@@ -6,11 +6,14 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/css/login.css" />
 <title>Studio Login</title>
+
 <link
-	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800'
-	rel='stylesheet' type='text/css'>
+	href='http://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700'
+	rel='stylesheet' type='text/css'><!--font-family: 'Roboto' 기본Font사용 URL -->
+	
 <link href="/css/login.css" rel="stylesheet" type="text/css">
 <link href="/css/reset.css" rel="stylesheet" type="text/css">
+
 </head>
 <body>
 	<div class="formContainer">

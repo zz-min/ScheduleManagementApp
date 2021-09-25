@@ -2,9 +2,11 @@ package com.webprj.di.entity;
 
 public class Manager {
 	private int manno; // 관리자직번
-	private String manname; // 매니저 이름
-	private String pwd; // 패스워드
+	private String manname; // 관리자 이름 NOT NULL
+	private String pwd; // 패스워드 NOT NULL
 	private String dep; // 부서
+	//PRIMARY KEY (MANNO, DEP)
+	//DEP : FOREIGN KEY REFERENCES 새로만들테이블(DEP)
 
 	public Manager() {}
 
@@ -23,6 +25,14 @@ public class Manager {
 		this.manno = manno;
 	}
 
+	public String getManname() {
+		return manname;
+	}
+	
+	public void setManname(String manname) {
+		this.manname = manname;
+	}
+
 	public String getPwd() {
 		return pwd;
 	}
@@ -39,16 +49,11 @@ public class Manager {
 		this.dep = dep;
 	}
 
-	public String getManname() {
-		return manname;
-	}
-
-	public void setManname(String manname) {
-		this.manname = manname;
-	}
 
 	@Override
 	public String toString() {
-		return "Manager [manno=" + manno + ", pwd=" + pwd + ", dep=" + dep + "]";
+		return "Manager [manno=" + manno + ", manname=" + manname + ", pwd=" + pwd + ", dep=" + dep + "]";
 	}
+
+
 }

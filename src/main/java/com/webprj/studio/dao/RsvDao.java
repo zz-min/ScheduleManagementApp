@@ -8,7 +8,7 @@ public interface RsvDao {
 	
 	Reservation getReservation(int rsvno);
 
-	List<Reservation> getReservations(String query);
+	List<Reservation> getReservationList(String query);
 
 	int insertReservation(Reservation rsv);
 

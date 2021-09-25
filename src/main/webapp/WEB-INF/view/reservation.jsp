@@ -7,6 +7,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.12.1/css/all.css"
+	integrity="sha384-v8BU367qNbs/aIZIxuivaU55N5GPF89WBerHoGA4QTcbUjYiLQtKdrfXnqAcXyTv"
+	crossorigin="anonymous"><!-- Icon사용 URL -->
+	
+<link
+href='http://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700'
+rel='stylesheet' type='text/css'><!--font-family: 'Roboto' 기본Font사용 URL -->
+
 <script type="text/javascript">
 	
 </script>

@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.webprj.di.entity.Professor;
-import com.webprj.di.entity.Studio;
 
 public class ProfessorJdbcDao implements ProfessorDao {
 	private String driver;
@@ -78,7 +77,7 @@ public class ProfessorJdbcDao implements ProfessorDao {
 				while (rs.next()) {
 					Professor professor = new Professor();
 					professor.setProfno(rs.getInt("profno"));
-					professor.setName(rs.getString("profname"));
+					professor.setProfname(rs.getString("profname"));
 					professor.setDeptno(rs.getInt("deptno"));
 
 					professors.add(professor);

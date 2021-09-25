@@ -1,18 +1,19 @@
 package com.webprj.di.entity;
 
 public class Professor {
-	private int profno; // 직번
-	private String name; // 이름
-	private int deptno; // 학과번호
-	private String pwd; // 패스워드
+	private int profno; // 직번 	NUMBER(15) PRIMARY KEY
+	private String profname; // 이름 VARCHAR2(15) NOT NULL
+	private int deptno; // 학과번호 NUMBER(10) NOT NULL 
+	private String pwd; // 패스워드 VARCHAR2(15) NOT NULL
+	//deptno : FOREIGN KEY REFERENCES DEPARTMENT(DEPTNO)
 
 	public Professor() {
 	}
 
-	public Professor(int profno, String name, int deptno, String pwd) {
+	public Professor(int profno, String profname, int deptno, String pwd) {
 		super();
 		this.profno = profno;
-		this.name = name;
+		this.profname = profname;
 		this.deptno = deptno;
 		this.pwd = pwd;
 	}
@@ -25,12 +26,12 @@ public class Professor {
 		this.profno = profno;
 	}
 
-	public String getName() {
-		return name;
+	public String getProfname() {
+		return profname;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setProfname(String profname) {
+		this.profname = profname;
 	}
 
 	public int getDeptno() {
@@ -51,6 +52,6 @@ public class Professor {
 
 	@Override
 	public String toString() {
-		return "Professor [profno=" + profno + ", name=" + name + ", deptno=" + deptno + ", pwd=" + pwd + "]";
+		return "Professor [profno=" + profno + ", profname=" + profname + ", deptno=" + deptno + ", pwd=" + pwd + "]";
 	}
 }

@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.webprj.di.entity.Reservation;
@@ -59,9 +60,50 @@ public class RsvJdbcDao implements RsvDao{
 	}
 
 	@Override
-	public List<Reservation> getReservations(String query) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Reservation> getReservationList(String query) {
+		List<Reservation> rsvList = null;
+		
+		String sql = "SELECT * FROM Reservation";
+		sql = sql + (query != null && !query.equals("") ? " WHERE " + query : " ORDER BY rsvno");
+
+		try {
+			connect();
+
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+
+			if (rs.isBeforeFirst()) {
+				rsvList = new ArrayList<Reservation>();
+				while (rs.next()) {
+					Reservation rsv = new Reservation();
+					
+					rsv.setRsvno(rs.getInt("rsvno"));
+					rsv.setStudentno(rs.getInt("studentno"));
+					rsv.setProfno(rs.getInt("profno"));
+					rsv.setStudiono(rs.getInt("studiono"));
+					rsv.setStudioloc(rs.getString("studioloc"));
+					rsv.setManno(rs.getInt("manno"));
+					rsv.setDep(rs.getString("dep"));
+					rsv.setRsvDate(rs.getDate("rsvDate"));
+					rsv.setStartTime(rs.getDate("sTime"));
+					rsv.setEndTime(rs.getDate("eTime"));
+					
+					rsvList.add(rsv);
+				}
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				disconnect();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		return rsvList;
 	}
 
 	@Override

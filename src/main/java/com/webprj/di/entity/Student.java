@@ -1,39 +1,40 @@
 package com.webprj.di.entity;
 
 public class Student {
-	private int studno; // 학번
-	private String name; // 이름
-	private int grade; // 학년
-	private int deptno; // 학과번호
-	private String pwd; // 패스워드
-	private int professor; // 교수
+	private int studentno; // 학번 PRIMARY KEY
+	private String studentname; // 이름 NOT NULL
+	private int grade; // 학년 NOT NULL DEFAULT 1
+	private int deptno; // 학과번호 NOT NULL
+	private String pwd; // 패스워드 NOT NULL
+	private int profno; // 교수
+	//DEPTNO :  FOREIGN KEY REFERENCES DEPARTMENT(DEPTNO)
 
 	public Student() {
 	}
 
-	public Student(int studno, String name, int grade, int deptno, String pwd, int professor) {
-		this.studno = studno;
-		this.name = name;
+	public Student(int studentno, String studentname, int grade, int deptno, String pwd, int profno) {
+		this.studentno = studentno;
+		this.studentname = studentname;
 		this.grade = grade;
 		this.deptno = deptno;
 		this.pwd = pwd;
-		this.professor = professor;
+		this.profno = profno;
 	}
 
-	public int getStudno() {
-		return studno;
+	public int getStudentno() {
+		return studentno;
 	}
 
-	public void setStudno(int studno) {
-		this.studno = studno;
+	public void setStudentno(int studentno) {
+		this.studentno = studentno;
 	}
 
-	public String getName() {
-		return name;
+	public String getStudentname() {
+		return studentname;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setStudentname(String studentname) {
+		this.studentname = studentname;
 	}
 
 	public int getGrade() {
@@ -60,17 +61,17 @@ public class Student {
 		this.pwd = pwd;
 	}
 
-	public int getProfessor() {
-		return professor;
+	public int getProfno() {
+		return profno;
 	}
 
-	public void setProfessor(int professor) {
-		this.professor = professor;
+	public void setProfno(int profno) {
+		this.profno = profno;
 	}
 
 	@Override
 	public String toString() {
-		return "Student [studno=" + studno + ", name=" + name + ", grade=" + grade + ", deptno=" + deptno + ", pwd="
-				+ pwd + ", professor=" + professor + "]";
+		return "Student [studno=" + studentno + ", studentname=" + studentname + ", grade=" + grade + ", deptno=" + deptno + ", pwd="
+				+ pwd + ", profno=" + profno + "]";
 	}
 }

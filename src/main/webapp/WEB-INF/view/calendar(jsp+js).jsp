@@ -9,11 +9,15 @@
 <head>
 <meta charset="UTF-8">
 <title>캘린더</title>
-<!-- JSP + JavaScript -->
+
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.12.1/css/all.css"
 	integrity="sha384-v8BU367qNbs/aIZIxuivaU55N5GPF89WBerHoGA4QTcbUjYiLQtKdrfXnqAcXyTv"
 	crossorigin="anonymous">
+
+<link
+	href='http://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700'
+	rel='stylesheet' type='text/css'><!--font-family: 'Roboto' 기본Font사용 URL -->
 
 <link href="/css/calendar.css" rel="stylesheet" type="text/css">
 <link href="/css/reset.css" rel="stylesheet" type="text/css">
@@ -35,7 +39,8 @@
 			<button id="next">&#62;</button>
 		</div>
 		<div class="calendar_title">
-			<input type="button" value="week" onclick="location.href='/studio/week'" />
+			<input type="button" value="week"
+				onclick="location.href='/studio/week'" />
 		</div>
 	</header>
 
@@ -48,16 +53,17 @@
 
 					<button class="rsvBtn">내 예약현황</button>
 			</div>
-			
-			
-			<div class="studioContainer">			
+
+
+			<div class="studioContainer">
 				<c:forEach var="i" begin="0" end="${fn:length(studioLoc)-1}">
 					<div class="studioLocContainer">
-					
+
 						<h1>${studioLoc[i]}</h1>
 						<c:forEach var="j" items="${studios}">
 							<c:if test="${j.getLoc() == studioLoc[i] }">
-								<input type="checkbox" name="selectStudio" value="admin"required>${j.getStudiono()}
+								<input type="checkbox" name="selectStudio" value="admin"
+									required>${j.getStudiono()}
 								<br>
 							</c:if>
 						</c:forEach>

@@ -31,11 +31,15 @@ public class StudioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private HttpSession session = null;
-	
+	//session = request.getSession(false);//세션이 존재하면 세션반환, 없으면 NULL반환
+	//session = request.getSession(true);//세션이 존재하면 세션반환, 없으면 새로운세션생성
+
 	private LoginJdbcDao loginJdbc = null;
+	
 	private StudioJdbcDao studioJdbc=null;
 	private ProfessorJdbcDao professorJdbc=null;
 	private ManagerJdbcDao manJdbc = null;
+	
 	private RsvJdbcDao rsvJdbc=null;
 
 	/**
@@ -76,10 +80,9 @@ public class StudioController extends HttpServlet {
 		String pathInfo = request.getRequestURI();
 		System.out.println("StudioController-path :" + pathInfo);
 
-		String action = request.getParameter("action");
+		//String action = request.getParameter("action"); 
 		String viewName = null;
 		
-		//session = request.getSession(false);//세션이 존재하면 세션반환, 없으면 NULL반환
 		System.out.println("session : " + session);
 		
 		if (session == null) {
@@ -121,7 +124,7 @@ public class StudioController extends HttpServlet {
 					} else {
 						// 세션 구현부
 						session.setAttribute("id", inputID);
-						session.setAttribute("name", pro.getName());
+						session.setAttribute("name", pro.getProfname());
 						session.setAttribute("deptno", pro.getDeptno());
 						List<Studio> studios = null;
 						List<String> studioLoc= null;
@@ -169,10 +172,10 @@ public class StudioController extends HttpServlet {
 					} else {
 						// 세션 구현부
 						session.setAttribute("id", inputID);
-						session.setAttribute("name", std.getName());
+						session.setAttribute("name", std.getStudentname());
 						session.setAttribute("grade", std.getGrade());
 						session.setAttribute("deptno", std.getDeptno());
-						session.setAttribute("professor", std.getProfessor());
+						session.setAttribute("professor", std.getProfno());
 
 						viewName = "/WEB-INF/view/calendar(jsp+js).jsp";
 					}

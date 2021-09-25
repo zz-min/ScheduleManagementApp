@@ -5,8 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>하루 예약 페이지</title>
+
+<link
+href='http://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700'
+rel='stylesheet' type='text/css'><!--font-family: 'Roboto' 기본Font사용 URL -->
+
 <link href="/css/day.css" rel="stylesheet" type="text/css">
 <link href="/css/reset.css" rel="stylesheet" type="text/css">
+
 </head>
 <body>
 	<!--------------- HEADER --------------->

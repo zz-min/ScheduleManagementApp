@@ -1,15 +1,15 @@
 package com.webprj.di.entity;
 
 public class Department {
-	private int deptno; // 학과번호
-	private String name; // 학과이름
+	private int deptno; // 학과번호 NUMBER(10) PRIMARY KEY
+	private String deptname; // 학과이름 VARCHAR2(30) NOT NULL  UNUQUE
 
 	public Department() {
 	}
 
-	public Department(int deptno, String name) {
+	public Department(int deptno, String deptname) {
 		this.deptno = deptno;
-		this.name = name;
+		this.deptname = deptname;
 	}
 
 	public int getDeptno() {
@@ -20,16 +20,16 @@ public class Department {
 		this.deptno = deptno;
 	}
 
-	public String getName() {
-		return name;
+	public String getDeptname() {
+		return deptname;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setDeptname(String deptname) {
+		this.deptname = deptname;
 	}
 
 	@Override
 	public String toString() {
-		return "Department [deptno=" + deptno + ", name=" + name + "]";
+		return "Department [deptno=" + deptno + ", deptname=" + deptname + "]";
 	}
 }
