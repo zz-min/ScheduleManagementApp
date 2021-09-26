@@ -55,15 +55,43 @@ public class ProfessorJdbcDao implements ProfessorDao {
 
 	@Override
 	public Professor getProfessor(int profno) {
-		// TODO Auto-generated method stub
-		return null;
+		Professor p=null;
+		
+		String sql = "SELECT profname,majorno FROM Professor WHERE profno = ?";
+		
+		try {
+			connect();
+
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, profno);
+
+			rs = stmt.executeQuery();
+
+			p = new Professor();
+			while (rs.next()) {
+				p.setProfname(rs.getString("profname"));
+				p.setMajorno(rs.getInt("majorno"));
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				disconnect();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return p;
 	}
 
 	@Override
-	public List<Professor> getProfessors(String query) {
+	public List<Professor> getProfessorList(String query) {
 		List<Professor> professors = null;
 		
-		String sql = "SELECT profno,profname,deptno FROM Professor";
+		String sql = "SELECT profno,profname,majorno FROM Professor";
 		sql = sql + (query != null && !query.equals("") ? " WHERE " + query : " ORDER BY profno");
 
 		try {
@@ -78,7 +106,7 @@ public class ProfessorJdbcDao implements ProfessorDao {
 					Professor professor = new Professor();
 					professor.setProfno(rs.getInt("profno"));
 					professor.setProfname(rs.getString("profname"));
-					professor.setDeptno(rs.getInt("deptno"));
+					professor.setMajorno(rs.getInt("majorno"));
 
 					professors.add(professor);
 				}
@@ -98,22 +126,5 @@ public class ProfessorJdbcDao implements ProfessorDao {
 		return professors;
 	}
 
-	@Override
-	public int insertReservation(Professor prof) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int updateReservation(Professor prof) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int deleteReservation(int profno) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 }

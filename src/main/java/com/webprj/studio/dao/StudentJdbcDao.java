@@ -10,7 +10,7 @@ import java.util.List;
 
 import com.webprj.di.entity.Student;
 
-public class StudentJdbctDao implements StudentDao {
+public class StudentJdbcDao implements StudentDao {
 
 	private String driver;
 	private String url;
@@ -21,7 +21,7 @@ public class StudentJdbctDao implements StudentDao {
 	private PreparedStatement stmt = null;
 	private ResultSet rs = null;
 
-	public StudentJdbctDao(String driver, String url, String userName, String password) {
+	public StudentJdbcDao(String driver, String url, String userName, String password) {
 		this.driver = driver;
 		this.url = url;
 		this.userName = userName;
@@ -54,12 +54,45 @@ public class StudentJdbctDao implements StudentDao {
 		}
 	}
 	
+	
+	@Override
+	public Student getStudent(int studentno) {
+		Student s=null;
+		String sql = "SELECT studentname,grade,majorno,profno FROM Student WHERE studentno = ?";
+
+		try {
+			connect();
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, studentno);
+			rs = stmt.executeQuery();
+			s = new Student();
+			while (rs.next()) {
+				s.setStudentname(rs.getString("studentname"));
+				s.setGrade(rs.getInt("grade"));
+				s.setMajorno(rs.getInt("majorno"));
+				s.setProfno(rs.getInt("profno"));
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				disconnect();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return s;
+	}
+	
+	
 	@Override
 	public List<Student> getStudentList(String query) {
 		List<Student> studentList = null;
 		
-		String sql = "SELECT profno,profname,deptno FROM Student";
-		sql = sql + (query != null && !query.equals("") ? " WHERE " + query : " ORDER BY profno");
+		String sql = "SELECT studentno,studentname,grade,majorno,profno FROM Student";
+		sql = sql + (query != null && !query.equals("") ? " WHERE " + query : " ORDER BY studentno");
 
 		try {
 			connect();
@@ -74,8 +107,7 @@ public class StudentJdbctDao implements StudentDao {
 					std.setStudentno(rs.getInt("studentno"));
 					std.setStudentname(rs.getString("studentname"));
 					std.setGrade(rs.getInt("grade"));
-					std.setDeptno(rs.getInt("deptno"));
-					std.setPwd(rs.getString("pwd"));
+					std.setMajorno(rs.getInt("majorno"));
 					std.setProfno(rs.getInt("profno"));
 
 					studentList.add(std);
@@ -96,22 +128,7 @@ public class StudentJdbctDao implements StudentDao {
 		return studentList;
 	}
 
-	@Override
-	public int insertStudent(Student student) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
-	@Override
-	public int updateStudent(Student student) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int deleteStudent(Student student) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
 
 }

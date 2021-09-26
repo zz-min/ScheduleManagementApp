@@ -3,22 +3,20 @@ package com.webprj.di.entity;
 public class Studio {
 	private int studiono; // 스튜디오 
 	private String studioloc; // 위치 
-	private String dep; // 담당부서 NOT NULL
+	private int deptno; // 담당부서 NOT NULL
 	//PRIMARY KEY (STUDIONO, LOC)
-	//DEP : FOREIGN KEY REFERENCES 새로만들테이블(DEP)
+	//deptno :  FOREIGN KEY REFERENCES DEPARTMENT(depno)
 
 	public Studio() {
 	}
 
-	
-	public Studio(int studiono, String studioloc, String dep) {
+	public Studio(int studiono, String studioloc, int deptno) {
 		super();
 		this.studiono = studiono;
 		this.studioloc = studioloc;
-		this.dep = dep;
+		this.deptno = deptno;
 	}
-
-
+	
 	public int getStudiono() {
 		return studiono;
 	}
@@ -39,20 +37,19 @@ public class Studio {
 	}
 
 
-	public String getDep() {
-		return dep;
+	public int getDeptno() {
+		return deptno;
 	}
 
 
-	public void setDep(String dep) {
-		this.dep = dep;
+	public void setDeptno(int deptno) {
+		this.deptno = deptno;
 	}
 
 
 	@Override
 	public String toString() {
-		return "Studio [STUDIONO=" + studiono + ", STUDIOLOC=" + studioloc + ", dep=" + dep + "]";
+		return "Studio [studiono=" + studiono + ", studioloc=" + studioloc + ", deptno=" + deptno + "]";
 	}
 
-	
 }

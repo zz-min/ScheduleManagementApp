@@ -14,6 +14,7 @@
 <link href="/css/login.css" rel="stylesheet" type="text/css">
 <link href="/css/reset.css" rel="stylesheet" type="text/css">
 
+
 </head>
 <body>
 	<div class="formContainer">
@@ -43,5 +44,6 @@
 	</div>
 	<h2>교직원 id : 600548 / pwd : 1234 / 이름 홍길동</h2>
 	<h2>학생 id : 201795032 / pwd : 1234 /</h2>
+	
 </body>
 </html>

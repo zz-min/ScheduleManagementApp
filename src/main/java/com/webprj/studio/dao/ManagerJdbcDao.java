@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.webprj.di.entity.Manager;
 
@@ -56,7 +58,7 @@ public class ManagerJdbcDao implements ManagerDao {
 	public Manager getManager(int manno) {
 		Manager manager = null;
 		
-		String sql = "SELECT * FROM MANAGER WHERE MANNO = ?";
+		String sql = "SELECT MANNAME,DEPTNO FROM MANAGER WHERE MANNO = ?";
 		
 		try {
 			connect();
@@ -68,10 +70,8 @@ public class ManagerJdbcDao implements ManagerDao {
 			
 			if (rs.next()) {
 				manager = new Manager();
-				manager.setManno(rs.getInt("MANNO"));
 				manager.setManname(rs.getString("MANNAME"));
-				manager.setPwd(rs.getString("PWD"));
-				manager.setDep(rs.getString("DEP"));
+				manager.setDeptno(rs.getInt("DEPTNO"));
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
@@ -89,21 +89,43 @@ public class ManagerJdbcDao implements ManagerDao {
 	}
 
 	@Override
-	public int insertManager(Manager manager) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	public List<Manager> getManagerList(String query) {
+		List<Manager> managers=null;
+		
+		String sql = "SELECT manno,manname,deptno FROM Manager";
+		sql = sql + (query != null && !query.equals("") ? " WHERE " + query : " ORDER BY manno");
 
-	@Override
-	public int updateManager(Manager manager) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+		try {
+			connect();
 
-	@Override
-	public int deleteManager(int manno) {
-		// TODO Auto-generated method stub
-		return 0;
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+
+			if (rs.isBeforeFirst()) {
+				managers = new ArrayList<Manager>();
+				while (rs.next()) {
+					Manager m = new Manager();
+					m.setManno(rs.getInt("manno"));
+					m.setManname(rs.getString("manname"));
+					m.setDeptno(rs.getInt("deptno"));
+
+					managers.add(m);
+				}
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				disconnect();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
+		return managers;
 	}
 
 }

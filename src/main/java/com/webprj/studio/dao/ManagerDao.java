@@ -1,13 +1,12 @@
 package com.webprj.studio.dao;
 
+import java.util.List;
+
 import com.webprj.di.entity.Manager;
 
-public interface ManagerDao {
+public interface ManagerDao {//관리자
 	Manager getManager(int manno);
+	
+	List<Manager> getManagerList(String query);
 
-	int insertManager(Manager manager);
-
-	int updateManager(Manager manager);
-
-	int deleteManager(int manno);
 }

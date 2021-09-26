@@ -5,8 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
+import com.webprj.di.entity.Manager;
 import com.webprj.di.entity.Professor;
 import com.webprj.di.entity.Student;
 
@@ -57,71 +57,56 @@ public class LoginJdbcDao implements LoginDao {
 	@Override
 	public Professor selectProfessor(int profno, String pwd) {
 		Professor pf = null;
-
-		Statement stmt = null;
-		ResultSet rs = null;
-
+		String sql = "select * from PROFESSOR where PROFNO = ? AND PWD = ?";
 		try {
 			connect();
+			
+			stmt =  conn.prepareStatement(sql);
+			stmt.setInt(1, profno);
+			stmt.setString(2, pwd);
+			
+			rs = stmt.executeQuery();
 
-			// create Statement object
-			stmt = conn.createStatement();
-
-			// execute SQL query
-			String sql = "select * from PROFESSOR where PROFNO = " + profno + "AND PWD = " + pwd;
-			rs = stmt.executeQuery(sql);
-
-			// process results
 			if (rs.next()) {
 				pf = new Professor();
 				pf.setProfno(rs.getInt("profno"));
 				pf.setProfname(rs.getString("profname"));
-				pf.setDeptno(rs.getInt("deptno"));
+				pf.setMajorno(rs.getInt("majorno"));
 				pf.setPwd(rs.getString("pwd"));
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			try {
-				if (rs != null)
-					rs.close();
-				if (stmt != null)
-					stmt.close();
-				disconnect();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				try {
+					disconnect();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 		}
-
 		return pf;
 	}
 
 	@Override
 	public Student selectStudent(int studno, String pwd) {
 		Student sd = null;
-
-		Statement stmt = null;
-		ResultSet rs = null;
-
+		String sql = "select * from STUDENT where STUDNO = ? AND PWD = ?";
 		try {
 			connect();
+			
+			stmt =  conn.prepareStatement(sql);
+			stmt.setInt(1, studno);
+			stmt.setString(2, pwd);
+			
+			rs = stmt.executeQuery();
 
-			// create Statement object
-			stmt = conn.createStatement();
-
-			// execute SQL query
-			String sql = "select * from STUDENT where STUDNO = " + studno + "AND PWD = " + pwd;
-			rs = stmt.executeQuery(sql);
-
-			// process results
 			if (rs.next()) {
 				sd = new Student();
 				sd.setStudentno(rs.getInt("studentno"));
 				sd.setStudentname(rs.getString("studentname"));
 				sd.setGrade(rs.getInt("grade"));
-				sd.setDeptno(rs.getInt("deptno"));
+				sd.setMajorno(rs.getInt("majorno"));
 				sd.setPwd(rs.getString("pwd"));
 				sd.setProfno(rs.getInt("prof"));
 			}
@@ -130,18 +115,47 @@ public class LoginJdbcDao implements LoginDao {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (rs != null)
-					rs.close();
-				if (stmt != null)
-					stmt.close();
 				disconnect();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-
 		return sd;
+	}
+
+	@Override
+	public Manager selectManager(int manno, String pwd) {
+		Manager mg = null;
+		String sql = "select * from MANAGER where manno = " + manno + "AND PWD = " + pwd;
+		try {
+			connect();
+
+			stmt =  conn.prepareStatement(sql);
+			stmt.setInt(1, manno);
+			stmt.setString(2, pwd);
+			
+			rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				mg = new Manager();
+				mg.setManno(rs.getInt("manno"));
+				mg.setManname(rs.getString("manname"));
+				mg.setPwd(rs.getString("pwd"));
+				mg.setDeptno(rs.getInt("majorno"));
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				disconnect();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return mg;
 	}
 
 }

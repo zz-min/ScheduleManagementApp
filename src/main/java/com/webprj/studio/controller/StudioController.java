@@ -7,7 +7,6 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,12 +20,13 @@ import com.webprj.studio.dao.LoginJdbcDao;
 import com.webprj.studio.dao.ManagerJdbcDao;
 import com.webprj.studio.dao.ProfessorJdbcDao;
 import com.webprj.studio.dao.RsvJdbcDao;
+import com.webprj.studio.dao.StudentJdbcDao;
 import com.webprj.studio.dao.StudioJdbcDao;
 
 /**
  * Servlet implementation class StudioController
  */
-@WebServlet("/studio/*")
+/* @WebServlet("/studio/*") */
 public class StudioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -37,6 +37,7 @@ public class StudioController extends HttpServlet {
 	private LoginJdbcDao loginJdbc = null;
 	
 	private StudioJdbcDao studioJdbc=null;
+	private StudentJdbcDao studentJdbc=null;
 	private ProfessorJdbcDao professorJdbc=null;
 	private ManagerJdbcDao manJdbc = null;
 	

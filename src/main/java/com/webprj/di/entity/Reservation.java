@@ -9,7 +9,6 @@ public class Reservation {
 	private int studiono; // 스튜디오번호
 	private String studioloc; //스튜디오위치
 	private int manno; // 관리자직번  NOT NULL
-	private String dep; // 부서 
 	private Date rsvDate; // 예약날짜 NOT NULL
 	private Date startTime; // 시작시간 NOT NULL
 	private Date endTime; // 종료시간 NOT NULL
@@ -18,13 +17,12 @@ public class Reservation {
 	//PROFNO : FOREIGN KEY REFERENCES PROFESSOR(PROFNO)
 	
 	//STUDIONO ,STUDIOLOC : FOREIGN KEY REFERENCES STUDIO (STUDIONO , STUDIOLOC );
-	//예정)manno , dep: FOREIGN KEY REFERENCES  MANAGER
 	
 	public Reservation() {
 		
 	}
 
-	public Reservation(int rsvno, int studentno, int profno, int studiono, String studioloc, int manno, String dep,
+	public Reservation(int rsvno, int studentno, int profno, int studiono, String studioloc, int manno,
 			Date rsvDate, Date startTime, Date endTime) {
 		super();
 		this.rsvno = rsvno;
@@ -33,7 +31,6 @@ public class Reservation {
 		this.studiono = studiono;
 		this.studioloc = studioloc;
 		this.manno = manno;
-		this.dep = dep;
 		this.rsvDate = rsvDate;
 		this.startTime = startTime;
 		this.endTime = endTime;
@@ -87,13 +84,6 @@ public class Reservation {
 		this.manno = manno;
 	}
 
-	public String getDep() {
-		return dep;
-	}
-
-	public void setDep(String dep) {
-		this.dep = dep;
-	}
 
 	public Date getRsvDate() {
 		return rsvDate;
@@ -122,11 +112,8 @@ public class Reservation {
 	@Override
 	public String toString() {
 		return "Reservation [rsvno=" + rsvno + ", studentno=" + studentno + ", profno=" + profno + ", studiono="
-				+ studiono + ", studioloc=" + studioloc + ", manno=" + manno + ", dep=" + dep + ", rsvDate=" + rsvDate
+				+ studiono + ", studioloc=" + studioloc + ", manno=" + manno + ", rsvDate=" + rsvDate
 				+ ", startTime=" + startTime + ", endTime=" + endTime + "]";
 	}
-	
-	
-	
 	
 }

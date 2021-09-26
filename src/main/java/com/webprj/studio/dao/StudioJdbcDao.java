@@ -54,7 +54,7 @@ public class StudioJdbcDao implements StudioDao {
 	}
 	
 	@Override
-	public List<String> getStudiosLoc(){
+	public List<String> getStudiosLocList(){
 		 List<String> studioLoc=null;
 		 
 		 String sql = "SELECT DISTINCT STUDIOLOC FROM Studio ORDER BY STUDIOLOC";
@@ -85,7 +85,7 @@ public class StudioJdbcDao implements StudioDao {
 	}
 
 	@Override
-	public List<Studio> getStudios(String query) {
+	public List<Studio> getStudioList(String query) {
 		List<Studio> studios = null;
 		
 		String sql = "SELECT * FROM Studio";
@@ -103,7 +103,7 @@ public class StudioJdbcDao implements StudioDao {
 					Studio studio = new Studio();
 					studio.setStudiono(rs.getInt("STUDIONO"));
 					studio.setStudioloc(rs.getString("STUDIOLOC"));
-					studio.setDep(rs.getString("DEP"));
+					studio.setDeptno(rs.getInt("deptno"));
 
 					studios.add(studio);
 				}
@@ -123,22 +123,5 @@ public class StudioJdbcDao implements StudioDao {
 		return studios;
 	}
 
-	@Override
-	public int insertStudio(Studio studio) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int updateStudio(Studio studio) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int deleteStudio(Studio studio) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 }

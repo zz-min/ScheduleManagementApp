@@ -56,12 +56,12 @@
 
 
 			<div class="studioContainer">
-				<c:forEach var="i" begin="0" end="${fn:length(studioLoc)-1}">
+				<c:forEach var="i" begin="0" end="${fn:length(studioLocList)-1}">
 					<div class="studioLocContainer">
 
-						<h1>${studioLoc[i]}</h1>
-						<c:forEach var="j" items="${studios}">
-							<c:if test="${j.getLoc() == studioLoc[i] }">
+						<h1>${studioLocList[i]}</h1>
+						<c:forEach var="j" items="${studioList}">
+							<c:if test="${j.getStudioloc() == studioLocList[i] }">
 								<input type="checkbox" name="selectStudio" value="admin"
 									required>${j.getStudiono()}
 								<br>

@@ -4,19 +4,20 @@ public class Student {
 	private int studentno; // 학번 PRIMARY KEY
 	private String studentname; // 이름 NOT NULL
 	private int grade; // 학년 NOT NULL DEFAULT 1
-	private int deptno; // 학과번호 NOT NULL
+	private int majorno; // 학과번호 NOT NULL
 	private String pwd; // 패스워드 NOT NULL
 	private int profno; // 교수
-	//DEPTNO :  FOREIGN KEY REFERENCES DEPARTMENT(DEPTNO)
+	//majorno :  FOREIGN KEY REFERENCES MAJOR(majorno)
 
 	public Student() {
 	}
 
-	public Student(int studentno, String studentname, int grade, int deptno, String pwd, int profno) {
+	public Student(int studentno, String studentname, int grade, int majorno, String pwd, int profno) {
+		super();
 		this.studentno = studentno;
 		this.studentname = studentname;
 		this.grade = grade;
-		this.deptno = deptno;
+		this.majorno = majorno;
 		this.pwd = pwd;
 		this.profno = profno;
 	}
@@ -45,12 +46,13 @@ public class Student {
 		this.grade = grade;
 	}
 
-	public int getDeptno() {
-		return deptno;
+	
+	public int getMajorno() {
+		return majorno;
 	}
 
-	public void setDeptno(int deptno) {
-		this.deptno = deptno;
+	public void setMajorno(int majorno) {
+		this.majorno = majorno;
 	}
 
 	public String getPwd() {
@@ -71,7 +73,10 @@ public class Student {
 
 	@Override
 	public String toString() {
-		return "Student [studno=" + studentno + ", studentname=" + studentname + ", grade=" + grade + ", deptno=" + deptno + ", pwd="
-				+ pwd + ", profno=" + profno + "]";
+		return "Student [studentno=" + studentno + ", studentname=" + studentname + ", grade=" + grade + ", majorno="
+				+ majorno + ", pwd=" + pwd + ", profno=" + profno + "]";
 	}
+
+
+
 }
