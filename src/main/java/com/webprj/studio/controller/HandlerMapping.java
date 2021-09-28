@@ -15,8 +15,8 @@ private Map<String, Controller> handlerMapper = null;
 		handlerMapper.put("/index", new IndexController());
 		handlerMapper.put("/studio/main", new LoginController());
 		handlerMapper.put("/studio/admin", new AdminController());
+		handlerMapper.put("/studio/reservation", new ReservationController());
 		/*
-		 * handlerMapper.put("/register", new RegisterController());
 		 * handlerMapper.put("/confirm", new ConfirmController());
 		 * handlerMapper.put("/delete", new DeleteController());
 		 * handlerMapper.put("/update", new UpdateController());

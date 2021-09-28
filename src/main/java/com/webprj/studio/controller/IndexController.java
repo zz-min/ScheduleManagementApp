@@ -11,6 +11,7 @@ public class IndexController implements Controller {
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response, StudioService studioService) {
 		return "main.jsp";
+		//return "admin_professor.jsp";
 	}
 
 }

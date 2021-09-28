@@ -10,8 +10,8 @@ public class Reservation {
 	private String studioloc; //스튜디오위치
 	private int manno; // 관리자직번  NOT NULL
 	private Date rsvDate; // 예약날짜 NOT NULL
-	private Date startTime; // 시작시간 NOT NULL
-	private Date endTime; // 종료시간 NOT NULL
+	private String startTime; // 시작시간 NOT NULL
+	private String endTime; // 종료시간 NOT NULL
 	
 	//STUDENTNO : FOREIGN KEY REFERENCES STUDENT(STUDENTNO)
 	//PROFNO : FOREIGN KEY REFERENCES PROFESSOR(PROFNO)
@@ -20,10 +20,11 @@ public class Reservation {
 	
 	public Reservation() {
 		
+		
 	}
 
 	public Reservation(int rsvno, int studentno, int profno, int studiono, String studioloc, int manno,
-			Date rsvDate, Date startTime, Date endTime) {
+			Date rsvDate, String startTime, String endTime) {
 		super();
 		this.rsvno = rsvno;
 		this.studentno = studentno;
@@ -93,19 +94,19 @@ public class Reservation {
 		this.rsvDate = rsvDate;
 	}
 
-	public Date getStartTime() {
+	public String getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(Date startTime) {
+	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
 
-	public Date getEndTime() {
+	public String getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Date endTime) {
+	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
 

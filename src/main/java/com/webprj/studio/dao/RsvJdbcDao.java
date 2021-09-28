@@ -55,15 +55,46 @@ public class RsvJdbcDao implements RsvDao{
 	}
 	@Override
 	public Reservation getReservation(int rsvno) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		Reservation rsv=null;
+		String sql = "SELECT * FROM Reservation WHERE rsvno = ?";
 
+		try {
+			connect();
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, rsvno);
+			rs = stmt.executeQuery();
+			rsv = new Reservation();
+			while (rs.next()) {
+				rsv.setRsvno(rs.getInt("rsvno"));
+				rsv.setStudentno(rs.getInt("studentno"));
+				rsv.setProfno(rs.getInt("profno"));
+				rsv.setStudiono(rs.getInt("studiono"));
+				rsv.setStudioloc(rs.getString("studioloc"));
+				rsv.setManno(rs.getInt("manno"));
+				rsv.setRsvDate(rs.getDate("rsvDate"));
+				rsv.setStartTime(rs.getString("sTime"));
+				rsv.setEndTime(rs.getString("eTime"));
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				disconnect();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return rsv;
+	}
+	
 	@Override
 	public List<Reservation> getReservationList(String query) {
 		List<Reservation> rsvList = null;
 		
-		String sql = "SELECT * FROM Reservation";
+		String sql = "SELECT rsvno,studiono,studioloc,manno,rsvdate,TO_CHAR(stime, 'HH24:MI') st,TO_CHAR(etime, 'HH24:MI') et FROM Reservation";
+		
 		sql = sql + (query != null && !query.equals("") ? " WHERE " + query : " ORDER BY rsvno");
 
 		try {
@@ -76,17 +107,12 @@ public class RsvJdbcDao implements RsvDao{
 				rsvList = new ArrayList<Reservation>();
 				while (rs.next()) {
 					Reservation rsv = new Reservation();
-					
 					rsv.setRsvno(rs.getInt("rsvno"));
-					rsv.setStudentno(rs.getInt("studentno"));
-					rsv.setProfno(rs.getInt("profno"));
 					rsv.setStudiono(rs.getInt("studiono"));
 					rsv.setStudioloc(rs.getString("studioloc"));
-					rsv.setManno(rs.getInt("manno"));
-					rsv.setDep(rs.getString("dep"));
 					rsv.setRsvDate(rs.getDate("rsvDate"));
-					rsv.setStartTime(rs.getDate("sTime"));
-					rsv.setEndTime(rs.getDate("eTime"));
+					rsv.setStartTime(rs.getString("st"));//TO_CHAR(stime, 'HH24:MI')
+					rsv.setEndTime(rs.getString("et"));//TO_CHAR(etime, 'HH24:MI')
 					
 					rsvList.add(rsv);
 				}
@@ -102,26 +128,6 @@ public class RsvJdbcDao implements RsvDao{
 				e.printStackTrace();
 			}
 		}
-
 		return rsvList;
 	}
-
-	@Override
-	public int insertReservation(Reservation rsv) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int updateReservation(Reservation rsv) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int deleteReservation(int rsvno) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 }

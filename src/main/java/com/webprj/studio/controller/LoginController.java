@@ -63,6 +63,8 @@ public class LoginController implements Controller {
 			//  세션 구현부
 			session.setAttribute("id", inputID);
 			session.setAttribute("name", loginName);
+			session.setAttribute("loginType", selectLoginType);
+			
 			
 			session.setAttribute("studioList", studioList);
 			session.setAttribute("studioLocList", studioLocList);

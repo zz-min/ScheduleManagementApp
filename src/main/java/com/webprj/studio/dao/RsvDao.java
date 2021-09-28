@@ -10,9 +10,4 @@ public interface RsvDao {
 
 	List<Reservation> getReservationList(String query);
 
-	int insertReservation(Reservation rsv);
-
-	int updateReservation(Reservation rsv);
-
-	int deleteReservation(int rsvno);
 }

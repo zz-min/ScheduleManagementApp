@@ -62,8 +62,18 @@ public class StudioServiceImpl implements StudioService {
 	}
 	
 	@Override
+	public List<Manager> getManagerList(String query) {
+		return managerDao.getManagerList(query);
+	}
+	
+	@Override
 	public Professor getProfessor(int profno) {
 		return professorDao.getProfessor(profno);
+	}
+	
+	@Override
+	public List<Professor> getProfessorList(String query) {
+		return professorDao.getProfessorList(query);
 	}
 	
 	@Override
@@ -71,6 +81,11 @@ public class StudioServiceImpl implements StudioService {
 		return studentDao.getStudent(studentno);
 	}
 	
+	@Override
+	public List<Student> getStudentList(String query) {
+		return studentDao.getStudentList(query);
+	}
+
 	
 	@Override
 	public List<Studio> getStudioList(String query) {
@@ -84,19 +99,16 @@ public class StudioServiceImpl implements StudioService {
 
 	
 	
-	
-	
-	
-	
-	
 	@Override
-	public Reservation getReservation(int rsvSeq) {
-		// TODO Auto-generated method stub
+	public Reservation getReservation(int rsvno) {
+		
 		return null;
 	}
-
 	
-	
+	@Override
+	public List<Reservation> getReservationList(String query) {
+		return rsvDao.getReservationList(query);
+	}
 	
 	
 	
@@ -118,16 +130,7 @@ public class StudioServiceImpl implements StudioService {
 		this.seatDao = seatDao;
 	}
 
-	@Override
-	public Reservation getReservation(int rsvSeq) {
-		return rsvDao.getReservation(rsvSeq);
-	}
-
-	@Override
-	public List<Reservation> getReservations(String name, String phone) {
-		return rsvDao.getReservations(
-			String.format("NAME='%s' and PHONE='%s'", name, phone));
-	}
+	
 
 	@Override
 	public int registerReservation(Reservation rsv) {

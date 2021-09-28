@@ -24,6 +24,193 @@
 
 <script src="/js/calendar.js"></script>
 
+<style type="text/css">
+/*----------------- reset.css---------------------------- */
+body {
+	margin: 0;
+	padding: 0;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 500;
+}
+
+li,ul {
+	list-style: none;/* 땡땡이 점 없애기 */
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	text-decoration: none;/* 밑줄없애기 */
+	color: inherit;/* 파란글씨없애기 */
+}
+
+table {
+	border-collapse: collapse;
+}
+
+h1, h2, h3, h4, h5, h6, div, p, dl, dt, dd, ol, form, fieldset,
+	blockquote, address, table, thead, tbody, tfoot, tr, td, caption {
+	margin: 0;
+	padding: 0;
+}
+/*----------------- main.css---------------------------- */
+header {
+    height: 45px;
+}
+
+#sectionContainer {
+    min-width: 1485px;
+    display: block;
+    position: relative;
+}
+
+/* HEADER */
+.calendar_title {
+    display: inline-block;
+    width: 260px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 600;
+    margin-top: 5px;
+}
+.calendar_title_logo {
+    vertical-align: middle;
+    font-size: 30px;    
+}
+.calendar_title_monthly {
+    display: inline-block;
+    width: 400px;
+    vertical-align: super;
+}
+.current-year-month {
+    font-size: 26px;
+    font-weight: 550;
+    vertical-align: sub;
+}
+#icon_calendar {
+    color: gray;
+    vertical-align: middle;
+}
+#prev, #next {
+    font-size: 20px;
+}
+/* LEFT */
+.leftSection {
+    width: 15%;
+    min-width: 215px;
+    height: 100%;
+    float: left;
+    position: relative;
+    box-sizing: border-box;
+}
+.userProfile {
+    width: 215px;
+}
+#icon_user {
+    color: rgb(51, 51, 51);
+    margin: 5%;
+}
+.profileName {
+    display: inline-block;
+    vertical-align: super; /* inline 요소 수평정렬 */
+    margin-top: 20%;
+    font-size: 33px;
+}
+.rsvBtn {
+    font-size: 15px;
+    font-weight: 600;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 40px;
+    padding-right: 40px;
+    margin: 20px auto;
+    display: block;
+}
+.studioContainer{
+    margin-top: 50px;
+}
+.studioLocContainer{
+    margin-left: 10px;
+    margin-bottom: 20px;
+    
+}
+.studioLocContainer >h1{
+    
+}
+/* RIGHT */
+.rightSection {
+    width: 85%;
+    min-width: 1200px;
+    height: 100%;
+    position: relative;
+    background-color: #F8FAFF;
+    float: right;
+    box-sizing: border-box;
+}
+#calendar {
+    height: 750px;
+    box-sizing: border-box;
+    padding: 0.5%;
+}
+#calendar>div {
+    display: block;
+    width: 100%
+}
+.dayHeaderContainer {
+    width: 100%;
+    height: 35px;
+    margin-bottom: 12px;
+    display: block;
+}
+.calendarWeekContainer {
+    width: 100%;
+    height: calc(100%/ 6.3);
+    display: block;
+}
+.dayHeader {
+    height: 100%;
+    width: calc(100%/ 7.3);
+    display: inline-block;
+    padding-top: 8px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 550;
+    background-color: #7C7877;
+}
+.dayHeader_Sun {
+    height: 100%;
+    width: calc(100%/ 7.3);
+    display: inline-block;
+    padding-top: 8px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 550;
+    background-color: #7C7877;
+    color: red;
+}
+.dayHeader_Sat {
+    height: 100%;
+    width: calc(100%/ 7.3);
+    display: inline-block;
+    padding-top: 8px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 550;
+    background-color: #7C7877;
+    color: blue;
+}
+.calendar__day {
+    height: 97%;
+    width: calc(100%/ 7.3);
+    display: inline-block;
+    margin-right: 5.5px;
+    margin-bottom: 2px;
+}
+.calendar__day>span {
+    display: block;
+}
+
+</style>
 </head>
 <body>
 
@@ -51,7 +238,7 @@
 				<i class="far fa-user-circle fa-3x" id="icon_user"></i>
 				<h2 class="profileName">${name}님</h3>
 
-					<button class="rsvBtn">내 예약현황</button>
+				<input type="button" value="내 예약현황" class="rsvBtn" onclick="location.href='/studio/reservation'" />
 			</div>
 
 
@@ -69,8 +256,6 @@
 						</c:forEach>
 					</div>
 				</c:forEach>
-
-
 			</div>
 		</section>
 

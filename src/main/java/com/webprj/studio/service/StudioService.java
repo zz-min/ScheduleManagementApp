@@ -13,8 +13,13 @@ public interface StudioService {
 	boolean getLoginFT(int inputID,String inputPWD,String selectLoginType);
 	
 	Manager getManager(int rsvSeq);
+	List<Manager> getManagerList(String query);
+	
 	Professor getProfessor(int rsvSeq);
+	List<Professor> getProfessorList(String query);
+	
 	Student getStudent(int rsvSeq);
+	List<Student> getStudentList(String query);
 	
 	List<Studio> getStudioList(String query);
 	
@@ -22,7 +27,9 @@ public interface StudioService {
 	
 	
 	
-	Reservation getReservation(int rsvSeq);
+	Reservation getReservation(int rsvno);
+	List<Reservation> getReservationList(String query);
+	
 
 
 
