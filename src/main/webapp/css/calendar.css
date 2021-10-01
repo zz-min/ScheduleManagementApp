@@ -1,50 +1,72 @@
 @charset "UTF-8";
-header {
-    height: 45px;
-}
-#sectionContainer {
-    min-width: 1485px;
-    display: block;
-    position: relative;
-}
+
 /* HEADER */
-.calendar_title {
-    display: inline-block;
-    width: 260px;
+.headerContainer{/********************************/
+	display:flex;
+	height: 45px;
+	min-width: 1000px;
+}
+.calendar_title {/****left*************/
+	flex-basis:20%;
+
     text-align: center;
     font-size: 30px;
     font-weight: 600;
     margin-top: 5px;
 }
+#icon_calendar {
+    color: gray;
+    vertical-align: middle;
+}
 .calendar_title_logo {
     vertical-align: middle;
     font-size: 30px;    
 }
-.calendar_title_monthly {
+.calendar_main{/********right**************/
+	flex-basis:80%;
+    background-color: aqua;
+	
+}
+.calendar_main_left {
     display: inline-block;
     width: 400px;
+    height:100%;
     vertical-align: super;
+    background-color: pink;
+    
 }
+calendar_main_right{
+	display: inline-block;
+	height:100%;
+}
+
 .current-year-month {
     font-size: 26px;
     font-weight: 550;
     vertical-align: sub;
 }
-#icon_calendar {
-    color: gray;
-    vertical-align: middle;
-}
+
 #prev, #next {
     font-size: 20px;
 }
+.headerBtn{
+	font-size: 18px;
+	
+}
+/* LEFT / right */
+.sectionContainer {/********************************/
+    display: flex;
+    min-width: 1000px;
+    /* position: relative; */
+}
 /* LEFT */
-.leftSection {
-    width: 15%;
-    min-width: 215px;
-    height: 100%;
+.leftSection {/**********left*********/
+	flex-basis:20%;
+    height: 100vh;
     float: left;
     position: relative;
     box-sizing: border-box;
+     background-color: red;
 }
 .userProfile {
     width: 215px;
@@ -81,10 +103,11 @@ header {
     
 }
 /* RIGHT */
-.rightSection {
-    width: 85%;
-    min-width: 1200px;
-    height: 100%;
+.rightSection {/*********right***********/
+    flex-basis:80%;
+    height: 100vh;
+    background-color: ivory;
+
     position: relative;
     background-color: #F8FAFF;
     float: right;
