@@ -22,133 +22,116 @@ rel='stylesheet' type='text/css'><!--font-family: 'Roboto' 기본Font사용 URL 
 <link href="/css/calendar.css" rel="stylesheet" type="text/css">
 <link href="/css/reset.css" rel="stylesheet" type="text/css">
 
-<script>
-	let day = new Date();
-	day.setDate(day.getDate() - day.getDay());
+<script src="/js/calendar.js"></script>
 
-	function week_calandar(week) {
-		day.setDate(day.getDate() + week * 7);
-		let dayOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
-		let title = day.getFullYear() + "/" + (day.getMonth() + 1);
-		let data = ""
-		
-		for (let i = 0; i < 7; i++) {
-			if (day.getDate() == new Date().getDate() && day.getMonth() == new Date().getMonth()) data = dayOfWeek[i] + "(toDay)";
-			else data = dayOfWeek[i] + "(" + day.getDate() + ")";
-			
-			if (day.getDate() == 1)
-				title += " ~ " + day.getFullYear() + "/"
-						+ (day.getMonth() + 1);
-			
-			day.setDate(day.getDate() + 1);
-			
-			document.getElementById("dayoftheweek" + i).innerHTML = data;
-		}
-		day.setDate(day.getDate() - 7);
-		
-		document.getElementById("year_month").innerHTML = title;
-	}
-
-	function set_day() {
-		day = new Date();
-		day.setDate(day.getDate() - day.getDay());
-		
-		week_calandar(0);
-	}
-</script>
-<style>
-.dayofweek {
-	height: 100%;
-	width: calc(100%/ 7.3);
-	display: inline-block;
-	padding-top: 8px;
-	text-align: center;
-}
-</style>
 </head>
-<body onload=set_day()>
+<body >
 	<!-- onload는 body 태그 실행 후 바로 실행한 스크립트 지정 명령 -->
 
-	<!--------------- HEADER --------------->
-	<header>
-		<div class="calendar_title">
-			<i class="far fa-calendar-check" id="icon_calendar"></i> <span
-				class="calendar_title_logo">캘린더</span>
-		</div>
-		<div class="calendar_title_monthly">
-			<button id="prev" onclick=" week_calandar(-1)">&#60;</button>
-			<span id="year_month" class="current-year-month"></span>
-			<button id="next" onclick="week_calandar(1)">&#62;</button>
-			<button id="today" onclick="set_day()">toDay</button>
-		</div>
-		<div class="calendar_title">
-			<input type="button" value="month" onclick="location.href='/studio/month'" />
-		</div>
-	</header>
+	<!--------------- HEADER ⊃  calendar_title,calendar_main-------------->
+	<div class="headerContainer">
 
-	<div id="sectionContainer">
+		<div class="calendar_title">
+			<i class="far fa-calendar-check" id="icon_calendar"></i> 
+			<span class="calendar_title_logo">캘린더</span>
+		</div>
+
+		<div class="calendar_main">
+			<!-- week -->
+			<div class="calendar_main_left">
+				<button id="prev" onclick=" week_calandar(-1)">&#60;</button>
+				<span id="year_month" class="current-year-month"></span>
+				<button id="next" onclick="week_calandar(1)">&#62;</button>
+			</div>
+			<!-- month -->
+			<!-- 
+			<div class="calendar_main_left">
+				<button id="prev">&#60;</button>
+				<span class="current-year-month"> </span>
+				<button id="next">&#62;</button>
+			</div>
+			-->
+			<div class="calendar_main_right">
+				<input type="button" value="today" class="headerBtn" id="today" onclick="set_day()'" />
+				<input type="button" value="month" class="headerBtn" onclick="location.href='/studio/week'" />
+			</div>
+		</div>
+	</div>
+
+
+	<!--------------- SECTION  ⊃  leftSection.studioContainer --------------->
+	<div class="sectionContainer">
 		<!------------- LEFT --------------->
-		<section class="leftSection">
+		<div class="leftSection">
 			<div class="userProfile">
-				<i class="far fa-user-circle fa-3x" id="icon_user"></i>
-				<h2 class="profileName">${name}님</h3>
-
-					<button class="rsvBtn">내 예약현황</button>
+				<div class="prifileTitle">
+					<i class="far fa-user-circle fa-3x" id="icon_user"></i>
+					<h2 class="profileName">${name}님</h2>
+				</div>
+				<input type="button" value="내 예약현황" class="rsvBtn"
+					onclick="location.href='/studio/reservation'" />
 			</div>
 
 
 			<div class="studioContainer">
-				<c:forEach var="i" begin="0" end="${fn:length(studioLoc)-1}">
+				<c:forEach var="i" begin="0" end="${fn:length(studioLocList)-1}">
 					<div class="studioLocContainer">
 
-						<h1>${studioLoc[i]}</h1>
-						<c:forEach var="j" items="${studios}">
-							<c:if test="${j.getLoc() == studioLoc[i] }">
+						<h1>${studioLocList[i]}</h1>
+						<c:forEach var="j" items="${studioList}">
+							<c:if test="${j.getStudioloc() == studioLocList[i] }">
 								<input type="checkbox" name="selectStudio" value="admin"
 									required>${j.getStudiono()}
-								
+								<br>
 							</c:if>
 						</c:forEach>
 					</div>
 				</c:forEach>
-
 			</div>
-		</section>
-
+		</div>
 
 		<!--------------- RIGHT  --------------->
-		<section class="rightSection">
-			<div id="calendar">
-				<div class="dayHeaderContainer">
-					<div class="dayHeader_Sun" id="dayoftheweek0"></div>
-					<div class="dayHeader" id="dayoftheweek1"></div>
-					<div class="dayHeader" id="dayoftheweek2"></div>
-					<div class="dayHeader" id="dayoftheweek3"></div>
-					<div class="dayHeader" id="dayoftheweek4"></div>
-					<div class="dayHeader" id="dayoftheweek5"></div>
-					<div class="dayHeader_Sat" id="dayoftheweek6"></div>
-				</div>
-				<div id="calendar_value">
-					<%
-					for (int i = 9; i < 23; i++) {
-					%>
-					<%
-					for (int j = 0; j < 7; j++) {
-					%>
-					<div id="dayofweek<%=i%>" class="dayofweek">
-						<% for (int k = 0; k < 60; k = k + 10) {%>
-							<div id="weektime<%=k%>" class="weektime"><%=i%>시 <%=k%>분</div>
-						<% } %>
+		<div class="rightSection">
+			<div class="timeLineContainer">
+				<div class="timeLineTitle">TIME</div>
+				<c:forEach var="i" begin="9" end="18">
+					<!-- 9시~18시 -->
+					<div class="timeLineItem">${i}:00~ ${i}:30</div>
+					<div class="timeLineItem">${i}:30~ ${i+1}:00</div>
+				</c:forEach>
+			</div>
+			<div class="weekContainer">
+				<div id="calendar">
+					<div class="dayHeaderContainer">
+						<div class="dayHeader">
+							<span>월</span><span id="dayoftheweek0"></span>
+						</div>
+						<div class="dayHeader">
+							<span>화</span><span id="dayoftheweek1"></span>
+						</div>
+						<div class="dayHeader">
+							<span>수</span><span id="dayoftheweek2"></span>
+						</div>
+						<div class="dayHeader">
+							<span>목</span><span id="dayoftheweek3"></span>
+						</div>
+						<div class="dayHeader">
+							<span>금</span><span id="dayoftheweek4"></span>
+						</div>
+						<div class="dayHeader">
+							<span>토</span><span id="dayoftheweek5"></span>
+						</div>
+						<div class="dayHeader">
+							<span>일</span><span id="dayoftheweek6"></span>
+						</div>
 					</div>
-					<%
-					}
-					%>
-					<%
-					}
-					%>
+
+					<div id="calendar_value">
+					</div>
 				</div>
 			</div>
-		</section>
+		</div>
+		
 	</div>
 </body>
 </html>

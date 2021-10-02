@@ -68,8 +68,9 @@ public class LoginController implements Controller {
 			
 			session.setAttribute("studioList", studioList);
 			session.setAttribute("studioLocList", studioLocList);
-
-			viewName = "calendar(jsp+js).jsp";
+			
+			viewName = "calendar(jsp+js).jsp"; 
+			/*viewName = "calendar(week).jsp";*/
 		}		
 		
 		return viewName;

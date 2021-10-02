@@ -4,11 +4,14 @@ import java.util.Date;
 
 public class Reservation {
 	private int rsvno; // 예약번호 PRIMARY KEY
+	
 	private int studentno; // 학번
 	private int profno; // 직번
+	private int manno; // 관리자직번  NOT NULL 
+	
 	private int studiono; // 스튜디오번호
 	private String studioloc; //스튜디오위치
-	private int manno; // 관리자직번  NOT NULL
+	
 	private Date rsvDate; // 예약날짜 NOT NULL
 	private String startTime; // 시작시간 NOT NULL
 	private String endTime; // 종료시간 NOT NULL
@@ -19,8 +22,6 @@ public class Reservation {
 	//STUDIONO ,STUDIOLOC : FOREIGN KEY REFERENCES STUDIO (STUDIONO , STUDIOLOC );
 	
 	public Reservation() {
-		
-		
 	}
 
 	public Reservation(int rsvno, int studentno, int profno, int studiono, String studioloc, int manno,

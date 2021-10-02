@@ -14,11 +14,10 @@
 		<java-version>1.8</java-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<m2eclipse.wtp.contextRoot>/</m2eclipse.wtp.contextRoot>
-
 	</properties>
 
-
 	<dependencies><!--dependency -->
+	
 		<dependency><!--unit Test dependency -->
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -63,7 +62,6 @@
 			<version>3.5.1</version>
 		</dependency>
 			
-
 		<!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-jdbc -->
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
@@ -71,22 +69,19 @@
 			<version>9.0.41</version>
 		</dependency>
 
-
 		<!-- https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc8 -->
 		<dependency>
 			<groupId>com.oracle.database.jdbc</groupId>
 			<artifactId>ojdbc8</artifactId>
 			<version>21.1.0.0</version>
 		</dependency>
-
-
 	</dependencies>
-
 
 	<build>
 		<finalName>ScheduleManagementApp</finalName>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<plugins>
+		
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.1</version>
@@ -104,6 +99,7 @@
 					<failOnMissingWebXml>false</failOnMissingWebXml> <!-- web.xml이 없을 때 에러를 낼건지 안낼건지 -->
 				</configuration>
 			</plugin>
+			
 		</plugins>
 	</build>
 </project>

@@ -98,6 +98,7 @@ public class DispatcherServlet extends HttpServlet {
 			viewName = viewName.trim();//공백제거함
 
 			viewName = "/WEB-INF/view/" + viewName;
+			System.out.println("viewName : "+viewName);
 
 			RequestDispatcher view = request.getRequestDispatcher(viewName);
 			view.forward(request, response);

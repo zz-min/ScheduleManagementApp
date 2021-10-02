@@ -9,13 +9,18 @@ window.onload = function() {
 
 	const headerYear = document.querySelector('.current-year-month');
 	const calendarBody = document.querySelector('#calendar');
-	const prevEl = document.getElementById('prev');
-	const nextEl = document.getElementById('next');
+	var prevEl = document.getElementById('prev');
+	var nextEl = document.getElementById('next');
 	
-	prevEl.addEventListener("click", prevElClick);
-	nextEl.addEventListener("click", nextElClick);
-
-	buildCalendar();
+	prevEl.addEventListener("click", prev_week_calandar);
+	nextEl.addEventListener("click", next_week_calandar);
+	
+/*	prevEl.addEventListener("click", prevElClickMonth);
+	nextEl.addEventListener("click", nextElClickMonth);*/
+	
+	
+	week_calandar(0);
+	//buildCalendar();
 
 	function buildCalendar() {
 		firstDate = new Date(today.getFullYear(), today.getMonth(), 1, today.getDay());//2021.9.1.2(수)
@@ -86,15 +91,45 @@ window.onload = function() {
 		}
 	}
 
-	function prevElClick() {
+	function prevElClickMonth() {
 		today = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
 		removeCalendar();
 		buildCalendar();
 	}
-	function nextElClick() {
+	function nextElClickMonth() {
 		today = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
 		removeCalendar();
 		buildCalendar();
+	}
+	
+	function week_calandar(week) {
+		today.setDate(today.getDate() + week * 7);		
+			
+		let title = today.getFullYear() + "/" + (today.getMonth() + 1);
+		let data = ""
+		
+		for (let i = 0; i < 7; i++) {
+			if (today.getDate() == new Date().getDate() && today.getMonth() == new Date().getMonth()) data = "< toDay >";
+			else data = "(" + today.getDate() + ")";
+			
+			if (today.getDate() == 1)
+				title += " ~ " + today.getFullYear() + "/"
+						+ (today.getMonth() + 1);
+			
+			today.setDate(today.getDate() + 1);
+			
+			document.getElementById("dayoftheweek" + i).innerHTML = data;
+		}
+		today.setDate(today.getDate() - 7);
+		
+		headerYear.innerHTML = title;
+	}
+	function prev_week_calandar(){
+		week_calandar(-1);
+		
+	}
+	function next_week_calandar(){
+		week_calandar(1);
 	}
 
 

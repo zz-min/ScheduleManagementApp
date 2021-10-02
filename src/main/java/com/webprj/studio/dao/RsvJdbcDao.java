@@ -27,18 +27,18 @@ public class RsvJdbcDao implements RsvDao{
 		this.userName = userName;
 		this.password = password;
 		
-		System.out.println("RsvJdbcDao 생성자 실행됨");
+		//System.out.println("RsvJdbcDao 생성자 실행됨");
 	}
 
 	private void connect() throws ClassNotFoundException, SQLException {
 		Class.forName(driver);
 		conn = DriverManager.getConnection(url, userName, password);
 		
-		System.out.println("RsvJdbcDao  DB연결성공");
+		//System.out.println("RsvJdbcDao  DB연결성공");
 	}
 
 	private void disconnect() throws SQLException {
-		System.out.println("RsvJdbcDao  DB연결해제");
+		//System.out.println("RsvJdbcDao  DB연결해제");
 		
 		if (rs != null && !rs.isClosed()) {
 			rs.close();
