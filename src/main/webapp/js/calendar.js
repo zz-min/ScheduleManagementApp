@@ -9,18 +9,39 @@ window.onload = function() {
 
 	const headerYear = document.querySelector('.current-year-month');
 	const calendarBody = document.querySelector('#calendar');
-	var prevEl = document.getElementById('prev');
-	var nextEl = document.getElementById('next');
+	const prevEl = document.getElementById('prev');
+	const nextEl = document.getElementById('next');
+	const mwBtn = document.querySelector('.mwBtn');
 	
-	prevEl.addEventListener("click", prev_week_calandar);
-	nextEl.addEventListener("click", next_week_calandar);
+	mwBtn.addEventListener("click",function(){
+		$(".monthRigth").toggle();
+		$(".weekRight").toggle();
+		if(mwBtn.value=='monthly'){
+			mwBtn.value='weekly';
+			prevEl.addEventListener("click", prev_week_calandar);
+			nextEl.addEventListener("click", next_week_calandar);
+			/*$(".monthRigth").hide();
+			$(".weekRight").show();*/
+			week_calandar(0);
+		}else{
+			mwBtn.value='monthly';
+			prevEl.addEventListener("click", prevElClickMonth);
+			nextEl.addEventListener("click", nextElClickMonth);
+			/*$(".monthRigth").show();
+			$(".weekRight").hide();*/
+			buildCalendar();
+		}
+	});
 	
-/*	prevEl.addEventListener("click", prevElClickMonth);
-	nextEl.addEventListener("click", nextElClickMonth);*/
-	
-	
-	week_calandar(0);
-	//buildCalendar();
+	initJS();
+	function initJS() {
+		$(".monthRigth").show();
+		$(".weekRight").hide();
+		
+		prevEl.addEventListener("click", prevElClickMonth);
+		nextEl.addEventListener("click", nextElClickMonth);
+		buildCalendar();
+	}	
 
 	function buildCalendar() {
 		firstDate = new Date(today.getFullYear(), today.getMonth(), 1, today.getDay());//2021.9.1.2(수)
@@ -80,7 +101,7 @@ window.onload = function() {
 		calendarBody.insertAdjacentHTML("beforeend", calHtml);
 	}
 
-	function removeCalendar() {
+	function removeCalendarMonth() {//Monthly내부에 달력내용만 지우기
 		let divEls1 = document.querySelectorAll('.calendar__day');
 		let divEls2 = document.querySelectorAll('.calendarWeekContainer');
 		for (let i = 0; i < divEls1.length; i++) {
@@ -90,15 +111,20 @@ window.onload = function() {
 			divEls2[i].remove();
 		}
 	}
+	
+	function removeCalendarWeek(){
+		let delSection=document.querySelector("#calendar");
+		delSection.remove();
+	}
 
 	function prevElClickMonth() {
 		today = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
-		removeCalendar();
+		removeCalendarMonth();
 		buildCalendar();
 	}
 	function nextElClickMonth() {
 		today = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
-		removeCalendar();
+		removeCalendarMonth();
 		buildCalendar();
 	}
 	
@@ -106,7 +132,7 @@ window.onload = function() {
 		today.setDate(today.getDate() + week * 7);		
 			
 		let title = today.getFullYear() + "/" + (today.getMonth() + 1);
-		let data = ""
+		var data ="";
 		
 		for (let i = 0; i < 7; i++) {
 			if (today.getDate() == new Date().getDate() && today.getMonth() == new Date().getMonth()) data = "< toDay >";

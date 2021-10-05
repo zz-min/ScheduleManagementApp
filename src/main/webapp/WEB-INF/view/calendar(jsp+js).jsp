@@ -32,14 +32,6 @@
 <script>
 $(function() {
 
-	$(".headerBtn").on("click", function() {
-		if( $(this).value() == 'week' ) {
-		      $(this).value('month');
-		    }
-		    else {
-		      $(this).value('week');
-		    }
-	});
 
 });
 </script>
@@ -62,15 +54,12 @@ $(function() {
 			</div>
 
 			<div class="calendar_main_right">
-				<input type="button" value="week" class="headerBtn"/> 
+				<input type="button" value="monthly" class="mwBtn headerBtn"/> <!-- toggle -->
 				<input type="button" value="today" class="headerBtn" onclick="location.href='/studio'" />
 			</div>
 
 		</div>
 	</div>
-
-
-
 
 
 	<!--------------- SECTION  ⊃  leftSection.studioContainer --------------->
@@ -105,8 +94,7 @@ $(function() {
 		</div>
 
 		<!--------------- RIGHT  --------------->
-		<c:if test="${tagMW eq 'monthly'}">
-			<div class="rightSection">
+			<div class="rightSection monthRigth">
 				<div id="calendar">
 					<div class="dayHeaderContainer">
 						<div class="dayHeader">월</div>
@@ -119,10 +107,8 @@ $(function() {
 					</div>
 				</div>
 			</div>
-		</c:if>
-
-		<c:if test="${tagMW eq 'weekly'}">
-			<div class="rightSection">
+		
+			<div class="rightSection weekRight">
 				<div class="timeLineContainer">
 					<div class="timeLineTitle">TIME</div>
 					<c:forEach var="i" begin="9" end="18">
@@ -161,7 +147,6 @@ $(function() {
 					</div>
 				</div>
 			</div>
-		</c:if>
 
 	</div>
 </body>
