@@ -8,38 +8,48 @@ window.onload = function() {
 	let prevLastDay;//지난 달의 마지막 날
 
 	const headerYear = document.querySelector('.current-year-month');
-	const calendarBody = document.querySelector('#calendar');
+	const D = document.querySelector('.rightSection');
+
 	const prevEl = document.getElementById('prev');
 	const nextEl = document.getElementById('next');
 	const mwBtn = document.querySelector('.mwBtn');
+	const todayBtn = document.querySelector('.todayBtn');
 	
-	mwBtn.addEventListener("click",function(){
-		$(".monthRigth").toggle();
-		$(".weekRight").toggle();
+	mwBtn.addEventListener("click",function(){		
 		if(mwBtn.value=='monthly'){
 			mwBtn.value='weekly';
 			prevEl.addEventListener("click", prev_week_calandar);
 			nextEl.addEventListener("click", next_week_calandar);
-			/*$(".monthRigth").hide();
-			$(".weekRight").show();*/
+			fetchPage('../js/week.txt');
+				/*			<c:forEach var="i" begin="9" end="18">
+						<!-- 9시~18시 -->
+						<div class="timeLineItem">${i}:00~${i}:30</div>
+						<div class="timeLineItem">${i}:30~${i+1}:00</div>
+					</c:forEach>*/
 			week_calandar(0);
 		}else{
 			mwBtn.value='monthly';
 			prevEl.addEventListener("click", prevElClickMonth);
 			nextEl.addEventListener("click", nextElClickMonth);
-			/*$(".monthRigth").show();
-			$(".weekRight").hide();*/
+			fetchPage('../js/month.txt');
 			buildCalendar();
 		}
 	});
+	//todayBtn.addEventListener("click",fetchPage);
+	function fetchPage(filepath) {
+		document.querySelector('.rightSection').innerHTML="dd";
+		fetch(filepath).then(function(response) {
+			response.text().then(function(text) {
+				document.querySelector('.rightSection').innerHTML = text;
+			})
+		})
+	};
 	
 	initJS();
 	function initJS() {
-		$(".monthRigth").show();
-		$(".weekRight").hide();
-		
 		prevEl.addEventListener("click", prevElClickMonth);
 		nextEl.addEventListener("click", nextElClickMonth);
+		fetchPage('../js/month.txt');
 		buildCalendar();
 	}	
 
@@ -49,7 +59,6 @@ window.onload = function() {
 		prevLastDay = new Date(firstDate.getFullYear(), firstDate.getMonth(), 0).getDate();//8/31 1(화)
 		
 		headerYear.innerHTML = `&nbsp;${today.getFullYear()}년&nbsp;&nbsp;&nbsp;&nbsp;${firstDate.getMonth()+1}월&nbsp;`;
-
 		makeElement(firstDate);
 	}
 
@@ -57,7 +66,8 @@ window.onload = function() {
 	function makeElement(firstDate) {
 		//getMonth() :: 1월 0 ~ 12월 11
 		//getDay() :: 월0 ~일6
-
+		const calendarBody = document.querySelector('#calendar');
+		
 		let startDayCount = 1;
 		let lastDayCount = 1;
 
@@ -97,8 +107,10 @@ window.onload = function() {
 				if (j == 6) { calHtml += "</div>" }
 			}
 		}
+		alert(calHtml);
 		//캘린더 div 태그에 내용 붙임
-		calendarBody.insertAdjacentHTML("beforeend", calHtml);
+		//calendarBody.insertAdjacentHTML("beforeend", calHtml);
+		D.innerHTML("c추가");
 	}
 
 	function removeCalendarMonth() {//Monthly내부에 달력내용만 지우기
