@@ -8,4 +8,3 @@
 		<div class="dayHeader">토</div>
 		<div class="dayHeader">일</div>
 	</div>	
-	<div>test</div>
