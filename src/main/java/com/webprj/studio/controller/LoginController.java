@@ -7,6 +7,9 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.ws.Response;
+
+import org.omg.CORBA.Request;
 
 import com.webprj.Control.Controller;
 import com.webprj.di.entity.*;
@@ -26,9 +29,8 @@ public class LoginController implements Controller {
 		int inputID = Integer.parseInt(request.getParameter("userId"));
 		String inputPWD = request.getParameter("password");
 		String selectLoginType = request.getParameter("selectLoginType");
-		System.out.println(selectLoginType);
 		
-		boolean loginCheck = studioService.getLoginFT(inputID,inputPWD,selectLoginType);
+		boolean loginCheck = studioService.getLoginFT(inputID,inputPWD,selectLoginType);//로그인 유효성 검사
 		
 		
 		if (loginCheck == false) {
@@ -60,16 +62,19 @@ public class LoginController implements Controller {
 			List<Studio> studioList = studioService.getStudioList(null);
 			List<String> studioLocList=studioService.getStudiosLocList();
 			
+			request.setAttribute("name", loginName);
+			request.setAttribute("studioList", studioList);
+			request.setAttribute("studioLocList", studioLocList);
+			/*
 			//  세션 구현부
 			session.setAttribute("id", inputID);
 			session.setAttribute("name", loginName);
 			session.setAttribute("loginType", selectLoginType);
-			
-			
 			session.setAttribute("studioList", studioList);
 			session.setAttribute("studioLocList", studioLocList);
-
-			viewName = "calendar(jsp+js).jsp"; 
+			*/
+			viewName = "calendar(test).jsp"; 
+			//viewName = "calendar(jsp+js).jsp"; 
 		}		
 		
 		return viewName;

@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>캘린더</title>
+<title>캘린더TEST</title>
 
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.12.1/css/all.css"
@@ -20,7 +20,7 @@
 	rel='stylesheet' type='text/css'>
 <!--font-family: 'Roboto' 기본Font사용 URL -->
 
-<link href="/css/calendar.css" rel="stylesheet" type="text/css">
+<link href="/css/calendar.css?D" rel="stylesheet" type="text/css">
 <link href="/css/reset.css" rel="stylesheet" type="text/css">
 
 <link rel="stylesheet"
@@ -29,7 +29,7 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<script src="/js/calendar.js"></script>
+<script src="/js/calendar2.js"></script>
 </head>
 <body>
 	<!--------------- HEADER ⊃  calendar_title,calendar_main-------------->

@@ -5,7 +5,6 @@ $(document).ready(function() {//DOM Tree 생성 완료 후 호출 (즉, 먼저 �
 	//alert("2)document.ready");
 });
 
-
 $(window).load(function() {//모든 페이지 구성요소 페인팅 완료 후 호출 ONLY ONE
 	let today = new Date();
 	let firstDate;//이번 달의 첫 날
@@ -13,90 +12,86 @@ $(window).load(function() {//모든 페이지 구성요소 페인팅 완료 후 
 	let prevLastDay;//지난 달의 마지막 날
 
 	$("#prev").click(function(event) {
-		if ($(".mwBtn").val() == 'monthly') {
+		if ($(".mwBtn").val() == 'weekly') {
 			prevElClickMonth();
-		} else {
+		} else if ($(".mwBtn").val() == 'monthly') {
 			prevElClickWeek();
+		} else if ($(".mwBtn").val() == '예약수정') {
+			prevElClickRsv();
 		}
 	});
 
 	$("#next").click(function(event) {
-		if ($(".mwBtn").val() == 'monthly') {
+		if ($(".mwBtn").val() == 'weekly') {
 			nextElClickMonth();
-		} else {
+		} else if ($(".mwBtn").val() == 'monthly'){
 			nextElClickWeek();
+		}else if ($(".mwBtn").val() == '예약수정') {
+			nextElClickRsv();
 		}
 	});
 	
 	$(".mwBtn").click(function(event){
-		if ($(".mwBtn").val() == 'monthly') {
-			$(".mwBtn").val('weekly');
+		if ($(".mwBtn").val() == 'weekly') {
+			$(".mwBtn").val('monthly');
 
 			buildWeek(0);
 		} else {
-			$(".mwBtn").val('monthly');
+			$(".mwBtn").val('weekly');
 
 			buildMonth();
 		}
 	});
-	$(".todayBtn").click(function(event){	});
-	
-	function fetchPage(filepath,str) {
+	$(".todayBtn").click(function(event) {
+		
+	});
+	$(".rsvBtn").click(function(event) {
+		if ($(".rsvBtn").val() == '예약현황') {
+			$(".rsvBtn").val("돌아가기");
+			$(".mwBtn").val("예약수정");
+			$(".todayBtn").val("예약취소");
+			buildRsvHeader();
+			
+			fetchPage2('/studio/reservation');
+		} else if ($(".rsvBtn").val() == "돌아가기") {
+			$(".rsvBtn").val('예약현황');
+			$(".mwBtn").val("weekly");
+			$(".todayBtn").val("today");
+			buildMonth();
+		}
+	});
+	function fetchPage2(filepath) {
+		fetch(filepath)
+			.then(function(response) {	
+				response.text()
+			.then(function(text) {
+				//alert(text);
+				$(".rightSection").html(text);
+			})
+		});
+	}
+	function fetchPage(filepath, str) {
+		console.log("a");
 		var textEl="";
 		fetch(filepath)
 			.then(function(response) {	
 				response.text()
 			.then(function(text) {
-				if(filepath=='../js/m.txt'){
+				if(filepath=='../js/month.txt'){
 					textEl=text+str+'</div>';
 				}else if(filepath=='../js/week.txt'){
-					textEl=text;					
+					textEl=text+str;					
 				}
 				$(".rightSection").html(textEl);
 			})
 		});
 	}
 
-	function buildWeek(week) {
-		fetchPage('../js/week.txt',null);
-		today.setDate(today.getDate() + week * 7);
-		let title = today.getFullYear() + "&nbsp;년&nbsp;&nbsp;&nbsp;&nbsp;" + (today.getMonth() + 1)+"월&nbsp;(주)";
-		
-		for (let i = 0; i < 7; i++) {
-			if (today.getDate() == 1)
-				title += " ~&nbsp;&nbsp;&nbsp;&nbsp; " + today.getFullYear() + "년&nbsp;&nbsp;&nbsp;&nbsp;"
-					+ (today.getMonth() + 1) +"월";
-
-			today.setDate(today.getDate() + 1);
-		}
-		today.setDate(today.getDate() - 7);
-
-		$(".current-year-month").html(title);
-		
-		$(".todayBtn").trigger("click");
-		makeElementWeek(0);
-	}
-	
-	function makeElementWeek(week){
-		$(`.dayHeaderContainer`).css({
-			"background-color":"red"
-		});
-		$(`.calendar_title_logo`).css({
-			"background-color":"red"
-		});
-		today.setDate(today.getDate() + week * 7);
-
-		var data = "";
-
-		for (let i = 0; i < 7; i++) {
-			if (today.getDate() == new Date().getDate() && today.getMonth() == new Date().getMonth()) data = "< toDay >";
-			else data = "(" + today.getDate() + ")";
-
-			today.setDate(today.getDate() + 1);
-
-			$(`#dayoftheweek${i}`).html(data);
-		}
-		today.setDate(today.getDate() - 7);
+	function buildRsvHeader() {
+		firstDate = new Date(today.getFullYear(), today.getMonth(), 1, today.getDay());//2021.9.1.2(수)
+		lastDay = new Date(firstDate.getFullYear(), firstDate.getMonth() + 1, 0).getDate();//9/30 3(목)
+		prevLastDay = new Date(firstDate.getFullYear(), firstDate.getMonth(), 0).getDate();//8/31 1(화)
+		$(".current-year-month").html(`&nbsp;${today.getFullYear()}년&nbsp;&nbsp;&nbsp;&nbsp;${firstDate.getMonth()+1 }월&nbsp;(예약)`);
 	}
 	
 	buildMonth();
@@ -105,7 +100,7 @@ $(window).load(function() {//모든 페이지 구성요소 페인팅 완료 후 
 		lastDay = new Date(firstDate.getFullYear(), firstDate.getMonth() + 1, 0).getDate();//9/30 3(목)
 		prevLastDay = new Date(firstDate.getFullYear(), firstDate.getMonth(), 0).getDate();//8/31 1(화)
 		$(".current-year-month").html(`&nbsp;${today.getFullYear()}년&nbsp;&nbsp;&nbsp;&nbsp;${firstDate.getMonth()+1 }월&nbsp;(월)`);
-		fetchPage('../js/m.txt',makeElementMonth(firstDate));
+		fetchPage('../js/month.txt',makeElementMonth(firstDate));
 	}
 
 	function makeElementMonth(firstDate) {
@@ -152,6 +147,53 @@ $(window).load(function() {//모든 페이지 구성요소 페인팅 완료 후 
 		}
 		return calHtml;
 	}
+	
+	function buildWeek(week) {
+		fetchPage('../js/week.txt', makeElementWeek(0));
+		today.setDate(today.getDate() + week * 7);
+		let title = "&nbsp;" + today.getFullYear() + "년&nbsp;&nbsp;&nbsp;&nbsp;" + (today.getMonth() + 1) + "월&nbsp;(주)";
+
+		for (let i = 0; i < 7; i++) {
+			if (today.getDate() == 1)
+				title += " ~&nbsp;&nbsp;&nbsp;&nbsp; " + today.getFullYear() + "년&nbsp;&nbsp;&nbsp;&nbsp;"
+					+ (today.getMonth() + 1) + "월";
+
+			today.setDate(today.getDate() + 1);
+		}
+		today.setDate(today.getDate() - 7);
+
+		$(".current-year-month").html(title);
+	}
+
+	function makeElementWeek(week){
+		var weekDate = new Date(today);
+		weekDate.setDate(weekDate.getDate() + week * 7);//나타낼 주 날짜 읽어와서 저장하기 0,-1,+1
+
+		if (weekDate.getDay() == 0) {
+			weekDate.setDate(weekDate.getDate() - 6);
+		} else {
+			weekDate.setDate(weekDate.getDate() - (weekDate.getDay() - 1));
+		}//첫주 시작 월요일로 잡기
+		
+		var data = "";//dayHeaderContainer내부 세팅
+		const daySet=["월","화","수","목","금","토","일"];
+
+		for (let i = 0; i < 7; i++) {//0~6
+			data += `<div class='dayHeader'><span>${daySet[i]}</span><span>`;
+
+			if (weekDate.getDate() == new Date().getDate() && weekDate.getMonth() == new Date().getMonth()) {
+				data += `< toDay >`;
+			}
+			else {
+				data += "(" + weekDate.getDate() + ")";
+			}
+			data += "</span></div>";
+			weekDate.setDate(weekDate.getDate() + 1);
+		}
+		data += "</div><div id='calendar_value'></div></div></div>";
+
+		return data;
+	}
 
 	function removeCalendarMonth() {//Monthly내부에 달력내용만 지우기
 		let divEls1 = document.querySelectorAll('.calendar__day');
@@ -165,8 +207,7 @@ $(window).load(function() {//모든 페이지 구성요소 페인팅 완료 후 
 	}
 
 	function removeCalendarWeek() {
-		let delSection = document.querySelector("#calendar");
-		delSection.remove();
+		$("#calendar").remove();
 	}
 
 	function prevElClickMonth() {
@@ -188,11 +229,14 @@ $(window).load(function() {//모든 페이지 구성요소 페인팅 완료 후 
 	function nextElClickWeek() {
 		buildWeek(1);
 	}
+	
+	function prevElClickRsv() {
+		today = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
+		removeCalendarMonth();
+	}
+	
+	function nextElClickRsv() {
+		today = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
+		removeCalendarMonth();
+	}	
 });
-		/*
-		$(".leftSection").text("d");
-		$(".rightSection").text("d");
-		$(".leftSection").css({
-			"background-color":"pink"
-		});
-		*/

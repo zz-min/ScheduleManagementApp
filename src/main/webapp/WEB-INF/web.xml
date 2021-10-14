@@ -23,7 +23,7 @@
 	</context-param>
 	<context-param>
 		<param-name>db_url</param-name>
-		<param-value>jdbc:oracle:thin:@54.180.209.19/xe</param-value>
+		<param-value>jdbc:oracle:thin:@3.36.100.25/xe</param-value>
 	</context-param>
 	<context-param>
 		<param-name>db_userid</param-name>

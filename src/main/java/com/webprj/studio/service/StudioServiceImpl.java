@@ -24,8 +24,6 @@ public class StudioServiceImpl implements StudioService {
 	private StudioDao studioDao = null;
 	private RsvDao rsvDao = null;
 	
-
-	
 	public StudioServiceImpl(LoginDao loginJdbc,ManagerDao manJdbc,ProfessorDao professorJdbc,StudentDao studentJdbc,
 			StudioDao studioJdbc,RsvDao rsvJdbc) {
 		this.loginDao = loginJdbc;
@@ -109,70 +107,4 @@ public class StudioServiceImpl implements StudioService {
 	public List<Reservation> getReservationList(String query) {
 		return rsvDao.getReservationList(query);
 	}
-	
-	
-	
-	
-	
-
-
-	
-	
-	
-	
-	
-	/*
-	private RsvDao rsvDao;
-	private SeatDao seatDao;
-	
-	public StudioServiceImpl(RsvDao rsvDao, SeatDao seatDao) {
-		this.rsvDao = rsvDao;
-		this.seatDao = seatDao;
-	}
-
-	
-
-	@Override
-	public int registerReservation(Reservation rsv) {
-		int result = 0;
-		
-		int rsvSeq = rsvDao.insertReservation(rsv);
-		
-		result = seatDao.updateSeat(rsv.getSeatNumbers(), rsvSeq);
-		
-		return result;
-	}
-
-	@Override
-	public int updateReservation(Reservation rsv) {
-		int result = 0;		
-		int rsvSeq = rsv.getRsvSeq();
-		
-		Reservation prevRsv = rsvDao.getReservation(rsvSeq);
-		seatDao.updateSeat(prevRsv.getSeatNumbers(), 0);
-		
-		result = rsvDao.updateReservation(rsv);	
-		result = seatDao.updateSeat(rsv.getSeatNumbers(), rsvSeq);
-		
-		return result;	
-	}
-
-	@Override
-	public int deleteReservation(Reservation rsv) {
-		int result = 0;
-		
-		result = rsvDao.deleteReservation(rsv.getRsvSeq());
-		if (result == 1) {
-			result = seatDao.updateSeat(rsv.getSeatNumbers(), 0);
-		}
-		
-		return result;
-	}
-
-	@Override
-	public List<Integer> getSeatNumbers(boolean booked) {
-		return seatDao.getSeatNumbers(booked);
-	}
-	
-	*/
 }

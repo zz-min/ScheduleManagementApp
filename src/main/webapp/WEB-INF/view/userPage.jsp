@@ -16,9 +16,7 @@ table {
 </style>
 </head>
 <body>
-
-	<p1>${name}님의 예약현황</p1>
-
+	<%-- <p1>${name}님의 예약현황</p1> --%>
 	
 	<div class="rsvList">
 				<table border="1">
