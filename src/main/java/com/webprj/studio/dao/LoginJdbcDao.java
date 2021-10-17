@@ -91,7 +91,7 @@ public class LoginJdbcDao implements LoginDao {
 	@Override
 	public Student selectStudent(int studno, String pwd) {
 		Student sd = null;
-		String sql = "select * from STUDENT where STUDNO = ? AND PWD = ?";
+		String sql = "select * from STUDENT where studentno = ? AND PWD = ?";
 		try {
 			connect();
 			
@@ -108,7 +108,7 @@ public class LoginJdbcDao implements LoginDao {
 				sd.setGrade(rs.getInt("grade"));
 				sd.setMajorno(rs.getInt("majorno"));
 				sd.setPwd(rs.getString("pwd"));
-				sd.setProfno(rs.getInt("prof"));
+				sd.setProfno(rs.getInt("profno"));
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
@@ -127,7 +127,7 @@ public class LoginJdbcDao implements LoginDao {
 	@Override
 	public Manager selectManager(int manno, String pwd) {
 		Manager mg = null;
-		String sql = "select * from MANAGER where manno = " + manno + "AND PWD = " + pwd;
+		String sql = "select * from MANAGER where manno = ? AND PWD = ?";
 		try {
 			connect();
 

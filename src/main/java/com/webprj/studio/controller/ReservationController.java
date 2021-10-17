@@ -19,29 +19,28 @@ public class ReservationController implements Controller {
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response, StudioService studioService) {
-		HttpSession session = request.getSession(true);// 세션이 존재하면 세션반환, 없으면 새로운 세션 생성
-
-		int id=(int) session.getAttribute("id");
-		String loginType=(String) session.getAttribute("loginType");
-		String str = null;
+		String method = request.getMethod().toUpperCase();//요청메소드를 모두 대문자로반환 post -> POST
+		System.out.println(method);
 		
-		if (loginType.equals("manager")) {
-			str = "manno = " + id;
+			int id = (int) request.getAttribute("id");
+			String loginType = (String) request.getAttribute("loginType");
+			String str = null;
 
-		} else if (loginType.equals("professor")) {
-			str = "profno = " + id;
+			if (loginType.equals("manager")) {
+				str = "manno = " + id;
 
-		} else if (loginType.equals("student")) {
-			str = "studentno = " + id;
-		}
-		 
-				
-		List<Reservation> rsvList=studioService.getReservationList(str);	
-		
-		//  세션 구현부
-		session.setAttribute("rsvList", rsvList);
-		
-		return "userPage.jsp";
+			} else if (loginType.equals("professor")) {
+				str = "profno = " + id;
+
+			} else if (loginType.equals("student")) {
+				str = "studentno = " + id;
+			}
+
+			List<Reservation> rsvList = studioService.getReservationList(str);
+
+			request.setAttribute("rsvList", rsvList);
+
+			return "userPage.jsp";
 	}
 
 }

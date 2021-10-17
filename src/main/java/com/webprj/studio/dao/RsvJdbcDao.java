@@ -130,4 +130,46 @@ public class RsvJdbcDao implements RsvDao{
 		}
 		return rsvList;
 	}
+	
+	public List<Reservation> getRsvList(String query) {//JSON
+		System.out.println("TEST");
+		List<Reservation> rsvList = null;
+		
+		String sql = "SELECT rsvno,studiono,studioloc,manno,rsvdate,TO_CHAR(stime, 'HH24:MI') st,TO_CHAR(etime, 'HH24:MI') et FROM Reservation";
+		
+		sql = sql + (query != null && !query.equals("") ? " WHERE " + query : " ORDER BY rsvno");
+
+		try {
+			connect();
+
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+
+			if (rs.isBeforeFirst()) {
+				rsvList = new ArrayList<Reservation>();
+				while (rs.next()) {
+					Reservation rsv = new Reservation();
+					rsv.setRsvno(rs.getInt("rsvno"));
+					rsv.setStudiono(rs.getInt("studiono"));
+					rsv.setStudioloc(rs.getString("studioloc"));
+					rsv.setRsvDate(rs.getDate("rsvDate"));
+					rsv.setStartTime(rs.getString("st"));//TO_CHAR(stime, 'HH24:MI')
+					rsv.setEndTime(rs.getString("et"));//TO_CHAR(etime, 'HH24:MI')
+					
+					rsvList.add(rsv);
+				}
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				disconnect();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return rsvList;
+	}
 }

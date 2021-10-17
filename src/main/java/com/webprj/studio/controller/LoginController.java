@@ -21,20 +21,18 @@ public class LoginController implements Controller {
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response, StudioService studioService) {
-		HttpSession session = request.getSession(true);// 세션이 존재하면 세션반환, 없으면 새로운 세션 생성
 		
 		String viewName = null;
 		String method = request.getMethod().toUpperCase();//요청메소드를 모두 대문자로반환 post -> POST
 
 		int inputID = Integer.parseInt(request.getParameter("userId"));
-		String inputPWD = request.getParameter("password");
+		String inputPWD = request.getParameter("userPwd");
 		String selectLoginType = request.getParameter("selectLoginType");
 		
 		boolean loginCheck = studioService.getLoginFT(inputID,inputPWD,selectLoginType);//로그인 유효성 검사
 		
 		
 		if (loginCheck == false) {
-			session = null;
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter writer;
 			try {
@@ -65,14 +63,7 @@ public class LoginController implements Controller {
 			request.setAttribute("name", loginName);
 			request.setAttribute("studioList", studioList);
 			request.setAttribute("studioLocList", studioLocList);
-			/*
-			//  세션 구현부
-			session.setAttribute("id", inputID);
-			session.setAttribute("name", loginName);
-			session.setAttribute("loginType", selectLoginType);
-			session.setAttribute("studioList", studioList);
-			session.setAttribute("studioLocList", studioLocList);
-			*/
+			System.out.println("login Controller");
 			viewName = "calendar(test).jsp"; 
 			//viewName = "calendar(jsp+js).jsp"; 
 		}		

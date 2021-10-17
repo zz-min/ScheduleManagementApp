@@ -42,9 +42,7 @@ $(window).load(function() {//모든 페이지 구성요소 페인팅 완료 후 
 			buildMonth();
 		}
 	});
-	$(".todayBtn").click(function(event) {
-		
-	});
+
 	$(".rsvBtn").click(function(event) {
 		if ($(".rsvBtn").val() == '예약현황') {
 			$(".rsvBtn").val("돌아가기");
@@ -60,22 +58,6 @@ $(window).load(function() {//모든 페이지 구성요소 페인팅 완료 후 
 			buildMonth();
 		}
 	});
-	
-	
-	/*
-	async function fetchPageTest(filepath, str) {///////////////////////////////////////////////////////////////
-		console.log("fetch함수");
-
-		let response = await fetch(filepath);
-		if (!response.ok) {
-			console.log("error");
-		}
-
-		console.log("완성");
-		console.log($('.a').text());
-		console.log($('#20211011').text());
-	};*/
-
 
 	function buildRsvHeader() {
 		firstDate = new Date(today.getFullYear(), today.getMonth(), 1, today.getDay());//2021.9.1.2(수)
@@ -84,29 +66,56 @@ $(window).load(function() {//모든 페이지 구성요소 페인팅 완료 후 
 		$(".current-year-month").html(`&nbsp;${today.getFullYear()}년&nbsp;&nbsp;&nbsp;&nbsp;${firstDate.getMonth()+1 }월&nbsp;(예약)`);
 	}
 	
+	async function fetchPage(url,str) {
+		console.log("async await 함수");
+		try {
+			const response = await fetch(url);
+			const text = await response.text();
+			await $(".rightSection").html(text);
+			console.log(response);
+		} catch (err) {
+			console.log(err);
+		}
+		var daySet= str;
+		var cnt=0;
+		for (let i = 1; i < 7; i++) {//1~6주차를 위해 6번 반복     
+			for (let j = 0; j < 7; j++) {//일요일~토요일을 위해 7번 반복
+				$(".week"+i).children(":eq("+j+")").children().first().text(daySet[cnt++]);
+				$(".week"+i).children(":eq("+j+")").children().last().text(4);
+			}
+		}
+		console.log("async await 함수마무리");
+		console.log("/studio/data?year="+today.getFullYear()+"&month="+String(today.getMonth()).padStart(2,'0'));
+		fetchData("/studio/data?year="+today.getFullYear()+"&month="+String(today.getMonth()).padStart(2,'0'));
+	};
+	
+	function fetchData(url) {
+		/*fetch(url)//GET존재하는 자원요청
+			.then((response) => response.json())
+			.then((data) => console.log(data));
+			*/
+		fetch(url)//GET존재하는 자원요청
+			.then((response) => console.log(response))
+			.then((data) => console.log(data));
+			
+	}
+	
 	buildMonth();
 	function buildMonth() {
+		console.log("진입1");
+		alert("buildMonth진입/** *//");
+		
 		firstDate = new Date(today.getFullYear(), today.getMonth(), 1, today.getDay());//2021.9.1.2(수)
 		lastDay = new Date(firstDate.getFullYear(), firstDate.getMonth() + 1, 0).getDate();//9/30 3(목)
 		prevLastDay = new Date(firstDate.getFullYear(), firstDate.getMonth(), 0).getDate();//8/31 1(화)
 		$(".current-year-month").html(`&nbsp;${today.getFullYear()}년&nbsp;&nbsp;&nbsp;&nbsp;${firstDate.getMonth()+1 }월&nbsp;(월)`);
-		//rightSection칸에 month소스 채우기
-		$(".rightSection").load('../js/m.txt',function(){
-			//month틀 로드 후 callback함수정의 ( 내부 데이터 변경 )
-			//console.log($("#ff").text());
-			//$("#ff").text("9");
-			var daySet= makeElementMonth(firstDate);
-			var cnt=0;
-			for (let i = 1; i < 7; i++) {//1~6주차를 위해 6번 반복     
-			   console.log(i+"주차");
-				for (let j = 0; j < 7; j++) {//일요일~토요일을 위해 7번 반복
-					$(".week"+i).children(":eq("+j+")").children().first().text(daySet[cnt++]);
-					console.log(i+"주차"+j+"요일");
-				}
-			}
-		});
 		
+		//rightSection칸에 month소스 채우기
+		fetchPage('../js/m.txt',makeElementMonth(firstDate));
+		//fetchPage2('../js/ajaxTest.txt',makeElementMonth(firstDate));
+		console.log("마무리1");
 		/////////////////////////////////////////////////////////////////
+		//console.log($(".week1").children(":eq(5)").children().first().text());//1주차 토요일에 들어가있는 날짜데이터출력
 	}
 
 	function makeElementMonth(firstDate) {
@@ -147,12 +156,13 @@ $(window).load(function() {//모든 페이지 구성요소 페인팅 완료 후 
 				}
 			}
 		}
-				console.log(calHtml);
+		//console.log(calHtml);
 		return calHtml;
 	}
 	
 	function buildWeek(week) {
-		fetchPage('../js/week.txt', makeElementWeek(0));
+		console.log("buildWeek진입");
+		fetchPage('../js/w.txt', makeElementWeek(0));
 		today.setDate(today.getDate() + week * 7);
 		let title = "&nbsp;" + today.getFullYear() + "년&nbsp;&nbsp;&nbsp;&nbsp;" + (today.getMonth() + 1) + "월&nbsp;(주)";
 

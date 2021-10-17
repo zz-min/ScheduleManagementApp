@@ -25,38 +25,34 @@
 
 <script>
 $(function() {
-	var loginDialog, loginForm;
+	var userLoginDialog, userLoginForm;
 	var adminLoginDialog, adminLoginForm;
 	
-	var userId = $("#userId"), password = $("#password"), 
-	allField = $([]).add(userId).add(password);
+	var userLoginField= $([]).add("#userId").add("#userPwd");
+	var adminLoginField= $([]).add("#adminId").add("#adminPwd");
 	
 	function checkLength(o, min, max) {
-		console
 		if (o.val().length > max || o.val().length < min) {
 			o.addClass("ui-state-error");
 			return false;
-		} else {
-			return true;
-		}
+		} else return true;
 	}
 	
-	loginDialog = $("#login-dialog-form").dialog({
+	userLoginDialog = $("#user-login-dialog-form").dialog({
 		autoOpen : false,
 		height : 400,
 		width : 450,
 		modal : true,
 		buttons : {
 			"확인" : function() {
-				loginForm.trigger("submit");
+				userLoginForm.trigger("submit");
 			},
 			"취소" : function() {
-				loginDialog.dialog("close");
+				userLoginDialog.dialog("close");
 			}
 		},
 		close : function() {
-			//			confirmForm[ 0 ].reset();
-			allField.removeClass("ui-state-error");
+			userLoginField.removeClass("ui-state-error");
 		}
 	});
 	adminLoginDialog = $("#admin-login-dialog-form").dialog({
@@ -73,36 +69,35 @@ $(function() {
 			}
 		},
 		close : function() {
-			//			confirmForm[ 0 ].reset();
-			allField.removeClass("ui-state-error");
+			adminLoginField.removeClass("ui-state-error");
 		}
 	});
 	
 	adminLoginForm = adminLoginDialog.find("form").on("submit", function(event) {
 		var valid = true;
-		allField.removeClass("ui-state-error");
+		adminLoginField.removeClass("ui-state-error");
 		
-		valid = valid && checkLength(userId, 5, 15);
-		valid = valid && checkLength(password, 4, 20);
+		valid = valid && checkLength( $("#adminId"), 5, 15);
+		valid = valid && checkLength( $("#adminPwd"), 4, 20);
 		if (valid) {
 			adminLoginDialog.dialog("close");
 		}
 		return valid;
 	});
 	
-	loginForm = loginDialog.find("form").on("submit", function(event) {
+	userLoginForm = userLoginDialog.find("form").on("submit", function(event) {
 		var valid = true;
-		allField.removeClass("ui-state-error");
+		userLoginField.removeClass("ui-state-error");
 		
-		valid = valid && checkLength(userId, 5, 15);
-		valid = valid && checkLength(password, 4, 20);
+		valid = valid && checkLength( $("#userId"), 5, 15);
+		valid = valid && checkLength( $("#userPwd"), 4, 20);
 		if (valid) {
-			loginDialog.dialog("close");
+			userLoginDialog.dialog("close");
 		}
 		return valid;
 	});
 	$(".button").on("click", function() {
-		loginDialog.dialog("open");
+		userLoginDialog.dialog("open");
 	});
 	$("#admin-icon").on("click", function() {
 		adminLoginDialog.dialog("open");
@@ -131,10 +126,9 @@ $(function() {
 
 
  	<!------------------------- studio button - login dialog ------------------------->
-	<div id="login-dialog-form" class="dialog" title="로그인">
-		<form action="/studio/main" name="login" method="post">
+	<div id="user-login-dialog-form" class="dialog" title="로그인">
+		<form action="/studio/main" name="user_login" method="post">
 			<fieldset>
-			
 				<div class="loginTypeContainer">
 					<input type="radio" name="selectLoginType" class="loginType" value="manager" required>관리자&nbsp&nbsp&nbsp
 					<input type="radio" name="selectLoginType" class="loginType" value="professor" checked>교직원&nbsp&nbsp&nbsp
@@ -143,27 +137,24 @@ $(function() {
 				</div>
 
 				<div class="login_property">
-
 					<div id="loginPropertyLeft" style="display: inline-block">
-					
 						<div class="inputText">
-							<label for="userId" id="userIdLabel">&nbsp아이디 :&nbsp </label> 
+							<label for="userId" class="idLabel">&nbsp아이디 :&nbsp </label> 
 							<input type="text" name="userId" id="userId"
 								placeholder="학번 또는 직번을 입력하세요."
-								class="text ui-widget-content ui-corner-all" required />
+								class="text ui-widget-content ui-corner-all id" required />
 						</div>
 						
 						<div class="inputText">
-							<label for="password" id="passwordLabel">비밀번호 : &nbsp</label> 
-							<input type="password" name="password" id="password"
+							<label for="userPwd" class="passwordLabel">비밀번호 : &nbsp</label> 
+							<input type="password" name="userPwd" id="userPwd"
 								placeholder="비밀번호를 입력하세요."
-								class="text ui-widget-content ui-corner-all" required />
+								class="text ui-widget-content ui-corner-all password" required />
 						</div>
-						
 					</div>
 					<!-- Allow form submission with keyboard without duplicating the dialog button -->
 					<div id="loginPropertyRight" style="display: inline-block">
-						<input type="submit" name="login" tabindex="-1"
+						<input type="submit" name="user_login" tabindex="-1"
 							style="position: absolute; top: -1000px" />
 					</div>
 				</div>
@@ -174,7 +165,6 @@ $(function() {
 				</div>
 			</fieldset>
 		</form>
-		
 	</div>
 	
 	<!------------------------- admin icon button - login dialog ------------------------->
@@ -184,23 +174,21 @@ $(function() {
 				<div class="login_property">
 					<div id="loginPropertyLeft" style="display: inline-block">
 						<div class="inputText">
-							<label for="userId" id="userIdLabel">&nbsp아이디 :&nbsp </label> <input
-								type="text" name="userId" id="userId" placeholder="직번을 입력하세요."
-								class="text ui-widget-content ui-corner-all" required />
+							<label for="adminId" class="idLabel">&nbsp아이디 :&nbsp </label> 
+							<input type="text" name="adminId" id="adminId" placeholder="직번을 입력하세요."
+								class="text ui-widget-content ui-corner-all id" required />
 						</div>
 
 						<div class="inputText">
-							<label for="password" id="passwordLabel">비밀번호 : &nbsp</label> <input
-								type="password" name="password" id="password"
-								placeholder="비밀번호를 입력하세요."
-								class="text ui-widget-content ui-corner-all" required />
+							<label for="adminPwd" class="passwordLabel">비밀번호 : &nbsp</label> 
+							<input 	type="password" name="adminPwd" id="adminPwd" placeholder="비밀번호를 입력하세요."
+								class="text ui-widget-content ui-corner-all password" required />
 						</div>
 
 					</div>
 					<!-- Allow form submission with keyboard without duplicating the dialog button -->
 					<div id="loginPropertyRight" style="display: inline-block">
-						<input type="submit" name="admin_login" tabindex="-1"
-							style="position: absolute; top: -1000px" />
+						<input type="submit" name="admin_login" tabindex="-1" style="position: absolute; top: -1000px" />
 					</div>
 				</div>
 				<div class="refContatiner">

@@ -36,14 +36,11 @@ public class DispatcherServlet extends HttpServlet {
 
 	private StudioService studioService = null;
 	private HandlerMapping mapper = null;
-	private HttpSession session = null;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public DispatcherServlet() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -78,31 +75,33 @@ public class DispatcherServlet extends HttpServlet {
 		String path = request.getRequestURI();
 		String viewName = null;
 		
-		session = request.getSession(false);//세션이 존재하면 세션반환, 없으면 NULL반환
-
 		// step #2. data processing ==> dispatch request to controller
 		Controller handler = mapper.getHandler(path);
-
-		if (handler != null) {
-			viewName = handler.handleRequest(request, response, studioService);
-		}
-
-		if (viewName == null) {
-			viewName = "error.jsp";
-		}
-
-		// step #3. output processing results
-		if (viewName != null) {
-			session = request.getSession(false);//세션이 존재하면 세션반환, 없으면 NULL반환
+		if(path.contains("data")) {
+			System.out.println("IN data");
+			request.setAttribute("test",handler.handleRequest(request, response, studioService));
 			
-			viewName = viewName.trim();//공백제거함
+		}else {
+			if (handler != null) {
+				viewName = handler.handleRequest(request, response, studioService);
+			}
 
-			viewName = "/WEB-INF/view/" + viewName;
-			System.out.println("viewName : "+viewName);
+			if (viewName == null) {
+				viewName = "error.jsp";
+			}
 
-			RequestDispatcher view = request.getRequestDispatcher(viewName);
-			view.forward(request, response);
+			// step #3. output processing results
+			if (viewName != null) {
+
+				viewName = viewName.trim();// 공백제거함
+
+				viewName = "/WEB-INF/view/" + viewName;
+
+				RequestDispatcher view = request.getRequestDispatcher(viewName);
+				view.forward(request, response);
+			}
 		}
+		
 	}
 
 	/**
@@ -111,7 +110,6 @@ public class DispatcherServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

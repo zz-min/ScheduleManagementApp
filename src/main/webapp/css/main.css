@@ -65,12 +65,12 @@ fieldset {
 	margin: 10px;
 }
 
-#userIdLabel, #passwordLabel {
+.idLabel, .passwordLabel {
 	flex-basis: 30%;
 	font-size: 20px;
 }
 
-#userId, #password {
+.id, .password {
 	flex-basis: 60%;
 	font-size: 15px;
 }

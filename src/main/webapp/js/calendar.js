@@ -42,9 +42,7 @@ $(window).load(function() {//모든 페이지 구성요소 페인팅 완료 후 
 			buildMonth();
 		}
 	});
-	$(".todayBtn").click(function(event) {
-		
-	});
+
 	$(".rsvBtn").click(function(event) {
 		if ($(".rsvBtn").val() == '예약현황') {
 			$(".rsvBtn").val("돌아가기");
