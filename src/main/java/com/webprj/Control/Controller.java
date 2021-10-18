@@ -8,5 +8,6 @@ import com.webprj.studio.service.StudioService;
 public interface Controller {
 
 	String handleRequest(HttpServletRequest request, HttpServletResponse response, StudioService studioService);
-	
+	String[] handleRequest(HttpServletRequest request, HttpServletResponse response, StudioService studioService,
+			int year, int month,int week);
 }

@@ -93,10 +93,11 @@ $(window).load(function() {//모든 페이지 구성요소 페인팅 완료 후 
 		/*fetch(url)//GET존재하는 자원요청
 			.then((response) => response.json())
 			.then((data) => console.log(data));
-			*/
-		fetch(url)//GET존재하는 자원요청
+			*//data/studio
+		fetch(`/data/studio?year=${today.getFullYear()}&month=${today.getMonth()}`)//GET존재하는 자원요청
 			.then((response) => console.log(response))
 			.then((data) => console.log(data));
+			
 			
 	}
 	

@@ -19,8 +19,8 @@ public class ReservationController implements Controller {
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response, StudioService studioService) {
-		String method = request.getMethod().toUpperCase();//요청메소드를 모두 대문자로반환 post -> POST
-		System.out.println(method);
+			String method = request.getMethod().toUpperCase();//요청메소드를 모두 대문자로반환 post -> POST
+			System.out.println(method);
 		
 			int id = (int) request.getAttribute("id");
 			String loginType = (String) request.getAttribute("loginType");

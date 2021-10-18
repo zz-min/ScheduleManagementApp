@@ -71,7 +71,6 @@
 					<!-- onclick="location.href='/studio/reservation'" --> 
 			</div>
 
-
 			<div class="studioContainer">
 				<c:forEach var="i" begin="0" end="${fn:length(studioLocList)-1}">
 					<div class="studioLocContainer">
