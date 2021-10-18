@@ -66,7 +66,7 @@ $(window).load(function() {//모든 페이지 구성요소 페인팅 완료 후 
 		$(".current-year-month").html(`&nbsp;${today.getFullYear()}년&nbsp;&nbsp;&nbsp;&nbsp;${firstDate.getMonth()+1 }월&nbsp;(예약)`);
 	}
 	
-	async function fetchPage(url,str) {
+	async function fetchPage(url,daySet) {
 		console.log("async await 함수");
 		try {
 			const response = await fetch(url);
@@ -76,7 +76,7 @@ $(window).load(function() {//모든 페이지 구성요소 페인팅 완료 후 
 		} catch (err) {
 			console.log(err);
 		}
-		var daySet= str;
+		var daySet= daySet;
 		var cnt=0;
 		for (let i = 1; i < 7; i++) {//1~6주차를 위해 6번 반복     
 			for (let j = 0; j < 7; j++) {//일요일~토요일을 위해 7번 반복
@@ -85,20 +85,29 @@ $(window).load(function() {//모든 페이지 구성요소 페인팅 완료 후 
 			}
 		}
 		console.log("async await 함수마무리");
-		console.log("/studio/data?year="+today.getFullYear()+"&month="+String(today.getMonth()).padStart(2,'0'));
-		fetchData("/studio/data?year="+today.getFullYear()+"&month="+String(today.getMonth()).padStart(2,'0'));
-	};
+		console.log(`/studio/data?year=${today.getFullYear()}&month=${String(today.getMonth()).padStart(2,'0')}`);
+		fetchData(`/studio/data?year=${today.getFullYear()}&month=${String(today.getMonth()).padStart(2,'0')}`,daySet);
+	}
 	
-	function fetchData(url) {
-		/*fetch(url)//GET존재하는 자원요청
-			.then((response) => response.json())
-			.then((data) => console.log(data));
-			*//data/studio
-		fetch(`/data/studio?year=${today.getFullYear()}&month=${today.getMonth()}`)//GET존재하는 자원요청
-			.then((response) => console.log(response))
-			.then((data) => console.log(data));
-			
-			
+	async function fetchData(url,daySet) {
+		const response = await fetch(url);
+		const json = await response.json();
+		console.log(json);
+		console.log(" 길이 >>"+json.length);
+		for(var i=0;i<json.length;i++){
+			console.log(json[i].rsvDate.substring(8,10));//'일'단위만 자름
+			var day=json[i].rsvDate.substring(8,10);
+			var oneday= new Date(today.getFullYear(), today.getMonth(), day);
+			console.log(`알아볼 날짜 : ${oneday}  //  몇째주인지 : ${getWeekOfMonth(oneday)}`);
+			$(".week"+getWeekOfMonth(oneday)).children(":eq("+oneday.getDay()+")").children().last()
+			.text(`${json[i].studioloc} ${json[i].studiono}호)${json[i].startTime}~${json[i].endTime}`);
+		}
+	}
+	function getWeekOfMonth(date){//월요일을 기준으로 한주의 시작을 잡음 
+		var selectedDay=date.getDate();
+		var first=new Date(date.getFullYear()+'/'+(date.getMonth()+1)+'/01');
+		var monthFirstDateDay=first.getDay()-1;
+		return Math.ceil((selectedDay+monthFirstDateDay)/7);
 	}
 	
 	buildMonth();

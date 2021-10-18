@@ -12,7 +12,7 @@ public class Reservation {
 	private int studiono; // 스튜디오번호
 	private String studioloc; //스튜디오위치
 	
-	private Date rsvDate; // 예약날짜 NOT NULL
+	private String rsvDate; // 예약날짜 NOT NULL
 	private String startTime; // 시작시간 NOT NULL
 	private String endTime; // 종료시간 NOT NULL
 	
@@ -25,7 +25,7 @@ public class Reservation {
 	}
 
 	public Reservation(int rsvno, int studentno, int profno, int studiono, String studioloc, int manno,
-			Date rsvDate, String startTime, String endTime) {
+			String rsvDate, String startTime, String endTime) {
 		super();
 		this.rsvno = rsvno;
 		this.studentno = studentno;
@@ -87,11 +87,11 @@ public class Reservation {
 	}
 
 
-	public Date getRsvDate() {
+	public String getRsvDate() {
 		return rsvDate;
 	}
 
-	public void setRsvDate(Date rsvDate) {
+	public void setRsvDate(String rsvDate) {
 		this.rsvDate = rsvDate;
 	}
 

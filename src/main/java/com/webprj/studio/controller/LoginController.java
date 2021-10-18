@@ -6,13 +6,12 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.xml.ws.Response;
-
-import org.omg.CORBA.Request;
 
 import com.webprj.Control.Controller;
-import com.webprj.di.entity.*;
+import com.webprj.di.entity.Manager;
+import com.webprj.di.entity.Professor;
+import com.webprj.di.entity.Student;
+import com.webprj.di.entity.Studio;
 import com.webprj.studio.service.StudioService;
 
 public class LoginController implements Controller {
@@ -69,6 +68,13 @@ public class LoginController implements Controller {
 		}		
 		
 		return viewName;
+	}
+
+	@Override
+	public String handleRequest(HttpServletRequest request, HttpServletResponse response, StudioService studioService,
+			String year, String month, int week) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

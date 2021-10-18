@@ -71,7 +71,7 @@ public class RsvJdbcDao implements RsvDao{
 				rsv.setStudiono(rs.getInt("studiono"));
 				rsv.setStudioloc(rs.getString("studioloc"));
 				rsv.setManno(rs.getInt("manno"));
-				rsv.setRsvDate(rs.getDate("rsvDate"));
+				rsv.setRsvDate(rs.getString("rsvDate"));
 				rsv.setStartTime(rs.getString("sTime"));
 				rsv.setEndTime(rs.getString("eTime"));
 			}
@@ -110,7 +110,7 @@ public class RsvJdbcDao implements RsvDao{
 					rsv.setRsvno(rs.getInt("rsvno"));
 					rsv.setStudiono(rs.getInt("studiono"));
 					rsv.setStudioloc(rs.getString("studioloc"));
-					rsv.setRsvDate(rs.getDate("rsvDate"));
+					rsv.setRsvDate(rs.getString("rsvDate"));
 					rsv.setStartTime(rs.getString("st"));//TO_CHAR(stime, 'HH24:MI')
 					rsv.setEndTime(rs.getString("et"));//TO_CHAR(etime, 'HH24:MI')
 					
@@ -131,7 +131,8 @@ public class RsvJdbcDao implements RsvDao{
 		return rsvList;
 	}
 	
-	public List<Reservation> getRsvList(String query) {//JSON
+	@Override
+	public List<Reservation> getRsvList(String query) {//JSON TEST
 		System.out.println("TEST");
 		List<Reservation> rsvList = null;
 		
@@ -152,10 +153,10 @@ public class RsvJdbcDao implements RsvDao{
 					rsv.setRsvno(rs.getInt("rsvno"));
 					rsv.setStudiono(rs.getInt("studiono"));
 					rsv.setStudioloc(rs.getString("studioloc"));
-					rsv.setRsvDate(rs.getDate("rsvDate"));
+					rsv.setRsvDate(rs.getString("rsvDate"));
 					rsv.setStartTime(rs.getString("st"));//TO_CHAR(stime, 'HH24:MI')
 					rsv.setEndTime(rs.getString("et"));//TO_CHAR(etime, 'HH24:MI')
-					
+					System.out.println(rs.getDate("rsvDate"));
 					rsvList.add(rsv);
 				}
 			}

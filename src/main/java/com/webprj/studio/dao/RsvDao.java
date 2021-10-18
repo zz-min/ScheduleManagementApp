@@ -9,5 +9,7 @@ public interface RsvDao {
 	Reservation getReservation(int rsvno);
 
 	List<Reservation> getReservationList(String query);
+	
+	List<Reservation> getRsvList(String query);//JSON TEST
 
 }

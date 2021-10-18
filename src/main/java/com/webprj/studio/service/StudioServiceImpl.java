@@ -105,6 +105,7 @@ public class StudioServiceImpl implements StudioService {
 	
 	@Override
 	public List<Reservation> getReservationList(String query) {
-		return rsvDao.getReservationList(query);
+//		return rsvDao.getReservationList(query);
+		return rsvDao.getRsvList(query);
 	}
 }

@@ -14,4 +14,11 @@ public class IndexController implements Controller {
 		//return "admin_professor.jsp";
 	}
 
+	@Override
+	public String handleRequest(HttpServletRequest request, HttpServletResponse response, StudioService studioService,
+			String year, String month, int week) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

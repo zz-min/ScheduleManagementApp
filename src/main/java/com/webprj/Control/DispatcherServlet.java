@@ -73,13 +73,19 @@ public class DispatcherServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		String path = request.getRequestURI();
+		System.out.println("path >>"+path);
 		String viewName = null;
 		
 		// step #2. data processing ==> dispatch request to controller
 		Controller handler = mapper.getHandler(path);
+		System.out.println("toString"+mapper.getHandler(path).toString());
+		
 		if(path.contains("data")) {
 			System.out.println("IN data");
-			request.setAttribute("test",handler.handleRequest(request, response, studioService));
+			String data=handler.handleRequest(request, response, studioService,request.getParameter("year"),request.getParameter("month"),0);
+			// step #3. output processing results
+			response.setContentType("text/html;charset=UTF-8");
+			response.getWriter().write(data);
 			
 		}else {
 			if (handler != null) {
