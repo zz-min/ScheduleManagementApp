@@ -72,7 +72,18 @@
 
 
 			<div class="studioContainer">
-				<c:forEach var="i" begin="0" end="${fn:length(studioLocList)-1}">
+				<form>
+					<select name="checkedLoc1" id="checkedLoc1" class="checkedLoc">
+						<option value="none">== 건물 선택 ==</option>
+						<c:forEach var="i" begin="0" end="${fn:length(studioLocList)-1}">
+							<option value="${studioLocList[i]}">${studioLocList[i]}</option>
+						</c:forEach>
+					</select>
+					<select name="checkedLoc2" id="checkedLoc2" class="checkedLoc">
+						<option value="none">== 건물을 먼저 선택해주세요 ==</option>
+					</select>
+				</form>
+				
 					<div class="studioLocContainer">
 
 						<h1>${studioLocList[i]}</h1>
@@ -84,7 +95,7 @@
 							</c:if>
 						</c:forEach>
 					</div>
-				</c:forEach>
+				
 			</div>
 		</div>
 		<!--------------- RIGHT  --------------->
