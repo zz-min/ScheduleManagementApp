@@ -65,6 +65,8 @@
 				<div class="prifileTitle">
 					<i class="far fa-user-circle fa-3x" id="icon_user"></i>
 					<h2 class="profileName">${name}님</h2>
+					<span id="type">${loginType}</span>
+					<span id="id">${id}</span>
 				</div>
 				<input type="button" value="예약현황" class="rsvBtn"/>
 					<!-- onclick="location.href='/studio/reservation'" --> 

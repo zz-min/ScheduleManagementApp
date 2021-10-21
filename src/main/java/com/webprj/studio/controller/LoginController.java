@@ -56,13 +56,14 @@ public class LoginController implements Controller {
 				loginName=loginObj.getStudentname();
 			}
 			
-			List<Studio> studioList = studioService.getStudioList(null);
+			
 			List<String> studioLocList=studioService.getStudiosLocList();
 			
 			request.setAttribute("name", loginName);
-			request.setAttribute("studioList", studioList);
+			request.setAttribute("id", inputID);
+			request.setAttribute("loginType", selectLoginType);
 			request.setAttribute("studioLocList", studioLocList);
-			System.out.println("login Controller");
+			
 			viewName = "calendar(test).jsp"; 
 			//viewName = "calendar(jsp+js).jsp"; 
 		}		
@@ -70,11 +71,5 @@ public class LoginController implements Controller {
 		return viewName;
 	}
 
-	@Override
-	public String handleRequest(HttpServletRequest request, HttpServletResponse response, StudioService studioService,
-			String year, String month, int week) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

@@ -17,23 +17,23 @@ table {
 </head>
 <body>
 	<%-- <p1>${name}님의 예약현황</p1> --%>
-	
+
 	<div class="rsvList">
-				<table border="1">
-					<th colspan="2">스튜디오</th>
-					<th>예약 날짜</th>
-					<th>시작 시간</th>
-					<th>끝 시간</th>
-					<c:forEach var="rsv" items="${rsvList}">
-						<tr>
-							<td>${rsv.getStudioloc() }</td>
-							<td>${rsv.getStudiono() }호</td>
-							<td>${rsv.getRsvDate()}</td>
-							<td>${rsv.getStartTime()}</td>
-							<td>${rsv.getEndTime()}</td>
-						</tr>
-					</c:forEach>
-				</table>
-			</div>
+		<table border="1">
+			<th colspan="2">스튜디오</th>
+			<th>예약 날짜</th>
+			<th>시작 시간</th>
+			<th>끝 시간</th>
+			<c:forEach var="rsv" items="${rsvList}">
+				<tr>
+					<td>${rsv.getStudioloc() }</td>
+					<td>${rsv.getStudiono() }호</td>
+					<td>${rsv.getRsvDate()}</td>
+					<td>${rsv.getStartTime()}</td>
+					<td>${rsv.getEndTime()}</td>
+				</tr>
+			</c:forEach>
+		</table>
+	</div>
 </body>
 </html>

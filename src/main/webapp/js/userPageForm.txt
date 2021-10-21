@@ -1,0 +1,14 @@
+	<div id="rsvList">
+		<table border="1">
+			<thead>
+			<tr>
+				<th>스튜디오</th>
+				<th>예약 날짜</th>
+				<th>시간</th>
+			</tr>
+			</thead>
+			<tbody id="rsvTableBody">
+			
+	        </tbody>
+		</table>
+	</div>

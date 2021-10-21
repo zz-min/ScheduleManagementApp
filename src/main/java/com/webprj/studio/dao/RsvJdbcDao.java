@@ -92,17 +92,13 @@ public class RsvJdbcDao implements RsvDao{
 	@Override
 	public List<Reservation> getReservationList(String query) {
 		List<Reservation> rsvList = null;
-		
 		String sql = "SELECT rsvno,studiono,studioloc,manno,rsvdate,TO_CHAR(stime, 'HH24:MI') st,TO_CHAR(etime, 'HH24:MI') et FROM Reservation";
+		sql = sql + (query != null && !query.equals("") ? " WHERE " + query : " ORDER BY rsvdate");
 		
-		sql = sql + (query != null && !query.equals("") ? " WHERE " + query : " ORDER BY rsvno");
-
 		try {
 			connect();
-
 			stmt = conn.prepareStatement(sql);
 			rs = stmt.executeQuery();
-
 			if (rs.isBeforeFirst()) {
 				rsvList = new ArrayList<Reservation>();
 				while (rs.next()) {
@@ -113,7 +109,7 @@ public class RsvJdbcDao implements RsvDao{
 					rsv.setRsvDate(rs.getString("rsvDate"));
 					rsv.setStartTime(rs.getString("st"));//TO_CHAR(stime, 'HH24:MI')
 					rsv.setEndTime(rs.getString("et"));//TO_CHAR(etime, 'HH24:MI')
-					
+					System.out.println(rsv.toString());
 					rsvList.add(rsv);
 				}
 			}
@@ -133,19 +129,13 @@ public class RsvJdbcDao implements RsvDao{
 	
 	@Override
 	public List<Reservation> getRsvList(String query) {//JSON TEST
-		System.out.println("TEST");
 		List<Reservation> rsvList = null;
-		
 		String sql = "SELECT rsvno,studiono,studioloc,manno,rsvdate,TO_CHAR(stime, 'HH24:MI') st,TO_CHAR(etime, 'HH24:MI') et FROM Reservation";
-		
 		sql = sql + (query != null && !query.equals("") ? " WHERE " + query : " ORDER BY rsvno");
-
 		try {
 			connect();
-
 			stmt = conn.prepareStatement(sql);
 			rs = stmt.executeQuery();
-
 			if (rs.isBeforeFirst()) {
 				rsvList = new ArrayList<Reservation>();
 				while (rs.next()) {
@@ -156,7 +146,7 @@ public class RsvJdbcDao implements RsvDao{
 					rsv.setRsvDate(rs.getString("rsvDate"));
 					rsv.setStartTime(rs.getString("st"));//TO_CHAR(stime, 'HH24:MI')
 					rsv.setEndTime(rs.getString("et"));//TO_CHAR(etime, 'HH24:MI')
-					System.out.println(rs.getDate("rsvDate"));
+					//System.out.println(rsv.toString());
 					rsvList.add(rsv);
 				}
 			}

@@ -40,8 +40,6 @@ public class DispatcherServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public DispatcherServlet() {
-	}
 
 	@Override
 	public void init() throws ServletException {
@@ -67,6 +65,7 @@ public class DispatcherServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// step #1. get request parameters
@@ -78,11 +77,10 @@ public class DispatcherServlet extends HttpServlet {
 		
 		// step #2. data processing ==> dispatch request to controller
 		Controller handler = mapper.getHandler(path);
-		System.out.println("toString"+mapper.getHandler(path).toString());
 		
 		if(path.contains("data")) {
-			System.out.println("IN data");
-			String data=handler.handleRequest(request, response, studioService,request.getParameter("year"),request.getParameter("month"),0);
+			System.out.println("IN data DispatcherServlet");
+			String data=handler.handleRequest(request, response, studioService);
 			// step #3. output processing results
 			response.setContentType("text/html;charset=UTF-8");
 			response.getWriter().write(data);
@@ -114,6 +112,7 @@ public class DispatcherServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);

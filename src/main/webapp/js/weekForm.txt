@@ -23,3 +23,29 @@
 <div class="weekContainer">
 	<div id="calendar">
 		<div class="dayHeaderContainer">
+			<div class="dayHeader">
+				<span>월</span><span id="dayoftheweek0">test</span>
+			</div>
+			<div class="dayHeader">
+				<span>화</span><span id="dayoftheweek1">test</span>
+			</div>
+			<div class="dayHeader">
+				<span>수</span><span id="dayoftheweek2">test</span>
+			</div>
+			<div class="dayHeader">
+				<span>목</span><span id="dayoftheweek3">test</span>
+			</div>
+			<div class="dayHeader">
+				<span>금</span><span id="dayoftheweek4">test</span>
+			</div>
+			<div class="dayHeader">
+				<span>토</span><span id="dayoftheweek5">test</span>
+			</div>
+			<div class="dayHeader">
+				<span>일</span><span id="dayoftheweek6">test</span>
+			</div>
+		</div>
+
+		<div id="calendar_value"></div>
+	</div>
+</div>

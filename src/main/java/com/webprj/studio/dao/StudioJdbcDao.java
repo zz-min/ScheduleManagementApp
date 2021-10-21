@@ -90,7 +90,7 @@ public class StudioJdbcDao implements StudioDao {
 		
 		String sql = "SELECT * FROM Studio";
 		sql = sql + (query != null && !query.equals("") ? " WHERE " + query : " ORDER BY STUDIOLOC, STUDIONO");
-
+		System.out.println(sql);
 		try {
 			connect();
 
