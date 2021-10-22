@@ -86,7 +86,7 @@ $(window).load(function() {//모든 페이지 구성요소 페인팅 완료 후 
 		for (let i = 1; i < 7; i++) {//1~6주차를 위해 6번 반복     
 			for (let j = 0; j < 7; j++) {//일요일~토요일을 위해 7번 반복
 				$(".week" + i).children(":eq(" + j + ")").children().first().text(daySet[cnt++]);
-				$(".week" + i).children(":eq(" + j + ")").children().last().text('**default value**');
+				$(".week" + i).children(":eq(" + j + ")").children().last().html('<ul id="dayRscList"><li>li태그 테스트</li></ul>');
 			}
 		}
 	}
@@ -100,13 +100,29 @@ $(window).load(function() {//모든 페이지 구성요소 페인팅 완료 후 
 	async function fetchData(url,pageVal) {
 		const response = await fetch(url);
 		const json = await response.json();
-		
+		console.log(json);
+		if(json !=null){
 		if(pageVal === 'monthly'){
 			for (var value of json) {
-				var day = value.rsvDate.substring(8, 10);
+				//console.log(value);
+				var day = value.rsvDate.substring(6,8);
 				var oneday = new Date(today.getFullYear(), today.getMonth(), day);
-				$(".week" + getWeekOfMonth(oneday)).children(":eq(" + oneday.getDay() + ")").children().last()
-					.text(`${value.studioloc} ${value.studiono}호)${value.startTime}~${value.endTime}`);
+				//console.log(oneday+"날짜에 <<"+value.rsvno+">>데이터 집어 놀예정");
+				//console.log(oneday.getDay()-1);
+				//console.log(value.rsvno+"예약번호 / 날짜 : "+oneday+"  달 :"+oneday.getMonth());
+				//console.log(value.rsvno+"예약번호 / 날짜 : "+oneday+"  요일 :"+oneday.getDay()+"=="+(oneday.getDay()-1));
+				if(oneday.getDay()==0){//일요일
+					/*$(".week" + getWeekOfMonth(oneday)).children(":eq(6)").children().last()
+					.text(`${value.studioloc} ${value.studiono}호)${value.startTime}~${value.endTime}`);*/
+					$(".week" + getWeekOfMonth(oneday)).children(":eq(6)").children().last()
+					.children().append(`<li>${value.studioloc} ${value.studiono}호)${value.startTime}~${value.endTime}</li>`);
+				}else{//1~6 월~토
+					/*$(".week" + getWeekOfMonth(oneday)).children(":eq("+(oneday.getDay()-1)+")").children().last()
+					.text(`예약번호 : ${value.rsvno} // ${value.studioloc} ${value.studiono}호)${value.startTime}~${value.endTime}`);*/
+					$(".week" + getWeekOfMonth(oneday)).children(":eq("+oneday.getDay()+")").children().last()
+					.children().append(`<li>${value.studioloc} ${value.studiono}호)${value.startTime}~${value.endTime}</li>`);
+				}
+				
 			}
 		}else if(pageVal === 'weekly'){
 			// 전혁 - 주간 데이터 끌고올것
@@ -138,6 +154,7 @@ $(window).load(function() {//모든 페이지 구성요소 페인팅 완료 후 
 					$("#rsvTableBody").append(add_data);
 			}
 		}
+		}
 	}
 //////////달력 - monthly	
 	buildMonth();
@@ -145,21 +162,29 @@ $(window).load(function() {//모든 페이지 구성요소 페인팅 완료 후 
 		firstDate = new Date(today.getFullYear(), today.getMonth(), 1, today.getDay());//2021.9.1.2(수)
 		lastDay = new Date(firstDate.getFullYear(), firstDate.getMonth() + 1, 0).getDate();//9/30 3(목)
 		prevLastDay = new Date(firstDate.getFullYear(), firstDate.getMonth(), 0).getDate();//8/31 1(화)
-		$(".current-year-month").html(`&nbsp;${today.getFullYear()}년&nbsp;&nbsp;&nbsp;&nbsp;${firstDate.getMonth()+1 }월&nbsp;(월)`);
+		console.log(`첫날${firstDate} // 당월 마지막날 ${lastDay} // 이전달 마지막날 ${prevLastDay}`)
+		$(".current-year-month").html(`&nbsp;${firstDate.getFullYear()}년&nbsp;&nbsp;&nbsp;&nbsp;${firstDate.getMonth()+1 }월&nbsp;(월)`);
 		
 		//rightSection칸에 month소스 채우기
 		var daySet = makeElementMonth(firstDate);
 		fetchPage('../js/monthForm.txt',daySet,'monthly');
-		fetchData(`/studio/data?year=${today.getFullYear()}&month=${String(today.getMonth()).padStart(2,'0')}&week=0`,'monthly');
+		//alert(today.getFullYear()+"년"+String(today.getMonth()+1).padStart(2,'0')+"월의 데이터 전송");
+		
+		
+		fetchData(`/studio/data?year=${firstDate.getFullYear()}&month=${String(firstDate.getMonth()+1).padStart(2,'0')}&week=0`,'monthly');
 	}
 
 	function makeElementMonth(firstDate) {
 		//getMonth() :: 1월 0 ~ 12월 11
-		//getDay() :: 월0 ~일6
+		//getDay() :: 월1 ~토 6 일0
 		let startDayCount = 1;
 		let lastDayCount = 1;
+		
+		let firstDayName = null;//첫주 시작 월요일로 잡음
 
-		const firstDayName = firstDate.getDay() - 1;//첫주 시작 월요일로 잡음
+		if (firstDate.getDay() == 0) firstDayName = 6;
+		else firstDayName = firstDate.getDay() - 1;
+		
 		lastDay = new Date(firstDate.getFullYear(), firstDate.getMonth() + 1, 0).getDate();//9/30 3(목)
 		prevLastDay = new Date(firstDate.getFullYear(), firstDate.getMonth(), 0).getDate();//8/31 1(화)
 		var daySet = [];
@@ -208,7 +233,7 @@ $(window).load(function() {//모든 페이지 구성요소 페인팅 완료 후 
 		//rightSection칸에 week소스 채우기
 		var daySet = makeElementWeek(0);
 		fetchPage('../js/weekForm.txt', daySet,'weekly');
-		console.log(daySet);
+		//console.log(daySet);
 	}
 
 	function makeElementWeek(week){
@@ -234,6 +259,7 @@ $(window).load(function() {//모든 페이지 구성요소 페인팅 완료 후 
 		var selectedDay = date.getDate();
 		var first = new Date(date.getFullYear() + '/' + (date.getMonth() + 1) + '/01');
 		var monthFirstDateDay = first.getDay() - 1;
+		//console.log(selectedDay+"날짜의 한달 주차:"+Math.ceil((selectedDay + monthFirstDateDay) / 7));
 		return Math.ceil((selectedDay + monthFirstDateDay) / 7);
 	}
 	
@@ -257,7 +283,9 @@ $(window).load(function() {//모든 페이지 구성요소 페인팅 완료 후 
 	}
 //////////HEADER부분 날짜 변경 버튼 함수
 	function clickMonth(cnt) {//////
-		today = new Date(today.getFullYear(), today.getMonth() + cnt, today.getDate());
+		today = new Date(today.getFullYear(),today.getMonth() + cnt, today.getDate());
+		console.log("변경된 today데이터 : "+today);
+		console.log("변경된 today데이터 달: "+today.getMonth());
 		removeCalendarMonth();
 		buildMonth();
 	}

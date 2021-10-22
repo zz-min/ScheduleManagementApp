@@ -43,7 +43,8 @@ public class DataController implements Controller {
 		if(week!=null) {//캘린더 데이터 내용 조회
 			if(week.equals("0")) {//한달 내용 전체 조회
 				sql = "TO_CHAR(rsvdate, 'YYYYMM')='" + year + month + "'";
-				List<Reservation> rsvAllList = studioService.getReservationList(sql);
+				System.out.println("sal문출력 >>"+sql);
+				List<Reservation> rsvAllList = studioService.getRsvList(sql);
 				try {
 					jsonString = mapper.writeValueAsString(rsvAllList);
 					System.out.println("DataController 한달내용전체조회>>"+jsonString);

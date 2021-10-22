@@ -92,7 +92,7 @@ public class RsvJdbcDao implements RsvDao{
 	@Override
 	public List<Reservation> getReservationList(String query) {
 		List<Reservation> rsvList = null;
-		String sql = "SELECT rsvno,studiono,studioloc,manno,rsvdate,TO_CHAR(stime, 'HH24:MI') st,TO_CHAR(etime, 'HH24:MI') et FROM Reservation";
+		String sql = "SELECT rsvno,studiono,studioloc,manno,TO_CHAR(rsvdate,'RRRRMM') rsvdate,TO_CHAR(stime, 'HH24:MI') st,TO_CHAR(etime, 'HH24:MI') et FROM Reservation";
 		sql = sql + (query != null && !query.equals("") ? " WHERE " + query : " ORDER BY rsvdate");
 		
 		try {
@@ -130,7 +130,7 @@ public class RsvJdbcDao implements RsvDao{
 	@Override
 	public List<Reservation> getRsvList(String query) {//JSON TEST
 		List<Reservation> rsvList = null;
-		String sql = "SELECT rsvno,studiono,studioloc,manno,rsvdate,TO_CHAR(stime, 'HH24:MI') st,TO_CHAR(etime, 'HH24:MI') et FROM Reservation";
+		String sql = "SELECT rsvno,studiono,studioloc,manno,TO_CHAR(rsvdate,'RRRRMMDD') rsvdate,TO_CHAR(stime, 'HH24:MI') st,TO_CHAR(etime, 'HH24:MI') et FROM Reservation";
 		sql = sql + (query != null && !query.equals("") ? " WHERE " + query : " ORDER BY rsvno");
 		try {
 			connect();
@@ -143,7 +143,7 @@ public class RsvJdbcDao implements RsvDao{
 					rsv.setRsvno(rs.getInt("rsvno"));
 					rsv.setStudiono(rs.getInt("studiono"));
 					rsv.setStudioloc(rs.getString("studioloc"));
-					rsv.setRsvDate(rs.getString("rsvDate"));
+					rsv.setRsvDate(rs.getString("rsvDate"));//TO_CHAR(rsvdate,'RRRRMMDD') 
 					rsv.setStartTime(rs.getString("st"));//TO_CHAR(stime, 'HH24:MI')
 					rsv.setEndTime(rs.getString("et"));//TO_CHAR(etime, 'HH24:MI')
 					//System.out.println(rsv.toString());

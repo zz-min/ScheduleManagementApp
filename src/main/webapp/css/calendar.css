@@ -173,6 +173,7 @@
 
 .calendar__day {
 	width: calc(100%/ 7.2);
+	height:100%;
 	background-color:#ABD0CE;
 }
 
@@ -184,6 +185,8 @@
 	margin: 0.4em;
 }
 .calendar__day>span:last-child {
+	height:65%;
+	overflow-y:scroll;
 	font-size: 0.8em;
 }
 /* =============================================RIGHT(weekly)============================================= */
