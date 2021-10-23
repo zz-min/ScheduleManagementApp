@@ -104,9 +104,10 @@ $(window).load(function() {//모든 페이지 구성요소 페인팅 완료 후 
 		if(json !=null){
 		if(pageVal === 'monthly'){
 			for (var value of json) {
-				//console.log(value);
+				
 				var day = value.rsvDate.substring(6,8);
 				var oneday = new Date(today.getFullYear(), today.getMonth(), day);
+				console.log("예약번호 : "+value.rsvno+"날짜"+day+"요일"+oneday.getDay()+"몇주차? : "+ getWeekOfMonth(oneday));
 				//console.log(oneday+"날짜에 <<"+value.rsvno+">>데이터 집어 놀예정");
 				//console.log(oneday.getDay()-1);
 				//console.log(value.rsvno+"예약번호 / 날짜 : "+oneday+"  달 :"+oneday.getMonth());
@@ -119,7 +120,7 @@ $(window).load(function() {//모든 페이지 구성요소 페인팅 완료 후 
 				}else{//1~6 월~토
 					/*$(".week" + getWeekOfMonth(oneday)).children(":eq("+(oneday.getDay()-1)+")").children().last()
 					.text(`예약번호 : ${value.rsvno} // ${value.studioloc} ${value.studiono}호)${value.startTime}~${value.endTime}`);*/
-					$(".week" + getWeekOfMonth(oneday)).children(":eq("+oneday.getDay()+")").children().last()
+					$(".week" + getWeekOfMonth(oneday)).children(":eq("+(oneday.getDay()-1)+")").children().last()
 					.children().append(`<li>${value.studioloc} ${value.studiono}호)${value.startTime}~${value.endTime}</li>`);
 				}
 				
@@ -164,6 +165,8 @@ $(window).load(function() {//모든 페이지 구성요소 페인팅 완료 후 
 		prevLastDay = new Date(firstDate.getFullYear(), firstDate.getMonth(), 0).getDate();//8/31 1(화)
 		console.log(`첫날${firstDate} // 당월 마지막날 ${lastDay} // 이전달 마지막날 ${prevLastDay}`)
 		$(".current-year-month").html(`&nbsp;${firstDate.getFullYear()}년&nbsp;&nbsp;&nbsp;&nbsp;${firstDate.getMonth()+1 }월&nbsp;(월)`);
+		
+		getWeekOfMonth(new Date(2021,10,01));
 		
 		//rightSection칸에 month소스 채우기
 		var daySet = makeElementMonth(firstDate);
@@ -255,11 +258,11 @@ $(window).load(function() {//모든 페이지 구성요소 페인팅 완료 후 
 	}
 
 //////////달력 - 공통함수
-	function getWeekOfMonth(date) {//date가 한달중 몇째주인지 
-		var selectedDay = date.getDate();
-		var first = new Date(date.getFullYear() + '/' + (date.getMonth() + 1) + '/01');
-		var monthFirstDateDay = first.getDay() - 1;
-		//console.log(selectedDay+"날짜의 한달 주차:"+Math.ceil((selectedDay + monthFirstDateDay) / 7));
+	function getWeekOfMonth(date) {//date가 한달중 몇째주인지 (월요일~일요일 이 1주임을 기준으로 계산) //20210805를 구하기위해 20210705데이터 IN
+		var selectedDay = date.getDate();//05
+		var first = new Date(date.getFullYear() + '/' + (date.getMonth() + 1) + '/01');//20210805데이터를 집어넣고 내부는 20210705
+		var monthFirstDateDay=(first.getDay()==0)?6:first.getDay()-1; // 월요일이면 0 일요일이면 6이 반환됨
+		
 		return Math.ceil((selectedDay + monthFirstDateDay) / 7);
 	}
 	
