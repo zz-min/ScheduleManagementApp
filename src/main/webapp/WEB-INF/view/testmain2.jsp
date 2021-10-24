@@ -33,13 +33,11 @@ $(function() {
 	
 	function checkLength(o, min, max) {
 		if (o.val().length > max || o.val().length < min) {
-			o.addClass("ui-state-error"); //에러 집어넣기
+			o.addClass("ui-state-error");
 			return false;
-		} else {
-			o.removeClass("ui-state-error"); //에러 없애기
-			return true;
-		}
+		} else return true;
 	}
+	
 	userLoginDialog = $("#user-login-dialog-form").dialog({
 		autoOpen : false,
 		height : 400,
@@ -47,42 +45,16 @@ $(function() {
 		modal : true,
 		buttons : {
 			"확인" : function() {
-				userLoginFun();
+				userLoginForm.trigger("submit");
 			},
 			"취소" : function() {
 				userLoginDialog.dialog("close");
 			}
 		},
 		close : function() {
-			//userLoginField.removeClass("ui-state-error");//에러 없애기
+			userLoginField.removeClass("ui-state-error");
 		}
 	});
-	function userLoginFun() {
-		var valid = true;
-		adminLoginField.removeClass("ui-state-error");
-		
-		valid = valid && checkLength( $("#userId"), 5, 15);
-		valid = valid && checkLength( $("#userPwd"), 4, 20);
-		if (valid) {//falseO 
-			const userId=btoa($("#userId"));//base64 인코딩
-			const userPwd=btoa($("#userPwd"));
-			
-			
-		}else{//true
-			alert("로그인과 비밀번호를 다시 확인해 주세요.");
-			
-		}
-	}
-	async function fetchPage(url) {//페이지 전환
-		console.log("async await");
-		try {
-			const response = await fetch(url);
-			const text = await response.text();
-		} catch (err) {
-			console.log(err);
-		}
-
-	}
 	adminLoginDialog = $("#admin-login-dialog-form").dialog({
 		autoOpen : false,
 		height : 300,
@@ -113,7 +85,17 @@ $(function() {
 		return valid;
 	});
 	
-	
+	userLoginForm = userLoginDialog.find("form").on("submit", function(event) {
+		var valid = true;
+		userLoginField.removeClass("ui-state-error");
+		
+		valid = valid && checkLength( $("#userId"), 5, 15);
+		valid = valid && checkLength( $("#userPwd"), 4, 20);
+		if (valid) {
+			userLoginDialog.dialog("close");
+		}
+		return valid;
+	});
 	$(".button").on("click", function() {
 		userLoginDialog.dialog("open");
 	});
@@ -142,27 +124,9 @@ $(function() {
 		<input type="button" name="studioBtn" value="studio 버튼" class="button" id="studioBtn"/>
 	</div>	
 
-	
- 	<!------------------------- studio button - login dialog ------------------------->
-	<div id="user-login-dialog-form" class="dialog" title="로그인-test중">
-		<div class="login_property">
-			<div id="loginPropertyLeft" style="display: inline-block">
-				<div class="inputText">
-					<label for="userId" class="idLabel">&nbsp아이디 :&nbsp </label> <input
-						type="text" name="userId" id="userId"
-						placeholder="학번 또는 직번을 입력하세요."
-						class="text ui-widget-content ui-corner-all id" required />
-				</div>
 
-				<div class="inputText">
-					<label for="userPwd" class="passwordLabel">비밀번호 : &nbsp</label> <input
-						type="password" name="userPwd" id="userPwd"
-						placeholder="비밀번호를 입력하세요."
-						class="text ui-widget-content ui-corner-all password" required />
-				</div>
-			</div>
-		</div>
-		<!--  
+ 	<!------------------------- studio button - login dialog ------------------------->
+	<div id="user-login-dialog-form" class="dialog" title="로그인">
 		<form action="/studio/main" name="user_login" method="post">
 			<fieldset>
 				<div class="loginTypeContainer">
@@ -188,7 +152,7 @@ $(function() {
 								class="text ui-widget-content ui-corner-all password" required />
 						</div>
 					</div>
-					Allow form submission with keyboard without duplicating the dialog button 
+					<!-- Allow form submission with keyboard without duplicating the dialog button -->
 					<div id="loginPropertyRight" style="display: inline-block">
 						<input type="submit" name="user_login" tabindex="-1"
 							style="position: absolute; top: -1000px" />
@@ -200,9 +164,9 @@ $(function() {
 					<p>관리자 id : 205521 / pwd : 1234 /이름 : 김진짜</p>
 				</div>
 			</fieldset>
-		</form>-->
+		</form>
 	</div>
-
+	
 	<!------------------------- admin icon button - login dialog ------------------------->
 	<div id="admin-login-dialog-form" class="dialog"  title="관리자 로그인">
 		<form action="/studio/admin" name="admin_login" method="post">
