@@ -71,11 +71,4 @@ public class LoginController implements Controller {
 		return viewName;
 	}
 
-	@Override
-	public String handleRequest() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
 }

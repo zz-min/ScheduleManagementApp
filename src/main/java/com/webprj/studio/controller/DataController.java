@@ -85,11 +85,4 @@ public class DataController implements Controller {
 		
 		return jsonString;
 	}
-
-	@Override
-	public String handleRequest() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

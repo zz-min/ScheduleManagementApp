@@ -43,10 +43,5 @@ public class ReservationController implements Controller {
 			return "userPage.jsp";
 	}
 
-	@Override
-	public String handleRequest() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

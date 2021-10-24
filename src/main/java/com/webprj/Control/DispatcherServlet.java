@@ -75,9 +75,11 @@ public class DispatcherServlet extends HttpServlet {
 		
 		// step #2. data processing ==> dispatch request to controller
 		Controller handler = mapper.getHandler(path);
+		
 		if(path.contains("api")) {//REST API 기술
 			System.out.println("IN REST API");
 			String data=handler.handleRequest(request, response, studioService);
+			
 			// step #3. output processing results
 			response.setContentType("text/html;charset=UTF-8");
 			response.getWriter().write(data);

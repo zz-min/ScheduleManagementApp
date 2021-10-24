@@ -9,12 +9,6 @@ import com.webprj.studio.service.StudioService;
 public class apiContentController implements Controller{
 
 	@Override
-	public String handleRequest() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response, StudioService studioService) {
 		// TODO Auto-generated method stub
 		return null;

@@ -27,13 +27,22 @@ public class HandlerMapping {
 		handlerMapper.put("/studio/data", new DataController());
 
 		handlerMapper.put("/api/users", new apiUserController());
-		handlerMapper.put("/api/schedule", new apiScheduleController());
-		handlerMapper.put("/api/content", new apiContentController());
-		handlerMapper.put("/api/btn", new apiBtnController());
+		handlerMapper.put("/api/schedules", new apiScheduleController());
+		handlerMapper.put("/api/contents", new apiContentController());
+		handlerMapper.put("/api/btns", new apiBtnController());
 
 	}
 
 	public Controller getHandler(String path) {
-		return handlerMapper.get(path);
+		String[] temp=path.split("/");
+		if(temp.length>2) {//리소스가 2개 초과면 2개까지 분류만 path로 넘기기
+			return handlerMapper.get("/"+temp[0]+"/"+temp[1]);
+		}else {
+			return handlerMapper.get(path);
+		}
+		
+		
+		//결과값 DEFGH
+		
 	}
 }

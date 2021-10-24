@@ -6,7 +6,5 @@ import javax.servlet.http.HttpServletResponse;
 import com.webprj.studio.service.StudioService;
 
 public interface Controller {
-
-	String handleRequest();
 	String handleRequest(HttpServletRequest request, HttpServletResponse response, StudioService studioService);
 }
