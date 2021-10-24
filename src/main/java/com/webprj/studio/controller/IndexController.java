@@ -13,4 +13,10 @@ public class IndexController implements Controller {
 		return "main.jsp";
 	}
 
+	@Override
+	public String handleRequest() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

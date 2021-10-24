@@ -9,9 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.webprj.studio.controller.HandlerMapping;
 import com.webprj.studio.dao.LoginDao;
 import com.webprj.studio.dao.LoginJdbcDao;
 import com.webprj.studio.dao.ManagerDao;
@@ -77,8 +75,14 @@ public class DispatcherServlet extends HttpServlet {
 		
 		// step #2. data processing ==> dispatch request to controller
 		Controller handler = mapper.getHandler(path);
-		
-		if(path.contains("data")) {
+		if(path.contains("api")) {//REST API 기술
+			System.out.println("IN REST API");
+			String data=handler.handleRequest(request, response, studioService);
+			// step #3. output processing results
+			response.setContentType("text/html;charset=UTF-8");
+			response.getWriter().write(data);
+			
+		}else if(path.contains("data")) {
 			System.out.println("IN data DispatcherServlet");
 			String data=handler.handleRequest(request, response, studioService);
 			// step #3. output processing results
