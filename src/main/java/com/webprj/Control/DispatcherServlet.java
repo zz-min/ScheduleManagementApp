@@ -10,18 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.webprj.studio.dao.LoginDao;
-import com.webprj.studio.dao.LoginJdbcDao;
-import com.webprj.studio.dao.ManagerDao;
-import com.webprj.studio.dao.ManagerJdbcDao;
-import com.webprj.studio.dao.ProfessorDao;
-import com.webprj.studio.dao.ProfessorJdbcDao;
-import com.webprj.studio.dao.RsvDao;
-import com.webprj.studio.dao.RsvJdbcDao;
-import com.webprj.studio.dao.StudentDao;
-import com.webprj.studio.dao.StudentJdbcDao;
-import com.webprj.studio.dao.StudioDao;
-import com.webprj.studio.dao.StudioJdbcDao;
+import com.webprj.dao.LoginDao;
+import com.webprj.dao.LoginJdbcDao;
 import com.webprj.studio.service.StudioService;
 import com.webprj.studio.service.StudioServiceImpl;
 
@@ -33,6 +23,8 @@ public class DispatcherServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private StudioService studioService = null;
+	private SmpService smpService = null;
+	
 	private HandlerMapping mapper = null;
 
 	/**
@@ -47,14 +39,11 @@ public class DispatcherServlet extends HttpServlet {
 		String userName = context.getInitParameter("db_userid");
 		String password = context.getInitParameter("db_passwd");
 
-		LoginDao loginJdbc = new LoginJdbcDao(driver, url, userName, password);
-		ManagerDao manJdbc = new ManagerJdbcDao(driver, url, userName, password);
-		ProfessorDao professorJdbc = new ProfessorJdbcDao(driver, url, userName, password);
-		StudentDao studentJdbc = new StudentJdbcDao(driver, url, userName, password);
-		StudioDao studioJdbc = new StudioJdbcDao(driver, url, userName, password);
-		RsvDao rsvJdbc = new RsvJdbcDao(driver, url, userName, password);
-
-		studioService = new StudioServiceImpl(loginJdbc,manJdbc,professorJdbc,studentJdbc,studioJdbc,rsvJdbc);
+		//LoginDao loginJdbc = new LoginJdbcDao(driver, url, userName, password);
+		//studioService = new StudioServiceImpl(loginJdbc,manJdbc,professorJdbc,studentJdbc,studioJdbc,rsvJdbc);
+		
+		LoginDao loginJdbc=new LoginJdbcDao(driver, url, userName, password);
+		smpService = new SmpServiceImpl(loginJdbc);
 
 		mapper = new HandlerMapping();
 	}

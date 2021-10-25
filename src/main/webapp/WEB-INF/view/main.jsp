@@ -24,103 +24,120 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script>
-$(function() {
-	var userLoginDialog, userLoginForm;
-	var adminLoginDialog, adminLoginForm;
-	
-	var userLoginField= $([]).add("#userId").add("#userPwd");
-	var adminLoginField= $([]).add("#adminId").add("#adminPwd");
-	
-	function checkLength(o, min, max) {
-		if (o.val().length > max || o.val().length < min) {
-			o.addClass("ui-state-error"); //에러 집어넣기
-			return false;
-		} else {
-			o.removeClass("ui-state-error"); //에러 없애기
-			return true;
-		}
-	}
-	userLoginDialog = $("#user-login-dialog-form").dialog({
-		autoOpen : false,
-		height : 400,
-		width : 450,
-		modal : true,
-		buttons : {
-			"확인" : function() {
-				userLoginFun();
-			},
-			"취소" : function() {
-				userLoginDialog.dialog("close");
+	$(function() {
+		var userLoginDialog, userLoginForm;
+		var adminLoginDialog, adminLoginForm;
+
+		var userLoginField = $([]).add("#userId").add("#userPwd");
+		var adminLoginField = $([]).add("#adminId").add("#adminPwd");
+
+		function checkLength(o, min, max) {
+			if (o.val().length > max || o.val().length < min) {
+				o.addClass("ui-state-error"); //에러 집어넣기
+				return false;
+			} else {
+				o.removeClass("ui-state-error"); //에러 없애기
+				return true;
 			}
-		},
-		close : function() {
-			//userLoginField.removeClass("ui-state-error");//에러 없애기
 		}
-	});
-	function userLoginFun() {
-		var valid = true;
-		adminLoginField.removeClass("ui-state-error");
-		
-		valid = valid && checkLength( $("#userId"), 5, 15);
-		valid = valid && checkLength( $("#userPwd"), 4, 20);
-		if (valid) {//falseO 
-			const userId=btoa($("#userId"));//base64 인코딩
-			const userPwd=btoa($("#userPwd"));
-			
-			
-		}else{//true
-			alert("로그인과 비밀번호를 다시 확인해 주세요.");
-			
-		}
-	}
-	async function fetchPage(url) {//페이지 전환
-		console.log("async await");
-		try {
-			const response = await fetch(url);
-			const text = await response.text();
-		} catch (err) {
-			console.log(err);
+		userLoginDialog = $("#user-login-dialog-form").dialog({
+			autoOpen : false,
+			height : 400,
+			width : 450,
+			modal : true,
+			buttons : {
+				"확인" : function() {
+					userLoginCheckLength();
+				},
+				"취소" : function() {
+					userLoginDialog.dialog("close");
+				}
+			},
+			close : function() {
+				userLoginField.removeClass("ui-state-error");//에러 없애기
+			}
+		});
+		function userLoginCheckLength() {
+			var valid = true;
+			adminLoginField.removeClass("ui-state-error");
+
+			valid = valid && checkLength($("#userId"), 5, 15);
+			valid = valid && checkLength($("#userPwd"), 4, 20);
+			if (valid) {//false
+				userLoginFun();
+			} else {//true
+				alert("로그인과 비밀번호를 다시 확인해 주세요.");
+			}
 		}
 
-	}
-	adminLoginDialog = $("#admin-login-dialog-form").dialog({
-		autoOpen : false,
-		height : 300,
-		width : 450,
-		modal : true,
-		buttons : {
-			"확인" : function() {
-				adminLoginForm.trigger("submit");
-			},
-			"취소" : function() {
-				adminLoginDialog.dialog("close");
-			}
-		},
-		close : function() {
-			adminLoginField.removeClass("ui-state-error");
+		function userLoginFun() {
+			const userId = btoa($("#userId").val());//base64 인코딩
+			const userPwd = btoa($("#userPwd").val());
+			console.log("url : /api/users/"+$("#userId").val());
+			loginFetch('/api/users/'+userId,userId,userPwd);
 		}
-	});
-	
-	adminLoginForm = adminLoginDialog.find("form").on("submit", function(event) {
-		var valid = true;
-		adminLoginField.removeClass("ui-state-error");
 		
-		valid = valid && checkLength( $("#adminId"), 5, 15);
-		valid = valid && checkLength( $("#adminPwd"), 4, 20);
-		if (valid) {
-			adminLoginDialog.dialog("close");
+		async function loginFetch(url,id,pwd) {//GET메소드
+			console.log("async await");
+			try {
+				const response = await fetch(url,{
+					  headers: {
+					      'Content-Type': 'application/json',
+					  },
+					  body: JSON.stringify({
+					    'id': id,
+					    'password': pwd
+					  })
+				});
+				const resJson = await response.json();
+				if(resJson.token) {//login True
+					
+				}else{//login False
+					
+				}
+			} catch (err) {
+				console.log(err);
+			}
+
 		}
-		return valid;
+		adminLoginDialog = $("#admin-login-dialog-form").dialog({
+			autoOpen : false,
+			height : 300,
+			width : 450,
+			modal : true,
+			buttons : {
+				"확인" : function() {
+					adminLoginForm.trigger("submit");
+				},
+				"취소" : function() {
+					adminLoginDialog.dialog("close");
+				}
+			},
+			close : function() {
+				adminLoginField.removeClass("ui-state-error");
+			}
+		});
+
+		adminLoginForm = adminLoginDialog.find("form").on("submit",
+				function(event) {
+					var valid = true;
+					adminLoginField.removeClass("ui-state-error");
+
+					valid = valid && checkLength($("#adminId"), 5, 15);
+					valid = valid && checkLength($("#adminPwd"), 4, 20);
+					if (valid) {
+						adminLoginDialog.dialog("close");
+					}
+					return valid;
+				});
+
+		$(".button").on("click", function() {
+			userLoginDialog.dialog("open");
+		});
+		$("#admin-icon").on("click", function() {
+			adminLoginDialog.dialog("open");
+		});
 	});
-	
-	
-	$(".button").on("click", function() {
-		userLoginDialog.dialog("open");
-	});
-	$("#admin-icon").on("click", function() {
-		adminLoginDialog.dialog("open");
-	});
-});
 </script>
 </head>
 <body>
