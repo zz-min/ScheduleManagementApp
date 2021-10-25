@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.webprj.dao.LoginDao;
 import com.webprj.dao.LoginJdbcDao;
-import com.webprj.studio.service.StudioService;
-import com.webprj.studio.service.StudioServiceImpl;
 
 /**
  * Servlet implementation class DispatcherServlet
@@ -22,7 +20,6 @@ import com.webprj.studio.service.StudioServiceImpl;
 public class DispatcherServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private StudioService studioService = null;
 	private SmpService smpService = null;
 	
 	private HandlerMapping mapper = null;
@@ -39,9 +36,6 @@ public class DispatcherServlet extends HttpServlet {
 		String userName = context.getInitParameter("db_userid");
 		String password = context.getInitParameter("db_passwd");
 
-		//LoginDao loginJdbc = new LoginJdbcDao(driver, url, userName, password);
-		//studioService = new StudioServiceImpl(loginJdbc,manJdbc,professorJdbc,studentJdbc,studioJdbc,rsvJdbc);
-		
 		LoginDao loginJdbc=new LoginJdbcDao(driver, url, userName, password);
 		smpService = new SmpServiceImpl(loginJdbc);
 
@@ -63,11 +57,11 @@ public class DispatcherServlet extends HttpServlet {
 		String viewName = null;
 		
 		// step #2. data processing ==> dispatch request to controller
-		Controller handler = mapper.getHandler(path);
+		ControllerInterface handler = mapper.getHandler(path);
 		
 		if(path.contains("api")) {//REST API 기술
 			System.out.println("IN REST API");
-			String data=handler.handleRequest(request, response, studioService);
+			String data=handler.handleRequest(request, response, smpService);
 			
 			// step #3. output processing results
 			response.setContentType("text/html;charset=UTF-8");
@@ -75,14 +69,15 @@ public class DispatcherServlet extends HttpServlet {
 			
 		}else if(path.contains("data")) {
 			System.out.println("IN data DispatcherServlet");
-			String data=handler.handleRequest(request, response, studioService);
+			String data=handler.handleRequest(request, response, smpService);
 			// step #3. output processing results
 			response.setContentType("text/html;charset=UTF-8");
 			response.getWriter().write(data);
 			
 		}else {
+
 			if (handler != null) {
-				viewName = handler.handleRequest(request, response, studioService);
+				viewName = handler.handleRequest(request, response, smpService);
 			}
 
 			if (viewName == null) {

@@ -73,32 +73,29 @@
 		function userLoginFun() {
 			const userId = btoa($("#userId").val());//base64 인코딩
 			const userPwd = btoa($("#userPwd").val());
-			console.log("url : /api/users/"+$("#userId").val());
 			loginFetch('/api/users/'+userId,userId,userPwd);
 		}
 		
-		async function loginFetch(url,id,pwd) {//GET메소드
-			console.log("async await");
-			try {
-				const response = await fetch(url,{
-					  headers: {
-					      'Content-Type': 'application/json',
-					  },
-					  body: JSON.stringify({
-					    'id': id,
-					    'password': pwd
-					  })
-				});
-				const resJson = await response.json();
-				if(resJson.token) {//login True
-					
-				}else{//login False
-					
-				}
-			} catch (err) {
-				console.log(err);
-			}
-
+		function loginFetch(url,id,pwd) {//GET메소드
+			console.log("loginFetch함수 URL : "+url);
+			fetch(url,{//  /api/users/[인코딩된 id값]
+				  headers: {
+				      'Content-Type': 'application/json',
+				  },
+				  body: JSON.stringify({//[인코딩된 id와 pwd로 구성된 json]
+				    'id': id,
+				    'pwd': pwd
+				  })
+				})
+			  .then(res => 
+			  //res.json()
+			  console.log(res);
+			  )
+			  .then(res => {
+			    if (res.success) {
+			        console.log("로그인 성공");
+			    }else 	alert("로그인과 비밀번호를 다시 확인해 주세요.");
+			  });
 		}
 		adminLoginDialog = $("#admin-login-dialog-form").dialog({
 			autoOpen : false,
