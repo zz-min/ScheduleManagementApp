@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.webprj.dao.ContentDao;
+import com.webprj.dao.ContentJdbcDao;
 import com.webprj.dao.LoginDao;
 import com.webprj.dao.LoginJdbcDao;
 
@@ -37,7 +39,9 @@ public class DispatcherServlet extends HttpServlet {
 		String password = context.getInitParameter("db_passwd");
 
 		LoginDao loginJdbc=new LoginJdbcDao(driver, url, userName, password);
-		smpService = new SmpServiceImpl(loginJdbc);
+		ContentDao contentDao=new ContentJdbcDao(driver, url, userName, password);
+		
+		smpService = new SmpServiceImpl(loginJdbc,contentDao);
 
 		mapper = new HandlerMapping();
 	}

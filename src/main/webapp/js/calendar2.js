@@ -163,18 +163,14 @@ $(window).load(function() {//모든 페이지 구성요소 페인팅 완료 후 
 		firstDate = new Date(today.getFullYear(), today.getMonth(), 1, today.getDay());//2021.9.1.2(수)
 		lastDay = new Date(firstDate.getFullYear(), firstDate.getMonth() + 1, 0).getDate();//9/30 3(목)
 		prevLastDay = new Date(firstDate.getFullYear(), firstDate.getMonth(), 0).getDate();//8/31 1(화)
-		console.log(`첫날${firstDate} // 당월 마지막날 ${lastDay} // 이전달 마지막날 ${prevLastDay}`)
 		$(".current-year-month").html(`&nbsp;${firstDate.getFullYear()}년&nbsp;&nbsp;&nbsp;&nbsp;${firstDate.getMonth()+1 }월&nbsp;(월)`);
-		
-		getWeekOfMonth(new Date(2021,10,01));
 		
 		//rightSection칸에 month소스 채우기
 		var daySet = makeElementMonth(firstDate);
 		fetchPage('../js/monthForm.txt',daySet,'monthly');
 		//alert(today.getFullYear()+"년"+String(today.getMonth()+1).padStart(2,'0')+"월의 데이터 전송");
 		
-		
-		fetchData(`/studio/data?year=${firstDate.getFullYear()}&month=${String(firstDate.getMonth()+1).padStart(2,'0')}&week=0`,'monthly');
+		fetchData(`/api/schedules?year=${firstDate.getFullYear()}&month=${String(firstDate.getMonth()+1).padStart(2,'0')}&week=0`,'monthly');
 	}
 
 	function makeElementMonth(firstDate) {

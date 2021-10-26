@@ -64,43 +64,28 @@
 			<div class="userProfile">
 				<div class="prifileTitle">
 					<i class="far fa-user-circle fa-3x" id="icon_user"></i>
-					<h2 class="profileName">${name}님</h2>
+					<h2 class="profileName">${id}님</h2>
 					<div>
-					<span id="type">${loginType}&nbsp;&nbsp;&nbsp;</span>
-					<span id="id">${id}</span>
+						<span id="id">${id}</span>
 					</div>
 				</div>
 				<input type="button" value="예약현황" class="rsvBtn"/>
 					<!-- onclick="location.href='/studio/reservation'" --> 
 			</div>
-
-
 			<div class="studioContainer">
 				<form>
 					<select name="checkedLoc1" id="checkedLoc1" class="checkedLoc">
 						<option value="none">== 건물 선택 ==</option>
-						<c:forEach var="i" begin="0" end="${fn:length(studioLocList)-1}">
-							<option value="${studioLocList[i]}">${studioLocList[i]}</option>
+						<c:forEach var="i" begin="0" end="${fn:length(mainContentList)-1}">
+							<option value="${mainContentList[i]}">${mainContentList[i]}</option>
 						</c:forEach>
 					</select>
 					<select name="checkedLoc2" id="checkedLoc2" class="checkedLoc">
 						<option value="none">== 건물을 먼저 선택해주세요 ==</option>
 					</select>
 				</form>
-				
-					<div class="studioLocContainer">
-
-						<h1>${studioLocList[i]}</h1>
-						<c:forEach var="j" items="${studioList}">
-							<c:if test="${j.getStudioloc() == studioLocList[i] }">
-								<input type="checkbox" name="selectStudio" value="admin"
-									required>${j.getStudiono()}
-								<br>
-							</c:if>
-						</c:forEach>
-					</div>
-				
 			</div>
+
 		</div>
 		<!--------------- RIGHT  --------------->
 		<div class="rightSection"></div>

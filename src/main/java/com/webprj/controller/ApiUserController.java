@@ -2,6 +2,7 @@ package com.webprj.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.binary.Base64;
 
@@ -17,7 +18,6 @@ public class ApiUserController implements ControllerInterface{
 		String path = request.getRequestURI();
 		String[] temp=path.split("/");
 		System.out.println("apiUserController path >>"+path);
-		System.out.println(request.getMethod());
 		System.out.println(method);
 		Base64 base64 = new Base64();
 
@@ -30,20 +30,14 @@ public class ApiUserController implements ControllerInterface{
 			}
 		}else if(temp.length>3) {// /api/users/[ID인코딩정보]/[pwd인코딩정보]
 			if(method.equals("GET")) {// ID의 정보를 가져오기
-				String id=temp[3];//인코딩된값
-				String pwd=temp[4];		
-				System.out.println(id + " // " + pwd);
-
-				System.out.println(base64.decode(id.getBytes()) + " // " 
-									+ base64.decode(pwd.getBytes()));
-
-				String id_=new String(base64.decode(id.getBytes()));//인코딩된값
-				String pwd_=new String(base64.decode(pwd.getBytes()));
+				String id=new String(base64.decode(temp[3].getBytes()));//디코딩된값
+				String pwd=new String(base64.decode(temp[4].getBytes()));
 				
-				System.out.println(id_ + " ////// " + pwd_);
-				boolean loginCheck = smpService.loginAvailability(id_,pwd_);//로그인 유효성 검사
+				System.out.println("확인할 정보"+id+ " ////// " + pwd);
+				boolean loginCheck = smpService.loginAvailability(id,pwd);//로그인 유효성 검사
 				if(loginCheck) {//로그인 유효시
 					//JWT토큰 발행 
+					
 					/*
 					//1)header
 					JSONObject header= new JSONObject();
@@ -55,12 +49,15 @@ public class ApiUserController implements ControllerInterface{
 					payload.put("sub","HS256"); //Reserved 주제
 					payload.put("name","JWT"); // Public
 					payload.put("admin",false); // Private
+					
 					//3)signature
 					String signature=null;
+					
 					//Base64.encodeBase64(text.getBytes()) -> 인코딩
 					//base64.decode(text.getBytes()) -> 디코딩
 					 */
-					
+					HttpSession session = request.getSession(true);
+					session.setAttribute("id", id);
 					
 					returnMassage= "true";
 				}else returnMassage= "false";

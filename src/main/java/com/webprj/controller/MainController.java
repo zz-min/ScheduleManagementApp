@@ -1,5 +1,7 @@
 package com.webprj.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,18 +12,20 @@ public class MainController implements ControllerInterface {
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response, SmpService smpService) {
-		String returnMassage=null;
-		String method = request.getMethod().toUpperCase();//요청메소드를 모두 대문자로반환 post -> POST
+		String viewName=null;
 		String path = request.getRequestURI();
 		System.out.println("MainController path >>"+path);
-		System.out.println(request.getMethod());
-		System.out.println(method);
+		String query=request.getQueryString();
 		
-		if(method.equals("GET")) {
-			returnMassage="calendar(test).jsp";  
-		}
+		String str="content_type='btn"+query.substring(4)+"'";
 		
-		return returnMassage;
+		List<String> mainContentList = smpService.mainContentList(str);
+
+		request.setAttribute("mainContentList", mainContentList);
+
+		viewName = "calendar(test).jsp";
+
+		return viewName;
 	}
 
 }

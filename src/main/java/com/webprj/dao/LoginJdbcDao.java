@@ -35,11 +35,11 @@ public class LoginJdbcDao implements LoginDao {
 		Class.forName(driver);
 		conn = DriverManager.getConnection(url, userName, password);
 		
-		//System.out.println("RsvJdbcDao  DB연결성공");
+		//System.out.println("LoginJdbcDao  DB연결성공");
 	}
 
 	private void disconnect() throws SQLException {
-		//System.out.println("RsvJdbcDao  DB연결해제");
+		//System.out.println("LoginJdbcDao  DB연결해제");
 		
 		if (rs != null && !rs.isClosed()) {
 			rs.close();

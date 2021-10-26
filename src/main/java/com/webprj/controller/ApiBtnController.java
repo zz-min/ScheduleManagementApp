@@ -10,7 +10,12 @@ public class ApiBtnController  implements ControllerInterface{
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response, SmpService smpService) {
-		// TODO Auto-generated method stub
+		
+		
+		
+		
+		
+		
 		return null;
 	}
 

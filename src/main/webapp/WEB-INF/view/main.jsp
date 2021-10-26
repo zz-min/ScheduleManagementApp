@@ -85,7 +85,7 @@
 			        var index=$("#id_check").text().substr(3);
 //			        location.href("/main?btn="+index);
 //			        window.location.href("/main");
-			        window.location.assign("/main");
+			        window.location.assign("/main?btn="+index);
 			    }else 	{alert("로그인과 비밀번호를 다시 확인해 주세요.");} 
 			  });
 			

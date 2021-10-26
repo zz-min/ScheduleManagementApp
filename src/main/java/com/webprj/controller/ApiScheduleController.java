@@ -10,6 +10,12 @@ public class ApiScheduleController implements ControllerInterface{
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response, SmpService smpService) {
+		
+		
+		
+		
+		
+		
 		return "main.jsp";
 
 	}

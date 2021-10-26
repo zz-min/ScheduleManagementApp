@@ -1,15 +1,11 @@
-package com.webprj.Control;
+package com.webprj.dao;
 
 import java.util.List;
 
 import com.webprj.di.Content;
 
-public interface SmpService {
-	boolean loginAvailability(String id,String pwd);
-	
+public interface ContentDao {
 	List<Content> contentList(String query);
 	List<String> mainContentList(String query);
 	List<String> subContentList(String query);
-	
-	
 }
