@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.webprj.Control.ControllerInterface;
 import com.webprj.Control.SmpService;
 
-public class apiScheduleController implements ControllerInterface{
+public class ApiContentController implements ControllerInterface{
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response, SmpService smpService) {

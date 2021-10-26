@@ -25,12 +25,7 @@ public interface StudioService {
 	
 	List<String> getStudiosLocList();
 	
-	
-	
 	Reservation getReservation(int rsvno);
 	List<Reservation> getReservationList(String query);//rrrrmm
 	List<Reservation> getRsvList(String query);//rrrrmmdd
-
-
-
 }

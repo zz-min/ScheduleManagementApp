@@ -7,7 +7,6 @@ import com.webprj.di.entity.Professor;
 import com.webprj.di.entity.Reservation;
 import com.webprj.di.entity.Student;
 import com.webprj.di.entity.Studio;
-import com.webprj.studio.dao.LoginDao99;
 import com.webprj.studio.dao.ManagerDao;
 import com.webprj.studio.dao.ProfessorDao;
 import com.webprj.studio.dao.RsvDao;
@@ -17,16 +16,14 @@ import com.webprj.studio.dao.StudioDao;
 
 public class StudioServiceImpl implements StudioService {
 
-	private LoginDao99 loginDao = null;
 	private ManagerDao managerDao = null;
 	private ProfessorDao professorDao = null;
 	private StudentDao studentDao = null;
 	private StudioDao studioDao = null;
 	private RsvDao rsvDao = null;
 	
-	public StudioServiceImpl(LoginDao99 loginJdbc,ManagerDao manJdbc,ProfessorDao professorJdbc,StudentDao studentJdbc,
+	public StudioServiceImpl(ManagerDao manJdbc,ProfessorDao professorJdbc,StudentDao studentJdbc,
 			StudioDao studioJdbc,RsvDao rsvJdbc) {
-		this.loginDao = loginJdbc;
 		this.managerDao = manJdbc;
 		this.professorDao = professorJdbc;
 		this.studentDao = studentJdbc;
@@ -35,21 +32,22 @@ public class StudioServiceImpl implements StudioService {
 	}
 	
 	@Override
-	public boolean getLoginFT(int inputID, String inputPWD, String selectLoginType) {
+	public boolean getLoginFT(int inputID,String inputPWD,String selectLoginType) {
+		return false;
 		// 로그인 유효성 확인	
-		if (selectLoginType.equals("manager")) {
-			return loginDao.selectManager(inputID, inputPWD) == null ? false : true;
-			
-		}else if (selectLoginType.equals("professor")) {
-			
-			return loginDao.selectProfessor(inputID, inputPWD) == null ? false : true;
-			
-		}else if (selectLoginType.equals("student")) {
-			
-			return loginDao.selectStudent(inputID, inputPWD) == null ? false : true;
-		}else {
-			return false;
-		}
+		/*
+		 * if (selectLoginType.equals("manager")) { return
+		 * loginDao.selectManager(inputID, inputPWD) == null ? false : true;
+		 * 
+		 * }else if (selectLoginType.equals("professor")) {
+		 * 
+		 * return loginDao.selectProfessor(inputID, inputPWD) == null ? false : true;
+		 * 
+		 * }else if (selectLoginType.equals("student")) {
+		 * 
+		 * return loginDao.selectStudent(inputID, inputPWD) == null ? false : true;
+		 * }else { return false; }
+		 */
 
 	}
 	

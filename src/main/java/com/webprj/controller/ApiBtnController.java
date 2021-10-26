@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.webprj.Control.ControllerInterface;
 import com.webprj.Control.SmpService;
 
-public class apiContentController implements ControllerInterface{
+public class ApiBtnController  implements ControllerInterface{
 
 	@Override
 	public String handleRequest(HttpServletRequest request, HttpServletResponse response, SmpService smpService) {

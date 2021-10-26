@@ -67,7 +67,7 @@ public class DispatcherServlet extends HttpServlet {
 			response.setContentType("text/html;charset=UTF-8");
 			response.getWriter().write(data);
 			
-		}else if(path.contains("data")) {
+		}else if(path.contains("data")) {//이부분 REST API로 변경 중
 			System.out.println("IN data DispatcherServlet");
 			String data=handler.handleRequest(request, response, smpService);
 			// step #3. output processing results
@@ -79,14 +79,10 @@ public class DispatcherServlet extends HttpServlet {
 			if (handler != null) {
 				viewName = handler.handleRequest(request, response, smpService);
 			}
-
+			// step #3. output processing results
 			if (viewName == null) {
 				viewName = "error.jsp";
-			}
-
-			// step #3. output processing results
-			if (viewName != null) {
-
+			} else {
 				viewName = viewName.trim();// 공백제거함
 
 				viewName = "/WEB-INF/view/" + viewName;
